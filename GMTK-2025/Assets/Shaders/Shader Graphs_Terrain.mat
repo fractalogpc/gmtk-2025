@@ -42,8 +42,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Dirt_Color: {r: 0.3301887, g: 0.21924818, b: 0.20403169, a: 0}
-    - _Grass_Color: {r: 0.30817574, g: 0.5849056, b: 0.0744927, a: 0}
+    - _Dirt_Color: {r: 0.3207547, g: 0.2638283, b: 0.25569597, a: 0}
+    - _Grass_Color: {r: 0.37140575, g: 0.5566038, b: 0.21266466, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8084648626916940324
