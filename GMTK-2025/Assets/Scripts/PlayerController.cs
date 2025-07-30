@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using KinematicCharacterController;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Player

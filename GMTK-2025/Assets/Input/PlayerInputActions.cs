@@ -98,6 +98,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lasso"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a3ecb4a-0e63-4d2d-8f61-891ebb211ecf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -362,6 +371,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8855d27d-7e8f-4f9b-a6fe-26784bf0be90"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Lasso"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1010,6 +1030,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Console = m_Player.FindAction("Console", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Lasso = m_Player.FindAction("Lasso", throwIfNotFound: true);
         // GenericUI
         m_GenericUI = asset.FindActionMap("GenericUI", throwIfNotFound: true);
         m_GenericUI_Navigate = m_GenericUI.FindAction("Navigate", throwIfNotFound: true);
@@ -1098,6 +1119,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Console;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Lasso;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1110,6 +1132,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Console => m_Wrapper.m_Player_Console;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Lasso => m_Wrapper.m_Player_Lasso;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1143,6 +1166,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Lasso.started += instance.OnLasso;
+            @Lasso.performed += instance.OnLasso;
+            @Lasso.canceled += instance.OnLasso;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1171,6 +1197,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Lasso.started -= instance.OnLasso;
+            @Lasso.performed -= instance.OnLasso;
+            @Lasso.canceled -= instance.OnLasso;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1369,6 +1398,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnConsole(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLasso(InputAction.CallbackContext context);
     }
     public interface IGenericUIActions
     {

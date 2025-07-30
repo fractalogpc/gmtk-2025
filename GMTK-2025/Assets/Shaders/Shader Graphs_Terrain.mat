@@ -38,12 +38,29 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Grass_Threshold: 0.85
+    - _Corrupted_Noise_Amplitude: 76000000
+    - _Corrupted_Radius: 25790948
+    - _Corruptedf_Noise_Scale: 32.29
+    - _Grass_Threshold: 0.7
+    - _Normal_Noise_Amplitude: -0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Resolution: 166
+    - _Size: 0.00625
+    - _Size_Distance_Per_Increase: 150
     m_Colors:
-    - _Dirt_Color: {r: 0.3207547, g: 0.2638283, b: 0.25569597, a: 0}
+    - _Corrupted_Center: {r: 0.52, g: -4.7, b: 0, a: 0}
+    - _Corrupted_Color: {r: 0.22767222, g: 0.1724368, b: 0.2924528, a: 0}
+    - _Corrupted_Color_1: {r: 0.106360644, g: 0.08877715, b: 0.1792453, a: 0}
+    - _Corrupted_Color_3: {r: 0.31132078, g: 0.116011046, b: 0.2956476, a: 0}
+    - _Dirt_Color: {r: 0.4528302, g: 0.37178817, b: 0.36098257, a: 0}
+    - _Dirt_Color_2: {r: 0.5188679, g: 0.36467606, b: 0.26188144, a: 0}
+    - _Dirt_Color_3: {r: 0.4056604, g: 0.28511038, b: 0.29013327, a: 0}
     - _Grass_Color: {r: 0.37140575, g: 0.5566038, b: 0.21266466, a: 0}
+    - _Grass_Color_2: {r: 0.49571505, g: 0.5849056, b: 0.23451404, a: 0}
+    - _Grass_Color_3: {r: 0.26399538, g: 0.4716981, b: 0.2202741, a: 0}
+    - _Size_Distances: {r: 0, g: 0, b: 0, a: 0}
+    - _Size_Mults: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8084648626916940324
