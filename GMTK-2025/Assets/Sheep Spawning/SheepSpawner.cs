@@ -8,6 +8,10 @@ public class SheepSpawner : MonoBehaviour
 {
     public SheepObject[] sheep;
 
+    public List<SheepObject> tempSpawning = new List<SheepObject>();
+    public List<GameObject> spawning = new List<GameObject>();
+    public List<Vector2> spawnpoint = new List<Vector2>();
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -20,9 +24,6 @@ public class SheepSpawner : MonoBehaviour
     public void SpawnSheepWave(Vector2 scale, Vector2 amount, Vector2 corner, float jitter)
     {
         List<Vector2> points = new List<Vector2>();
-        List<SheepObject> tempSpawning = new List<SheepObject>();
-        List<GameObject> spawning = new List<GameObject>();
-        List<Vector2> spawnpoint = new List<Vector2>();
         for (int i = 0; i < amount.x; i++)
         {
             for (int j = 0; j < amount.y; j++)
@@ -33,28 +34,29 @@ public class SheepSpawner : MonoBehaviour
 
         for (int i = 0; i < points.Count; i++)
         {
+            tempSpawning.Clear();
             for (int j = 0; j < sheep.Count(); j++)
             {
-                if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r > .3f)
+                if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r > .5f)
                 {
-                    Debug.Log("Spawned");
-
-                    Debug.Log(sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r);
-
                     tempSpawning.Add(sheep[j]);
                 }
-                    
+
             }
 
-            int r = 0;
-            for (int j = 0; j < tempSpawning.Count(); j++)
+            if (tempSpawning.Count > 0)
             {
-                if (tempSpawning[r].priority < tempSpawning[j].priority)
-                    r = j;
-            }
+                int r = 0;
+                for (int j = 0; j < tempSpawning.Count(); j++)
+                {
+                    if (tempSpawning[r].priority < tempSpawning[j].priority)
+                        r = j;
+                }
 
-            spawning.Add(tempSpawning[r].sheep);
-            spawnpoint.Add(points[i]);
+                spawning.Add(tempSpawning[r].sheep);
+                spawnpoint.Add(points[i]);
+            }
+            
         }
 
         for (int i = 0; i < spawning.Count(); i++)
