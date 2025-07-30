@@ -145,8 +145,9 @@ public class LassoController : InputHandlerBase
 
     private void InitiateLasso()
     {
-        ResetLasso();
-        validPress = false; // Prevent further lasso actions until reset
+        Debug.Log("Lasso hit something!");
+        // ResetLasso();
+        // validPress = false; // Prevent further lasso actions until reset
     }
 
 }
