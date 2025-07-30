@@ -368,6 +368,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 778eebc8a67f67045880e2e11ce7b464, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 51986deabeeafec49a76ec2976451c07, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -462981019419857548, guid: 1f6570fcae0de5f4ca758f1eafe5ba7d, type: 3}
     - target: {fileID: 919132149155446097, guid: 51986deabeeafec49a76ec2976451c07, type: 3}
       propertyPath: m_Name
       value: terrain
