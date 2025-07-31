@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -256,6 +260,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -388,6 +396,37 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &28533765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28533766}
+  m_Layer: 0
+  m_Name: Sheep Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &28533766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28533765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.863474, y: 2.7561395, z: 310.46512}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &42006196
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -451,6 +490,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -525,6 +568,10 @@ PrefabInstance:
     - target: {fileID: 2307375924504222580, guid: 1d50cf31064a88141907b07bb94e5793, type: 3}
       propertyPath: m_Name
       value: Pillar_02_B (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307375924504222580, guid: 1d50cf31064a88141907b07bb94e5793, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -673,6 +720,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1428,6 +1479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1702,6 +1757,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1785,6 +1844,10 @@ PrefabInstance:
       value: terrain
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 51986deabeeafec49a76ec2976451c07, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 51986deabeeafec49a76ec2976451c07, type: 3}
       propertyPath: m_TagString
       value: LassoTarget
       objectReference: {fileID: 0}
@@ -1859,6 +1922,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2318,6 +2385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar_02_B (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2307375924504222580, guid: 1d50cf31064a88141907b07bb94e5793, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2454,6 +2525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2527,6 +2602,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2664,6 +2743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2737,6 +2820,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3104,6 +3191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3187,6 +3278,10 @@ PrefabInstance:
     - target: {fileID: 6283998681166712750, guid: 34f6ed8267e8be040beba8bc731b7785, type: 3}
       propertyPath: m_Name
       value: SM_Waterhole_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283998681166712750, guid: 34f6ed8267e8be040beba8bc731b7785, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 6665027476135564564, guid: 34f6ed8267e8be040beba8bc731b7785, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3389,6 +3484,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3790,6 +3889,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FarmHouse_01_B
       objectReference: {fileID: 0}
+    - target: {fileID: 3266720240351674763, guid: ca52633eb0e11964fb71ced3cb905651, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3806,6 +3909,10 @@ PrefabInstance:
     - target: {fileID: 356821229666871552, guid: f3af8de0377945b40afe8d3da6f0a823, type: 3}
       propertyPath: m_Name
       value: Tire_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 356821229666871552, guid: f3af8de0377945b40afe8d3da6f0a823, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3650438924834855699, guid: f3af8de0377945b40afe8d3da6f0a823, type: 3}
       propertyPath: m_LocalScale.x
@@ -4058,9 +4165,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 75
-  center: {x: 0, y: 0.6, z: 300}
+  center: {x: 0, y: 0, z: 300}
   sheepPrefab: {fileID: 2867281913176661523, guid: 25afa92c61e1d654d8014cf8c1da55ca, type: 3}
   count: 500
+  sheepParent: {fileID: 28533766}
+  playerController: {fileID: 2072557293}
 --- !u!1 &645589852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 51986deabeeafec49a76ec2976451c07, type: 3}
@@ -4151,6 +4260,10 @@ PrefabInstance:
     - target: {fileID: 7256753231511573388, guid: ccbdeb0f461c74c4798e1a11bc4e3ea9, type: 3}
       propertyPath: m_Name
       value: BarnGarage_01_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 7256753231511573388, guid: ccbdeb0f461c74c4798e1a11bc4e3ea9, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4295,6 +4408,10 @@ PrefabInstance:
     - target: {fileID: 2078721065067124534, guid: aba05be43c7433740936db52706dd39e, type: 3}
       propertyPath: m_Name
       value: SM_Ground_21_D (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078721065067124534, guid: aba05be43c7433740936db52706dd39e, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4443,6 +4560,10 @@ PrefabInstance:
     - target: {fileID: 2307375924504222580, guid: 1d50cf31064a88141907b07bb94e5793, type: 3}
       propertyPath: m_Name
       value: Pillar_02_B
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307375924504222580, guid: 1d50cf31064a88141907b07bb94e5793, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4662,6 +4783,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Haystack_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6573210889412167229, guid: f774785ff44bb6c4b9d0aacfdaceb79e, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4824,6 +4949,10 @@ PrefabInstance:
     - target: {fileID: 5124042311839069400, guid: 77ff5fc6b3b6f5a4cb0fe574d6726a93, type: 3}
       propertyPath: m_Name
       value: SM_Scrap_Metal_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5124042311839069400, guid: 77ff5fc6b3b6f5a4cb0fe574d6726a93, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 5501025968649498210, guid: 77ff5fc6b3b6f5a4cb0fe574d6726a93, type: 3}
       propertyPath: m_LocalScale.x
@@ -5089,6 +5218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5162,6 +5295,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5332,6 +5469,10 @@ PrefabInstance:
     - target: {fileID: 6321692634232605207, guid: b5c654d5105c6ad4280e0b5dc0b8305b, type: 3}
       propertyPath: m_Name
       value: SM_Barrel_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321692634232605207, guid: b5c654d5105c6ad4280e0b5dc0b8305b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 6697126809098719405, guid: b5c654d5105c6ad4280e0b5dc0b8305b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5570,6 +5711,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5819,6 +5964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Haystack_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6573210889412167229, guid: f774785ff44bb6c4b9d0aacfdaceb79e, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5880,6 +6029,10 @@ PrefabInstance:
     - target: {fileID: 8652944857885367028, guid: cc312fcfb332c8a45bd9691cbf391d16, type: 3}
       propertyPath: m_Name
       value: SM_Scrap_Metal_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652944857885367028, guid: cc312fcfb332c8a45bd9691cbf391d16, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6005,6 +6158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Barrel_02
       objectReference: {fileID: 0}
+    - target: {fileID: 7885287071773482918, guid: 1af340230d2113b4faa63572d3d3cad3, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6078,6 +6235,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6276,6 +6437,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6711,6 +6876,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6794,6 +6963,10 @@ PrefabInstance:
     - target: {fileID: 5015840226147042271, guid: 04ed827c2f42cee4abd4dc7edd962c7d, type: 3}
       propertyPath: m_Name
       value: Canopy_01_B
+      objectReference: {fileID: 0}
+    - target: {fileID: 5015840226147042271, guid: 04ed827c2f42cee4abd4dc7edd962c7d, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8340809191892120012, guid: 04ed827c2f42cee4abd4dc7edd962c7d, type: 3}
       propertyPath: m_LocalScale.y
@@ -6912,6 +7085,10 @@ PrefabInstance:
     - target: {fileID: 6573210889412167229, guid: f774785ff44bb6c4b9d0aacfdaceb79e, type: 3}
       propertyPath: m_Name
       value: SM_Haystack_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6573210889412167229, guid: f774785ff44bb6c4b9d0aacfdaceb79e, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7173,6 +7350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7383,6 +7564,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7466,7 +7651,7 @@ GameObject:
   - component: {fileID: 1360876283}
   m_Layer: 0
   m_Name: Structures
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7651,6 +7836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7724,6 +7913,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8013,6 +8206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8149,6 +8346,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8222,6 +8423,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8297,6 +8502,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar_02_B (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2307375924504222580, guid: 1d50cf31064a88141907b07bb94e5793, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8371,6 +8580,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8444,6 +8657,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8580,6 +8797,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8852,6 +9073,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9388,6 +9613,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HayWarehouse_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2831209362346967739, guid: 761df6f8e78cb024abdff044337d9a2d, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9648,6 +9877,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9796,6 +10029,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9869,6 +10106,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9944,6 +10185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10018,6 +10263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_01_A
       objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10039,6 +10288,10 @@ PrefabInstance:
     - target: {fileID: 6321692634232605207, guid: b5c654d5105c6ad4280e0b5dc0b8305b, type: 3}
       propertyPath: m_Name
       value: SM_Barrel_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321692634232605207, guid: b5c654d5105c6ad4280e0b5dc0b8305b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 6697126809098719405, guid: b5c654d5105c6ad4280e0b5dc0b8305b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10154,6 +10407,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tire_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8125653992530700540, guid: 13cc5bbda507a7048a9dae80071be963, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10227,6 +10484,10 @@ PrefabInstance:
     - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
       propertyPath: m_Name
       value: Fence_01_A (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647597759739436375, guid: e52fbe3ecd3ad024683a77b2c8a82974, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10686,6 +10947,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tire_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8125653992530700540, guid: 13cc5bbda507a7048a9dae80071be963, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10843,6 +11108,10 @@ PrefabInstance:
     - target: {fileID: 167343706971572036, guid: 94f7cc47b3c473b4cad6e9fa057e3e65, type: 3}
       propertyPath: m_Name
       value: SM_Haystack_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 167343706971572036, guid: 94f7cc47b3c473b4cad6e9fa057e3e65, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 655650447092112894, guid: 94f7cc47b3c473b4cad6e9fa057e3e65, type: 3}
       propertyPath: m_LocalScale.x
@@ -11363,3 +11632,4 @@ SceneRoots:
   - {fileID: 207837473}
   - {fileID: 1191121416}
   - {fileID: 601481178}
+  - {fileID: 28533766}
