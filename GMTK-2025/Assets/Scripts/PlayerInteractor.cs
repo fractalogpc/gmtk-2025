@@ -13,11 +13,13 @@ public class PlayerInteractor : InputHandlerBase
   private IInteractable currentInteractable;
   private float holdTime = 0f;
 
+  private bool isHovering = false;
+
   protected override void InitializeActionMap()
   {
     RegisterAction(
       _inputActions.Player.Interact,
-      _ => { if (RaycastForInteractable()) { BeginInteract(); } },
+      _ => { if (isHovering) { BeginInteract(); } },
       () => { ReleaseInteract(); }
     );
 
@@ -25,10 +27,29 @@ public class PlayerInteractor : InputHandlerBase
 
   private void Update()
   {
+    if (RaycastForInteractable())
+    {
+      if (!isHovering)
+      {
+        currentInteractable.OnHoverEnter();
+        isHovering = true;
+      }
+    }
+    else
+    {
+      if (isHovering)
+      {
+        currentInteractable.OnHoverExit();
+        isHovering = false;
+      }
+    }
+
     if (isInteracting)
     {
       HoldInteract();
     }
+
+
   }
 
   private bool RaycastForInteractable()
