@@ -11,6 +11,7 @@ public class PlayerInteractor : InputHandlerBase
   private bool isInteracting = false;
   private GameObject currentInteractableObject;
   private IInteractable currentInteractable;
+  private IInteractable previousInteractable;
   private float holdTime = 0f;
 
   private bool isHovering = false;
@@ -39,7 +40,7 @@ public class PlayerInteractor : InputHandlerBase
     {
       if (isHovering)
       {
-        currentInteractable.OnHoverExit();
+        previousInteractable.OnHoverExit();
         isHovering = false;
       }
     }
@@ -65,6 +66,8 @@ public class PlayerInteractor : InputHandlerBase
         return true;
       }
     }
+
+    previousInteractable = currentInteractable;
 
     currentInteractable = null;
     currentInteractableObject = null;
