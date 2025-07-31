@@ -2,14 +2,23 @@ using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 
-public class AdvancedSheepController : MonoBehaviour
+public class AdvancedSheepController : MonoBehaviour, IShearable
 {
-
+    public bool looking = false;
+    public bool moving = false;
+    public float moveTimer = 0f;
     public bool isQueen = false;
     public AdvancedSheepController currentQueen = null;
 
     public LayerMask groundMask;
     public Transform playerTransform;
+
+    public LayerMask sheapLayer;
+    public LayerMask collisionLayer;
+
+    public GameObject woolObject;
+
+    public GameObject woolPrefab;
 
     private bool outOfRange = false;
     float currentMoveSpeed = 0f;
@@ -17,8 +26,38 @@ public class AdvancedSheepController : MonoBehaviour
     bool lockMovement = false;
     bool isRunning = false;
 
+    public bool IsSheared => isSheared;
+    private bool isSheared = false;
+
+    private static readonly Collider[] sheepBuffer = new Collider[16];
+    private static readonly Collider[] obstacleBuffer = new Collider[16];
+
+    private const int MAX_UPDATE_GROUP_COUNT = 256;
+    private int myUpdateGroupCount = 0;
+    private int currentUpdateGroupCount = 0;
+
+    private const float SECONDS_BETWEEN_QUEEN_CHECKS = 2f;
+    private float timeSinceLastQueenCheck = 0f;
+
+    private const float RANGE_FOR_QUEEN_GROUPING = 100f;
+
+    private const float MAX_MOVE_TIME = 5f;
+
+    private Collider thisCollider;
+
+    [SerializeField] private float[] lodDistances = new float[] { 50f, 150f, 300f, 500f, 1000f };
+    [SerializeField] private int[] lodModules = new int[] { 1, 4, 16, 64, 256 };
+    private int currentLOD = 0;
+
+    void Awake()
+    {
+        thisCollider = GetComponent<Collider>();
+    }
+
     void Start()
     {
+        myUpdateGroupCount = UnityEngine.Random.Range(0, MAX_UPDATE_GROUP_COUNT);
+
         transform.position = GetGroundHeight(transform.position);
         DealWithQueen();
         StartCoroutine(RandomMoveSheep(true));
@@ -26,6 +65,8 @@ public class AdvancedSheepController : MonoBehaviour
 
     public void Reset()
     {
+        moving = false;
+        looking = false;
         StopAllCoroutines();
         // Check if in a pen
         Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 2f); // This value should change with the size of the sheep
@@ -38,7 +79,7 @@ public class AdvancedSheepController : MonoBehaviour
                 new float2(bounds.min.x + 0.5f, bounds.min.z + 0.5f), // Bottom Left
                 new float2(bounds.max.x - 0.5f, bounds.min.z + 0.5f), // Bottom Right
                 new float2(bounds.max.x - 0.5f, bounds.max.z - 0.5f), // Top Right
-                new float2(bounds.min.x+ 0.5f, bounds.max.z - 0.5f)  // Top Left
+                new float2(bounds.min.x + 0.5f, bounds.max.z - 0.5f)  // Top Left
                 );
 
                 StartCoroutine(InPen(corners));
@@ -57,14 +98,17 @@ public class AdvancedSheepController : MonoBehaviour
         if (isQueen) return;
 
         // Search for a nearby queen
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 60f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, RANGE_FOR_QUEEN_GROUPING * 1.3f);
         foreach (var hit in hitColliders)
         {
-            var sheep = hit.GetComponent<AdvancedSheepController>();
-            if (sheep != null && sheep.isQueen)
+            if (hit.CompareTag("Sheep") && hit != thisCollider)
             {
-                currentQueen = sheep;
-                return;
+                var sheep = hit.GetComponent<AdvancedSheepController>();
+                if (sheep.isQueen)
+                {
+                    currentQueen = sheep;
+                    return;
+                }
             }
         }
 
@@ -72,70 +116,79 @@ public class AdvancedSheepController : MonoBehaviour
         isQueen = true;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        // If the sheep is far from player, skip the update
+        currentUpdateGroupCount++;
+
+        currentLOD = Mathf.Clamp(currentLOD, 0, lodModules.Length - 1);
+
+        int updateModulo = lodModules[currentLOD];
+        if ((currentUpdateGroupCount % updateModulo) != (myUpdateGroupCount % updateModulo))
         {
-            if (Vector3.Distance(transform.position, playerTransform.position) > 100f)
+            return;
+        }
+
+        // Determine the current LOD based on distance to the player
+        {
+            currentLOD = 0;
+            while (currentLOD < lodDistances.Length - 1 && DistanceIgnoreY(transform.position, playerTransform.position) > lodDistances[currentLOD + 1])
             {
-                if (!outOfRange)
-                {
-                    StopAllCoroutines();
-                    transform.position = GetGroundHeight(transform.position);
-                    outOfRange = true;
-                    lockMovement = false;
-                }
-                return;
+                currentLOD++;
             }
-            else
-            {
-                if (outOfRange)
-                {
-                    outOfRange = false;
-                    StartCoroutine(RandomMoveSheep(true));
-                }
-            }
+        }
+
+        // Check if current queen is still valid
+        if (currentQueen != null && !currentQueen.isQueen)
+        {
+            currentQueen = null;
         }
 
         // Handle sheep collision
         {
-            Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 2f); // This value should change with the size of the sheep
-            foreach (var hit in nearbyHits)
+            int sheepCount = Physics.OverlapSphereNonAlloc(transform.position, 2f, sheepBuffer, sheapLayer);
+            for (int i = 0; i < sheepCount; i++)
             {
-                var sheep = hit.GetComponent<AdvancedSheepController>();
-                if (sheep != null && sheep != this)
+                Collider col = sheepBuffer[i];
+
+                // Fast tag check avoids GetComponent on non-sheep
+                if (col != thisCollider && col.CompareTag("Sheep"))
                 {
-                    Vector3 directionToSheep = sheep.transform.position - transform.position;
-                    directionToSheep.y = 0; // Ignore vertical distance
-                    directionToSheep.Normalize();
-                    float distanceFromSheep = DistanceIgnoreY(transform.position, sheep.transform.position);
+                    if (col.TryGetComponent<AdvancedSheepController>(out var sheep))
+                    {
+                        if (sheep != null)
+                        {
+                            Vector3 directionToSheep = sheep.transform.position - transform.position;
+                            directionToSheep.y = 0;
+                            directionToSheep.Normalize();
+                            float distanceFromSheep = DistanceIgnoreY(transform.position, sheep.transform.position);
 
-
-                    // Move away from the other sheep
-                    float escapeSpeed = 5f / distanceFromSheep;
-                    escapeSpeed = Mathf.Clamp(escapeSpeed, 0.1f, 5f); // Limit speed to avoid too fast movement
-                    transform.position -= directionToSheep * Time.deltaTime * escapeSpeed;
+                            float escapeSpeed = 5f / distanceFromSheep;
+                            escapeSpeed = Mathf.Clamp(escapeSpeed, 0.1f, 5f);
+                            transform.position -= directionToSheep * Time.deltaTime * escapeSpeed;
+                        }
+                    }
                 }
             }
+
         }
 
         // Handle object collision
         {
-            Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 1.5f); // This value should change with the size of the sheep
-            foreach (var hit in nearbyHits)
+            int obstacleCount = Physics.OverlapSphereNonAlloc(transform.position, 1.5f, obstacleBuffer, groundMask | collisionLayer); // This value should change with the size of the sheep
+            for (int i = 0; i < obstacleCount; i++)
             {
-                if (hit.gameObject.CompareTag("Obstacle"))
+                if (obstacleBuffer[i].CompareTag("Obstacle"))
                 {
-                    Vector3 directionToObstacle = hit.transform.position - transform.position;
-                    directionToObstacle.y = 0; // Ignore vertical distance
+                    Vector3 directionToObstacle = obstacleBuffer[i].transform.position - transform.position;
+                    directionToObstacle.y = 0;
                     directionToObstacle.Normalize();
 
-                    // Move away from the obstacle
                     float escapeSpeed = currentMoveSpeed + 2f;
-                    escapeSpeed = Mathf.Clamp(escapeSpeed, 0.1f, 5f); // Limit speed to avoid too fast movement
+                    escapeSpeed = Mathf.Clamp(escapeSpeed, 0.1f, 5f);
                     transform.position -= directionToObstacle * Time.deltaTime * escapeSpeed;
                 }
             }
+
         }
 
         // If the sheep is lassoed, it should follow the lasso
@@ -145,100 +198,141 @@ public class AdvancedSheepController : MonoBehaviour
         }
 
         // If the player is close, enter panic mode
-        if (DistanceIgnoreY(transform.position, playerTransform.position) < 7f && !isRunning)
+        if (DistanceIgnoreY(transform.position, playerTransform.position) < 10f && !isRunning)
         {
+            moving = false;
+            looking = false;
             StopAllCoroutines();
             StartCoroutine(PanicSheep(playerTransform.position));
         }
 
-        // If is queen and another sheep is nearby, bring it to the flock
-        if (isQueen)
+        if (timeSinceLastQueenCheck >= SECONDS_BETWEEN_QUEEN_CHECKS)
         {
-            Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 60f);
-            foreach (var hit in nearbyHits)
+            // If is queen and another sheep is nearby, bring it to the flock
+            if (isQueen)
             {
-                var sheep = hit.GetComponent<AdvancedSheepController>();
-                if (sheep != null && !sheep.isQueen && sheep.currentQueen == null)
+                Collider[] nearbyHits = Physics.OverlapSphere(transform.position, RANGE_FOR_QUEEN_GROUPING);
+                foreach (var hit in nearbyHits)
                 {
-                    sheep.currentQueen = this;
-                    sheep.isQueen = false;
+                    if (hit.CompareTag("Sheep") && hit != thisCollider)
+                    {
+                        var sheep = hit.GetComponent<AdvancedSheepController>();
+                        if (!sheep.isQueen && sheep.currentQueen == null)
+                        {
+                            sheep.currentQueen = this;
+                        }
+                    }
+                }
+            }
+
+            // If not queen, if sheep gets too far away, make it alone
+            if (!isQueen && currentQueen != null)
+            {
+                float distanceToQueen = DistanceIgnoreY(transform.position, currentQueen.transform.position);
+                if (distanceToQueen > RANGE_FOR_QUEEN_GROUPING * 1.5f)
+                {
+                    currentQueen = null;
+                }
+            }
+
+            // I don't need to do this because other queens will handle it, keeping this here so I don't forget
+
+            // If not queen and no current queen, check if it should become a queen
+            // if (!isQueen && currentQueen == null)
+            // {
+            //     DealWithQueen();
+            // }
+
+            // If is queen and alone, make it alone
+            if (isQueen)
+            {
+                bool isAlone = true;
+                Collider[] nearbyHits = Physics.OverlapSphere(transform.position, RANGE_FOR_QUEEN_GROUPING);
+                foreach (var hit in nearbyHits)
+                {
+                    if (hit.CompareTag("Sheep") && hit != thisCollider)
+                    {
+                        var sheep = hit.GetComponent<AdvancedSheepController>();
+                        if (!sheep.isQueen)
+                        {
+                            isAlone = false;
+                            break; // There are other sheep, so this one is not alone
+                        }
+                    }
+                }
+                // If no other sheep found, make it alone
+                if (isAlone)
+                {
+                    isQueen = false;
+                    currentQueen = null;
                 }
             }
         }
 
-        // If not queen, if sheep gets too far away, make it alone
-        if (!isQueen && currentQueen != null)
-        {
-            float distanceToQueen = DistanceIgnoreY(transform.position, currentQueen.transform.position);
-            if (distanceToQueen > 80f)
-            {
-                currentQueen = null;
-            }
-        }
-
-        // If is queen and alone, make it alone
-        if (isQueen)
-        {
-            Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 60f);
-            foreach (var hit in nearbyHits)
-            {
-                var sheep = hit.GetComponent<AdvancedSheepController>();
-                if (sheep != null && !sheep.isQueen)
-                {
-                    continue; // There are other sheep, so this one is not alone
-                }
-            }
-            // If no other sheep found, make it alone
-            isQueen = false;
-            currentQueen = null;
-        }
+        timeSinceLastQueenCheck += Time.deltaTime;
     }
 
     private IEnumerator RandomMoveSheep(bool recursive, float? angle = null)
     {
-        float currentMoveTime = 0f;
+        moveTimer = 0f;
         if (isQueen || currentQueen == null)
         {
-            // True random movement for the queen
+            if (isQueen && angle != null)
+            {
+                // Keep the queen moving in a similar direction
+                angle = (float)angle + UnityEngine.Random.Range(-0.5f, 0.5f);
+            }
+            else angle ??= UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+
             // Pick a random location near a sheep
-            if (angle == null) angle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
-            float radius = UnityEngine.Random.Range(10f, 25f);
+            float radius = UnityEngine.Random.Range(9f, 14f);
 
             // Pick a random speed
-            float speed = UnityEngine.Random.Range(5f, 6f);
+            float speed = UnityEngine.Random.Range(2f, 3f);
             currentMoveSpeed = speed;
 
             Vector3 targetPosition = transform.position + new Vector3(radius * Mathf.Cos((float)angle), 0, radius * Mathf.Sin((float)angle));
             targetPosition = GetGroundHeight(targetPosition);
 
+            looking = true;
             // Rotate the sheep to face the target position
-            while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetPosition - transform.position)) > 0.1f)
+            while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position))) > 0.1f)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 180f * Time.deltaTime);
-                yield return null; // Wait for the next frame
-            }
-
-            // Start moving towards the target position
-            while (DistanceIgnoreY(transform.position, targetPosition) > 0.1f)
-            {
-                currentMoveTime += Time.deltaTime;
-                if (currentMoveTime > 5f)
+                moveTimer += Time.deltaTime;
+                if (moveTimer > MAX_MOVE_TIME * 2f)
                 {
                     // If the sheep has been moving for too long, stop moving
                     transform.position = GetGroundHeight(transform.position);
-                    yield break;
+                    break;
+                }
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 180f * Time.deltaTime);
+                yield return null; // Wait for the next frame
+            }
+            looking = false;
+
+            moving = true;
+            // Start moving towards the target position
+            while (DistanceIgnoreY(transform.position, targetPosition) > 0.1f)
+            {
+                moveTimer += Time.deltaTime;
+                if (moveTimer > MAX_MOVE_TIME * 2f)
+                {
+                    // If the sheep has been moving for too long, stop moving
+                    transform.position = GetGroundHeight(transform.position);
+                    break;
                 }
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
                 yield return null; // Wait for the next frame
             }
+            moving = false;
         }
         else
         {
             // Bias movement towards the queen
             Vector3 directionToQueen = (currentQueen.transform.position - transform.position).normalized;
 
-            // Adjust the bias strength (0 = full random, 1 = always toward queen)
-            float biasStrength = 0.3f;
+            // Adjust the bias strength based on the distance to the queen
+            float biasStrength = Mathf.Clamp01(Mathf.Pow(DistanceIgnoreY(transform.position, currentQueen.transform.position) / (RANGE_FOR_QUEEN_GROUPING), 2));
 
             // Random offset in a circle
             if (angle == null) angle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
@@ -255,28 +349,39 @@ public class AdvancedSheepController : MonoBehaviour
             Vector3 targetPosition = transform.position + biasedOffset;
             targetPosition = GetGroundHeight(targetPosition);
 
+            looking = true;
             // Rotate the sheep to face the target position
-            while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetPosition - transform.position)) > 0.1f)
+            while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position))) > 0.1f)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 75f * Time.deltaTime);
-                yield return null; // Wait for the next frame
-            }
-
-            currentMoveSpeed = 5f; // This is for cases of pushing with other sheep
-
-            // Start moving towards the target position
-            while (DistanceIgnoreY(transform.position, targetPosition) > 0.1f)
-            {
-                currentMoveTime += Time.deltaTime;
-                if (currentMoveTime > 5f)
+                moveTimer += Time.deltaTime;
+                if (moveTimer > MAX_MOVE_TIME)
                 {
                     // If the sheep has been moving for too long, stop moving
                     transform.position = GetGroundHeight(transform.position);
-                    yield break;
+                    break;
+                }
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 75f * Time.deltaTime);
+                yield return null; // Wait for the next frame
+            }
+            looking = false;
+
+            currentMoveSpeed = 5f; // This is for cases of pushing with other sheep
+
+            moving = true;
+            // Start moving towards the target position
+            while (DistanceIgnoreY(transform.position, targetPosition) > 0.1f)
+            {
+                moveTimer += Time.deltaTime;
+                if (moveTimer > MAX_MOVE_TIME)
+                {
+                    // If the sheep has been moving for too long, stop moving
+                    transform.position = GetGroundHeight(transform.position);
+                    break;
                 }
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
                 yield return null; // Wait for the next frame
             }
+            moving = false;
         }
 
         // If recursive, call the method again
@@ -284,7 +389,7 @@ public class AdvancedSheepController : MonoBehaviour
         {
             float randomTime = UnityEngine.Random.Range(3f, 7f);
             yield return new WaitForSeconds(randomTime);
-            StartCoroutine(RandomMoveSheep(true));
+            StartCoroutine(RandomMoveSheep(true, isQueen ? angle : null));
         }
     }
 
@@ -398,6 +503,8 @@ public class AdvancedSheepController : MonoBehaviour
     public void GetLassoed(Transform target, Transform playerPosition)
     {
         StopAllCoroutines();
+        moving = false;
+        looking = false;
         isQueen = false;
         currentQueen = null;
         lockMovement = true;
@@ -447,6 +554,8 @@ public class AdvancedSheepController : MonoBehaviour
     // These functions are very expensive, so use them sparingly
     private Vector3 GetGroundHeight(Vector3 position)
     {
+        // return position;
+
         Vector3 newPosition = position;
         RaycastHit hit;
         if (Physics.Raycast(position + Vector3.up * 100f, Vector3.down, out hit, 200f, layerMask: groundMask))
@@ -465,5 +574,18 @@ public class AdvancedSheepController : MonoBehaviour
             return hit.point.y;
         }
         return transform.position.y; // Default to current height if no ground found
+    }
+
+    public void Shear()
+    {
+        Debug.Log("Shearing sheep: " + gameObject.name);
+        if (isSheared) return;
+
+        isSheared = true;
+        woolObject.SetActive(false);
+
+        GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);
+        Vector3 initialVelocity = new Vector3(UnityEngine.Random.Range(-.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f)).normalized * 5f;
+        woolInstance.GetComponent<Rigidbody>().AddForce(initialVelocity, ForceMode.Impulse);
     }
 }

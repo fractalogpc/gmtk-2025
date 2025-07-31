@@ -351,7 +351,6 @@ GameObject:
   - component: {fileID: 4071924039436116679}
   - component: {fileID: 8054165817572509921}
   - component: {fileID: 5594479811758454358}
-  - component: {fileID: 837814006404441161}
   - component: {fileID: 7726873158498081664}
   - component: {fileID: 8465391921487714893}
   m_Layer: 0
@@ -509,18 +508,6 @@ MonoBehaviour:
   Bouyancy: 10
   WaterDrag: 0.5
   <MoveInputVector>k__BackingField: {x: 0, y: 0, z: 0}
---- !u!114 &837814006404441161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8439618641201908378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8795fa3277592eb48a40a29d97fee009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7726873158498081664
 MonoBehaviour:
   m_ObjectHideFlags: 0
