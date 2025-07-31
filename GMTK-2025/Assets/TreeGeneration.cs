@@ -23,6 +23,8 @@ public class TreeGeneration : MonoBehaviour
     [SerializeField] private float _noiseRoughness = 0.5f;
     [SerializeField] private int _noiseSeed = 0;
 
+    [SerializeField] private LayerMask _treeOccluderLayer;
+
 #if UNITY_EDITOR
     [CustomEditor(typeof(TreeGeneration))]
     public class TreeGenerationEditor : Editor
@@ -55,7 +57,7 @@ public class TreeGeneration : MonoBehaviour
         Vector3 end = _areaCenter + _areaSize / 2;
         float stepX = _areaSize.x / _treeGridRes;
         float stepZ = _areaSize.z / _treeGridRes;
-        
+
         float hash = (float)math.hash(new int2(_noiseSeed, _noiseSeed)) / int.MaxValue * 1000f; // Normalize hash to a range
         float2 seedOffset = new float2(hash, hash);
 
@@ -68,6 +70,12 @@ public class TreeGeneration : MonoBehaviour
                     _areaCenter.y,
                     start.z + z * stepZ + Random.Range(-stepZ / 2, stepZ / 2)
                 );
+
+                // Check for occlusion
+                if (Physics.OverlapSphere(position, 0.5f, _treeOccluderLayer).Length > 0)
+                {
+                    continue; // Skip if position is occluded
+                }
 
                 float noiseValue = 0f;
                 // Simplex noise
