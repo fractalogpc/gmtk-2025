@@ -67,10 +67,10 @@ public class PlayerInteractor : InputHandlerBase
       }
     }
 
+    previousInteractable = currentInteractable;
+
     currentInteractable = null;
     currentInteractableObject = null;
-
-    previousInteractable = currentInteractable;
     return false;
   }
 
