@@ -46,7 +46,7 @@ public class SheepSpawner : MonoBehaviour
             // Debug.Log(Mathf.RoundToInt(points[i].x));
             for (int j = 0; j < sheep.Count(); j++)
             {
-                if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r > .2f)
+                if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt((points[i].x / scale.x) * sheep[j].heatmap.width), Mathf.RoundToInt((points[i].y / scale.y) * sheep[j].heatmap.height)).r > .2f)
                 {
                     // Debug.Log("Spawned");
 
