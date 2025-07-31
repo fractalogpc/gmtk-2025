@@ -18,6 +18,7 @@ public class AdvancedSheepController : MonoBehaviour
 
     void Start()
     {
+        transform.position = GetGroundHeight(transform.position);
         DealWithQueen();
         StartCoroutine(RandomMoveSheep(true));
     }
@@ -40,7 +41,7 @@ public class AdvancedSheepController : MonoBehaviour
                 );
 
                 StartCoroutine(InPen(corners));
-                Debug.Log($"Sheep {gameObject.name} is in a pen at time {Time.frameCount}");
+                // Debug.Log($"Sheep {gameObject.name} is in a pen at time {Time.frameCount}");
                 return;
             }
         }
@@ -341,7 +342,7 @@ public class AdvancedSheepController : MonoBehaviour
 
     private IEnumerator InPen(float2x4 corners)
     {
-        Debug.Log("In pen coroutine started");
+        // Debug.Log("In pen coroutine started");
         Vector2 center = new Vector2(transform.position.x, transform.position.z);
 
         // Convert float2x4 to Vector2[]

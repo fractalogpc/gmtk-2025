@@ -22,12 +22,12 @@ public class BlendSkybox : MonoBehaviour
             return;
 
         float currentDistance = Vector3.Distance(transform.position, _distanceTarget.position);
-        Debug.Log($"Current Distance: {currentDistance}");
+        // Debug.Log($"Current Distance: {currentDistance}");
         float blendFactor = Mathf.Clamp01((currentDistance - _distance) / _blendDistance);
 
         // Set the blend factor in the shader
         _skyboxMaterial.SetFloat("_CubemapTransition", blendFactor);
-        Debug.Log($"Blend Factor: {blendFactor}");
+        // Debug.Log($"Blend Factor: {blendFactor}");
     }
 
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Sheep 1
   m_EditorClassIdentifier: 
   color: {fileID: 2100000, guid: 1fb0c6e420c4fa041b382c1507152a3e, type: 2}
-  heatmap: {fileID: 2800000, guid: c5538bd5ecb0b204a92da6c716b797b0, type: 3}
+  heatmap: {fileID: 2800000, guid: 1977167c74906a24aa363affae633946, type: 3}
   sheep: {fileID: 2867281913176661523, guid: 25afa92c61e1d654d8014cf8c1da55ca, type: 3}
   priority: 2
