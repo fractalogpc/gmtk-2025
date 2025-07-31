@@ -8,6 +8,8 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     [SerializeField] private Animation anim;
     [SerializeField] private float timePerWool = 1f;
     [SerializeField] private ParticleSystem washEffect;
+    [SerializeField] private GameObject woolDepositPrefab;
+    [SerializeField] private Transform[] depositPoints;
 
     struct DepositedWool
     {
@@ -23,24 +25,32 @@ public class WoolDeposit : MonoBehaviour, IInteractable
         // If player is holding wool, deposit it
         if (InventoryController.Instance.IsHoldingObject(InventoryController.ItemType.Wool))
         {
+            if (isWashing)
+            {
+                Debug.Log("Cannot deposit wool while washing!");
+                return;
+            }
+            if (woolDeposits.Count >= depositPoints.Length)
+            {
+                Debug.Log("No more deposit points available!");
+                return;
+            }
             int slot = InventoryController.Instance.SelectedSlot;
 
             DepositedWool wool = new DepositedWool
             {
                 Size = 1,
-                Type = 0 
+                Type = 0
             };
             woolDeposits.Add(wool);
+            Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+            GameObject woolDeposit = Instantiate(woolDepositPrefab, depositPoints[woolDeposits.Count - 1].position, randomRotation);
+            woolDeposit.transform.SetParent(depositPoints[woolDeposits.Count - 1]);
             InventoryController.Instance.TryRemoveItem(slot);
-        }
-        // Otherwise play the close animation and empty the machine
-
-        if (false)
-        {
-            // Deposit the wool
         }
         else
         {
+            // If player is not holding wool, trigger wash cycle
             TriggerWashCycle();
         }
     }
@@ -81,7 +91,12 @@ public class WoolDeposit : MonoBehaviour, IInteractable
         isWashing = false;
 
         // Deposit wool after washing TODO!
-
+        foreach (var deposit in woolDeposits)
+        {
+            // Here you can handle the deposited wool, e.g., increase player's wool count
+            // Delete the deposit object
+            Destroy(depositPoints[woolDeposits.IndexOf(deposit)].GetChild(0).gameObject);
+        }
         // After washing, clear the deposits
         woolDeposits.Clear();
 
