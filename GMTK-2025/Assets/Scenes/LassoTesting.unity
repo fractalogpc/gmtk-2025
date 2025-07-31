@@ -631,6 +631,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -462981019419857548, guid: 51986deabeeafec49a76ec2976451c07, type: 3}
+--- !u!4 &738300700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852919400231116360, guid: 998135aad49c752429dfb7a534be8cab, type: 3}
+  m_PrefabInstance: {fileID: 207837473}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &849712863
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canLasso: 1
-  originalPosition: {fileID: 1784520873}
+  originalPosition: {fileID: 738300700}
   playerController: {fileID: 2072557293}
   lassoCurve:
     serializedVersion: 2
@@ -985,14 +990,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!4 &1784520873 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1852919400231116360, guid: 998135aad49c752429dfb7a534be8cab, type: 3}
-  m_PrefabInstance: {fileID: 207837473}
-  m_PrefabAsset: {fileID: 0}
+  m_CollisionDetection: 2
 --- !u!1 &2072557290 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8439618641201908378, guid: 998135aad49c752429dfb7a534be8cab, type: 3}

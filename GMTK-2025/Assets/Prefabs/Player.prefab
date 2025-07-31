@@ -450,9 +450,9 @@ MonoBehaviour:
   isEnabled: 1
   Motor: {fileID: 8054165817572509921}
   PlayerCamera: {fileID: 8534801688195039062}
-  MaxStableCrouchSpeed: 2
-  MaxStableMoveSpeed: 3.5
-  MaxStableSprintSpeed: 6
+  MaxStableCrouchSpeed: 0
+  MaxStableMoveSpeed: 6
+  MaxStableSprintSpeed: 9
   StableMovementSharpness: 15
   MaxAirMoveSpeed: 10
   AirAccelerationSpeed: 30
