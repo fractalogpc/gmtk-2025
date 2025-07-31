@@ -83,6 +83,11 @@ public class InventoryController : InputHandlerBase
         inventory[slot] = ItemType.None;
 
         inventorySlots[slot].SetImage(null);
+
+        if (selectedSlot == slot)
+        {
+            ToolController.Instance.SetTool(ToolController.ToolType.None);
+        }
         return true;
     }
 
