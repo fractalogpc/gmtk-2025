@@ -9,23 +9,42 @@ using UnityEngine.InputSystem;
 public abstract class InputHandlerBase : MonoBehaviour
 {
   protected PlayerInputActions _inputActions;
+  protected bool _enabledOnce = false;
 
   // Dictionary to store input actions and their callbacks
   protected Dictionary<InputAction, Action<InputAction.CallbackContext>> _actionMap = new();
 
-  public virtual void Start() {
+  public virtual void Start()
+  {
     _inputActions = InputReader.Instance.InputActions;
     InitializeActionMap();
 
     // Subscribe all actions in the dictionary
-    foreach (var action in _actionMap) {
+    foreach (var action in _actionMap)
+    {
       action.Key.performed += action.Value;
+    }
+
+    _enabledOnce = true;
+  }
+
+  private void OnEnable()
+  {
+    if (_enabledOnce)
+    {
+      // Subscribe all actions in the dictionary
+      foreach (var action in _actionMap)
+      {
+        action.Key.performed += action.Value;
+      }
     }
   }
 
-  private void OnDisable() {
+  private void OnDisable()
+  {
     // Unsubscribe all actions in the dictionary
-    foreach (var action in _actionMap) {
+    foreach (var action in _actionMap)
+    {
       action.Key.performed -= action.Value;
     }
   }
@@ -43,9 +62,11 @@ public abstract class InputHandlerBase : MonoBehaviour
   /// <param name="action">The input action to register (e.g., jump, move).</param>
   /// <param name="performCallback">The callback function to invoke when the action is performed (e.g., button press).</param>
   /// <param name="cancelCallback">Optional callback for when the action is canceled (e.g., button release).</param>
-  protected void RegisterAction(InputAction action, Action<InputAction.CallbackContext> performCallback, Action cancelCallback = null) {
+  protected void RegisterAction(InputAction action, Action<InputAction.CallbackContext> performCallback, Action cancelCallback = null)
+  {
     action.performed += performCallback; // Add perform callback to action
-    if (cancelCallback != null) {
+    if (cancelCallback != null)
+    {
       action.canceled += ctx => cancelCallback(); // Add cancel callback if provided
     }
 
@@ -53,9 +74,11 @@ public abstract class InputHandlerBase : MonoBehaviour
     _actionMap[action] = performCallback;
   }
 
-  protected void RegisterActionComplexCancel(InputAction action, Action<InputAction.CallbackContext> performCallback, Action<InputAction.CallbackContext> cancelCallback) {
+  protected void RegisterActionComplexCancel(InputAction action, Action<InputAction.CallbackContext> performCallback, Action<InputAction.CallbackContext> cancelCallback)
+  {
     action.performed += performCallback; // Add perform callback to action
-    if (cancelCallback != null) {
+    if (cancelCallback != null)
+    {
       action.canceled += cancelCallback; // Add cancel callback if provided
     }
 
@@ -70,9 +93,11 @@ public abstract class InputHandlerBase : MonoBehaviour
   /// <param name="action">The input action to unregister.</param>
   /// <param name="performCallback">The callback associated with the action's perform event.</param>
   /// <param name="cancelCallback">Optional callback associated with the action's cancel event.</param>
-  protected void UnregisterAction(InputAction action, Action<InputAction.CallbackContext> performCallback, Action cancelCallback = null) {
+  protected void UnregisterAction(InputAction action, Action<InputAction.CallbackContext> performCallback, Action cancelCallback = null)
+  {
     action.performed -= performCallback; // Remove perform callback from action
-    if (cancelCallback != null) {
+    if (cancelCallback != null)
+    {
       action.canceled -= ctx => cancelCallback(); // Remove cancel callback if provided
     }
   }
