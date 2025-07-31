@@ -586,7 +586,7 @@ Transform:
   m_GameObject: {fileID: 643544216}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -90.02, y: 0, z: 257.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -601,13 +601,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 643544216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c0bb6e6b0e6b6e4980e93096da821c8, type: 3}
+  m_Script: {fileID: 11500000, guid: b3c88686b1b85db4896c32b7adf1fa13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 75
-  center: {x: -88.09, y: 0.6, z: 264.49}
-  sheepPrefab: {fileID: 2867281913176661523, guid: 25afa92c61e1d654d8014cf8c1da55ca, type: 3}
-  count: 500
+  sheep:
+  - {fileID: 11400000, guid: 5f857fc7278f6f748ad60b20c984f061, type: 2}
+  - {fileID: 11400000, guid: ae843d2be7ec89c429877d196b10f68b, type: 2}
+  - {fileID: 11400000, guid: 6e98c25507a45b1409b2e1c9ce164ebc, type: 2}
+  - {fileID: 11400000, guid: d277640a8029ff84e863c6a693b0a0fe, type: 2}
+  - {fileID: 11400000, guid: 1223a1fd6261ebd4fa938ac79ad67c14, type: 2}
+  - {fileID: 11400000, guid: 68227e2ffbaced34eb242fc902ad6553, type: 2}
+  - {fileID: 11400000, guid: 203d929ba1c88eb478ddd0c70bcb17fb, type: 2}
+  - {fileID: 11400000, guid: cd236f5776c03d94b86ef9583126710b, type: 2}
+  - {fileID: 11400000, guid: 4a6bdaf9a865fc946ae1a307d2166613, type: 2}
+  - {fileID: 11400000, guid: 894833289cfa8fd4e9c87508b564edc6, type: 2}
+  _scale: {x: 600, y: 600}
+  _amount: {x: 100, y: 100}
+  jitter: 5
 --- !u!1 &645589852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 51986deabeeafec49a76ec2976451c07, type: 3}

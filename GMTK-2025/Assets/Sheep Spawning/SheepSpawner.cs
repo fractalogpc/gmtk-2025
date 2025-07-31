@@ -7,23 +7,24 @@ using UnityEngine;
 public class SheepSpawner : MonoBehaviour
 {
     public SheepObject[] sheep;
-
-    public List<SheepObject> tempSpawning = new List<SheepObject>();
-    public List<GameObject> spawning = new List<GameObject>();
-    public List<Vector2> spawnpoint = new List<Vector2>();
+    public Vector2 _scale, _amount;
+    public float jitter;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnSheepWave(new Vector2(600, 600), new Vector2(100, 100), new Vector2(300, 300), .2f);
+            SpawnSheepWave(_scale, _amount, jitter);
         }
     }
 
 
-    public void SpawnSheepWave(Vector2 scale, Vector2 amount, Vector2 corner, float jitter)
+    public void SpawnSheepWave(Vector2 scale, Vector2 amount, float jitter)
     {
         List<Vector2> points = new List<Vector2>();
+        List<SheepObject> tempSpawning = new List<SheepObject>();
+        List<GameObject> spawning = new List<GameObject>();
+        List<Vector2> spawnpoint = new List<Vector2>();
         for (int i = 0; i < amount.x; i++)
         {
             for (int j = 0; j < amount.y; j++)
@@ -34,36 +35,33 @@ public class SheepSpawner : MonoBehaviour
 
         for (int i = 0; i < points.Count; i++)
         {
-            tempSpawning.Clear();
             for (int j = 0; j < sheep.Count(); j++)
             {
                 if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r > .5f)
                 {
+                    Debug.Log("Spawned");
+
                     tempSpawning.Add(sheep[j]);
                 }
-
+                    
             }
 
-            if (tempSpawning.Count > 0)
+            int r = 0;
+            for (int j = 0; j < tempSpawning.Count(); j++)
             {
-                int r = 0;
-                for (int j = 0; j < tempSpawning.Count(); j++)
-                {
-                    if (tempSpawning[r].priority < tempSpawning[j].priority)
-                        r = j;
-                }
-
-                spawning.Add(tempSpawning[r].sheep);
-                spawnpoint.Add(points[i]);
+                if (tempSpawning[r].priority < tempSpawning[j].priority)
+                    r = j;
             }
-            
+
+            spawning.Add(tempSpawning[r].sheep);
+            spawnpoint.Add(points[i]);
         }
 
         for (int i = 0; i < spawning.Count(); i++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(new Vector3(spawnpoint[i].x - corner.x, 100, spawnpoint[i].y - corner.y), Vector3.down, out hit, 100f))
-                Instantiate(spawning[i], hit.point, Quaternion.identity);
+            if (Physics.Raycast(new Vector3(spawnpoint[i].x - (scale.x / 2f), 100, spawnpoint[i].y - (scale.x / 2f)) + transform.position, Vector3.down, out hit, 100f))
+                Instantiate(spawning[i], hit.point + new Vector3(0, .5f, 0), Quaternion.identity);
         }
 
 
