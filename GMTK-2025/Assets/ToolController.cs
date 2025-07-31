@@ -44,6 +44,7 @@ public class ToolController : MonoBehaviour
                 shearsObject.SetActive(false);
                 break;
             case ToolType.Lasso:
+                lassoObject.GetComponent<LassoController>().DeselectLasso();
                 lassoObject.SetActive(false);
                 break;
             default:

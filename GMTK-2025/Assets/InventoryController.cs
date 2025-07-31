@@ -16,6 +16,8 @@ public class InventoryController : InputHandlerBase
     public Sprite shearsSprite;
     public Sprite woolSprite;
 
+    private int selectedSlot = 0;
+
     public ItemType[] inventory = new ItemType[3];
 
     public InventorySlot[] inventorySlots;
@@ -113,6 +115,7 @@ public class InventoryController : InputHandlerBase
             inventorySlots[i].Select(i == slot);
         }
 
+        selectedSlot = slot;
     }
 
     public bool GetNextAvailableSlot(out int slot)
@@ -127,5 +130,10 @@ public class InventoryController : InputHandlerBase
         }
         slot = -1;
         return false;
+    }
+
+    public bool IsHoldingObject(ItemType item)
+    {
+        return inventory[selectedSlot] == item;
     }
 }

@@ -209,4 +209,27 @@ public class LassoController : InputHandlerBase
         }
         return position; // Default to current height if no ground found
     }
+
+    public void DeselectLasso()
+    {
+        lassoHeldInHand = true;
+        isChargingThrow = false;
+        lassoInAir = false;
+        isRetracting = false;
+        isPullingTarget = false;
+        throwChargeTime = 0f;
+
+        transform.SetPositionAndRotation(originalPosition.position, originalPosition.rotation);
+        rb.isKinematic = true;
+        lassoCollider.enabled = false;
+
+        if (lassoedSheep.Count > 0)
+        {
+            foreach (var sheep in lassoedSheep)
+            {
+                sheep.Reset(); // Stop following the lasso
+            }
+            lassoedSheep.Clear();
+        }
+    }
 }

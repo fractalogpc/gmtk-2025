@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pickuppable : MonoBehaviour, IInteractable
@@ -15,6 +16,14 @@ public class Pickuppable : MonoBehaviour, IInteractable
         if (InventoryController.Instance.GetNextAvailableSlot(out int index))
         {
             InventoryController.Instance.TryAddItem(itemType, index);
+
+            // Wool is different
+            if (itemType == InventoryController.ItemType.Wool)
+            {
+                GameObject parent = transform.parent.gameObject;
+                Destroy(parent);
+            }
+
             Destroy(gameObject);
         }
     }
