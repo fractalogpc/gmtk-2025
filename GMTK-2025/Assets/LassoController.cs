@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,22 +8,23 @@ public class LassoController : InputHandlerBase
 {
     public bool canLasso = true;
     public Transform originalPosition;
-
     public PlayerController playerController;
-
     public AnimationCurve lassoCurve;
     public float maxLassoTime = 2f;
 
-    private bool isHeld = true;
     private Rigidbody rb;
     private Collider lassoCollider;
 
-    private bool lassoIsOut = false;
-    private bool validPress = true;
-    private bool isHolding = false;
-    private bool startCounting = false;
+    private List<SimpleSheepMover> lassoedSheep = new List<SimpleSheepMover>();
 
-    private float timeHeld = 0f;
+    // Lasso State Booleans
+    private bool lassoHeldInHand = true;         // Lasso is in player's hand
+    private bool isChargingThrow = false;        // Holding button to charge throw
+    private bool lassoInAir = false;             // Lasso has been thrown
+    private bool isRetracting = false;           // Lasso is returning or reeling in
+    private bool isPullingTarget = false;        // Lasso has hit something and is pulling
+
+    private float throwChargeTime = 0f;
 
     protected override void InitializeActionMap()
     {
@@ -36,25 +39,54 @@ public class LassoController : InputHandlerBase
 
     void Update()
     {
-        if (startCounting)
+        // Charging throw
+        if (isChargingThrow)
         {
-            timeHeld += Time.deltaTime;
+            throwChargeTime += Time.deltaTime;
+        }
+
+        // Reset lasso if it has been thrown for too long
+        if (lassoInAir && (Vector3.Distance(transform.position, originalPosition.position) > 30f || throwChargeTime > 15f))
+        {
+            ResetLasso();
+        }
+
+        // Lasso is returning to hand
+        if (isPullingTarget)
+        {
+            Vector3 targetPos = originalPosition.position;
+
+            // Player is pulling the lasso back
+            if (isRetracting)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f);
+            }
+
+            // Fully retracted
+            if (Vector3.Distance(transform.position, targetPos) < 3f)
+            {
+                ResetLasso();
+            }
+
+            // Safety reset if too far
+            if (Vector3.Distance(transform.position, targetPos) > 20f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f);
+            }
         }
     }
 
     void LateUpdate()
     {
-        if (isHeld)
+        if (lassoHeldInHand)
         {
             transform.rotation = originalPosition.rotation;
 
-            if (startCounting)
+            if (isChargingThrow)
             {
-                // Pull back the lasso based on time held
-                float pullbackPercentage = Mathf.Clamp(timeHeld / maxLassoTime, 0f, 1f);
-                float pullbackDistance = pullbackPercentage * 0.5f;
-                Vector3 pullbackPosition = originalPosition.position + Camera.main.transform.forward * -pullbackDistance;
-                transform.position = pullbackPosition;
+                float percentCharged = Mathf.Clamp01(throwChargeTime / maxLassoTime);
+                float pullbackDist = percentCharged * 0.5f;
+                transform.position = originalPosition.position + Camera.main.transform.forward * -pullbackDist;
             }
             else
             {
@@ -66,88 +98,99 @@ public class LassoController : InputHandlerBase
     private void OnLasso(InputAction.CallbackContext ctx)
     {
         if (!canLasso) return;
-        if (!validPress) return;
 
-        if (!lassoIsOut)
+        // Lasso is being held, initiate throw charge
+        if (!lassoInAir)
         {
-            // Start pulling back when button is pressed
             if (ctx.phase == InputActionPhase.Performed)
             {
-                // Debug.Log("Pulling back");
-                startCounting = true;
-                isHolding = true;
+                isChargingThrow = true;
             }
-            // Throw lasso when button is released
-            else if (ctx.phase == InputActionPhase.Canceled && isHolding)
+            else if (ctx.phase == InputActionPhase.Canceled && isChargingThrow)
             {
-                // Debug.Log("Throwing lasso");
-                startCounting = false;
+                isChargingThrow = false;
                 ThrowLasso();
-                timeHeld = 0f;
-                lassoIsOut = true;
-                isHeld = false;
-                validPress = true;
-                isHolding = false;
+                lassoInAir = true;
+                lassoHeldInHand = false;
             }
         }
-        else
+        else // Lasso is out; handle retraction
         {
-            // Reset lasso when button is pressed again
             if (ctx.phase == InputActionPhase.Performed)
             {
-                // Debug.Log("Resetting");
-                ResetLasso();
-                lassoIsOut = false;
-                validPress = true;
+                isRetracting = true;
+                Debug.Log("Reeling in lasso");
+            }
+            else if (ctx.phase == InputActionPhase.Canceled)
+            {
+                isRetracting = false;
             }
         }
     }
 
     private void ThrowLasso()
     {
-        Quaternion cameraRotation = Camera.main.transform.rotation;
-        Vector3 throwDirection = cameraRotation * Vector3.forward;
-
-        Vector3 lassoVelocity = throwDirection * GetLassoMagnitude(timeHeld); // Adjust speed as necessary
-
-        Vector3 playerVelocity = playerController.Motor.Velocity;
-
-        lassoVelocity += playerVelocity; // Add player's velocity to the lasso's velocity
+        Quaternion camRot = Camera.main.transform.rotation;
+        Vector3 throwDir = camRot * Vector3.forward;
+        Vector3 velocity = throwDir * GetLassoMagnitude(throwChargeTime);
+        velocity += playerController.Motor.Velocity;
 
         rb.isKinematic = false;
-        rb.linearVelocity = Vector3.zero; // Reset any previous velocity
-        rb.AddForce(lassoVelocity, ForceMode.VelocityChange);
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(velocity, ForceMode.VelocityChange);
         lassoCollider.enabled = true;
 
+        throwChargeTime = 0f;
     }
 
-    private float GetLassoMagnitude(float time)
+    private float GetLassoMagnitude(float chargeTime)
     {
-        float t = Mathf.Clamp(time / maxLassoTime, 0f, 1f);
+        float t = Mathf.Clamp01(chargeTime / maxLassoTime);
         return lassoCurve.Evaluate(t);
     }
 
     private void ResetLasso()
     {
-        isHeld = true;
-        canLasso = true;
+        lassoHeldInHand = true;
+        lassoInAir = false;
+        isPullingTarget = false;
+        isRetracting = false;
+        throwChargeTime = 0f;
+
         rb.isKinematic = true;
         lassoCollider.enabled = false;
+        canLasso = true;
+
+        foreach (var sheep in lassoedSheep)
+        {
+            sheep.Reset(); // Stop following the lasso
+        }
     }
 
     public void OnLassoHit()
     {
-        if (lassoIsOut)
+        if (lassoInAir)
         {
-            InitiateLasso();
+            StartPullingTarget();
         }
     }
 
-    private void InitiateLasso()
+    private void StartPullingTarget()
     {
-        Debug.Log("Lasso hit something!");
-        // ResetLasso();
-        // validPress = false; // Prevent further lasso actions until reset
-    }
+        rb.isKinematic = true;
+        lassoCollider.enabled = false;
+        isChargingThrow = false;
+        isPullingTarget = true;
 
+        Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 5f);
+        foreach (var hit in nearbyHits)
+        {
+            var sheep = hit.GetComponent<SimpleSheepMover>();
+            if (sheep != null)
+            {
+                sheep.GetLassoed(transform);
+                lassoedSheep.Add(sheep);
+            }
+        }
+    }
 }
