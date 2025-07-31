@@ -15,7 +15,15 @@ public class UpgradeManager : MonoBehaviour
 
     }
 
+    [System.Serializable]
+    private class WoolColorCount
+    {
+        public int ColorIndex;
+        public int Count;
+    }
+
     [SerializeField] private Upgrade[] upgrades;
+    [SerializeField] private WoolColorCount[] woolColorCounts;
 
     private void Awake()
     {
