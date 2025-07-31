@@ -17,10 +17,14 @@ public class SheepSpawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnSheepWave(_scale, _amount, jitter);
+            // SpawnSheepWave(_scale, _amount, jitter);
         }
     }
 
+    private void Start()
+    {
+        SpawnSheepWave(_scale, _amount, jitter);
+    }
 
     public void SpawnSheepWave(Vector2 scale, Vector2 amount, float jitter)
     {
@@ -39,16 +43,16 @@ public class SheepSpawner : MonoBehaviour
 
         for (int i = 0; i < points.Count; i++)
         {
-            Debug.Log(Mathf.RoundToInt(points[i].x));
+            // Debug.Log(Mathf.RoundToInt(points[i].x));
             for (int j = 0; j < sheep.Count(); j++)
             {
                 if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r > .2f)
                 {
-                    Debug.Log("Spawned");
+                    // Debug.Log("Spawned");
 
                     tempSpawning.Add(sheep[j]);
                 }
-                Debug.Log(tempSpawning.Count());
+                // Debug.Log(tempSpawning.Count());
 
             }
 
@@ -65,7 +69,7 @@ public class SheepSpawner : MonoBehaviour
                 spawnpoint.Add(points[i]);
                 tempSpawning.Clear();
             }
-            
+
         }
 
         for (int i = 0; i < spawning.Count(); i++)
@@ -75,7 +79,7 @@ public class SheepSpawner : MonoBehaviour
             if (Physics.Raycast(new Vector3(spawnpoint[i].x - (scale.x / 2f), 100, spawnpoint[i].y - (scale.x / 2f)) + transform.position, Vector3.down, out hit, 100f, layer))
             {
                 GameObject shoop = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, .5f, 0), Quaternion.identity);
-                shoop.name = "Shoop" + i;
+                shoop.name = "Sheep_" + i;
                 shoop.transform.SetParent(shoopParent);
                 shoop.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
                 float myScale = Random.Range(0.8f, 1.3f);
