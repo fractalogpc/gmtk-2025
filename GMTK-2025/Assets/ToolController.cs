@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class ToolController : MonoBehaviour
@@ -8,6 +9,7 @@ public class ToolController : MonoBehaviour
         Shears,
         Lasso
     }
+    public ToolType defaultTool = ToolType.None;
     public ToolType currentTool = ToolType.None;
 
     public GameObject shearsObject;
@@ -17,7 +19,6 @@ public class ToolController : MonoBehaviour
     {
         if (currentTool == tool)
         {
-            Debug.Log("Tool already selected");
             return;
         }
 
@@ -30,7 +31,6 @@ public class ToolController : MonoBehaviour
                 lassoObject.SetActive(false);
                 break;
             default:
-                Debug.Log("No tool to deselect");
                 break;
         }
 
@@ -45,7 +45,6 @@ public class ToolController : MonoBehaviour
                 lassoObject.SetActive(true);
                 break;
             default:
-                Debug.Log("No tool selected");
                 break;
         }
     }
@@ -57,5 +56,10 @@ public class ToolController : MonoBehaviour
             SetTool(parsedTool);
             return;
         }
+    }
+
+    void Start()
+    {
+        SetTool(defaultTool);
     }
 }

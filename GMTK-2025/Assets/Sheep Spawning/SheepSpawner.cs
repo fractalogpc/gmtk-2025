@@ -72,18 +72,36 @@ public class SheepSpawner : MonoBehaviour
 
         }
 
-        for (int i = 0; i < spawning.Count(); i++)
+        List<int> indices = Enumerable.Range(0, spawning.Count()).ToList();
+
+        // Fisher-Yates shuffle
+        for (int i = indices.Count - 1; i > 0; i--)
         {
+            int j = Random.Range(0, i + 1);
+            int temp = indices[i];
+            indices[i] = indices[j];
+            indices[j] = temp;
+        }
+
+        for (int n = 0; n < indices.Count; n++)
+        {
+            int i = indices[n]; // Use shuffled index
+
             Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
             RaycastHit hit;
-            if (Physics.Raycast(new Vector3(spawnpoint[i].x - (scale.x / 2f), 100, spawnpoint[i].y - (scale.x / 2f)) + transform.position, Vector3.down, out hit, 100f, layer))
+            Vector3 rayOrigin = new Vector3(spawnpoint[i].x - (scale.x / 2f), 100, spawnpoint[i].y - (scale.x / 2f)) + transform.position;
+
+            if (Physics.Raycast(rayOrigin, Vector3.down, out hit, 100f, layer))
             {
-                GameObject shoop = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, .5f, 0), randomRotation);
+                GameObject shoop = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
                 shoop.name = "Sheep_" + i;
                 shoop.transform.SetParent(shoopParent);
+
                 shoop.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
+
                 float myScale = Random.Range(0.8f, 1.3f);
                 shoop.transform.localScale *= myScale;
+
                 foreach (var rend in shoop.GetComponentsInChildren<Renderer>(true))
                 {
                     if (rend.gameObject.name == "sheep-colorable")
@@ -94,7 +112,6 @@ public class SheepSpawner : MonoBehaviour
                 }
             }
         }
-
 
     }
 }
