@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 public class SimpleSheepSpawner : MonoBehaviour
@@ -7,6 +8,9 @@ public class SimpleSheepSpawner : MonoBehaviour
 
     public GameObject sheepPrefab;
     public int count = 50;
+
+    public Transform sheepParent;
+    public PlayerController playerController;
 
     public Vector3[] GetPointsInDisc(int count)
     {
@@ -28,7 +32,13 @@ public class SimpleSheepSpawner : MonoBehaviour
         Vector3[] spawnPoints = GetPointsInDisc(count);
         for (int i = 0; i < count; i++)
         {
-            Instantiate(sheepPrefab, spawnPoints[i], Quaternion.identity);
+            // Random rotation for each sheep
+            Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+
+            GameObject sheep = Instantiate(sheepPrefab, spawnPoints[i], randomRotation);
+            sheep.name = "Sheep_" + i;
+            sheep.transform.SetParent(sheepParent);
+            sheep.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
         }
     }
 

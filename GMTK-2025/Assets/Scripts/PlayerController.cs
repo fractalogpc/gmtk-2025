@@ -151,6 +151,15 @@ namespace Player
 
     private void Update()
     {
+      if (Input.GetKey(KeyCode.P))
+      {
+        Time.timeScale = 5f;
+      }
+      else
+      {
+        Time.timeScale = 1f;
+      }
+
       if (!isEnabled) return;
 
       if (Motor.Velocity.y != 0)
