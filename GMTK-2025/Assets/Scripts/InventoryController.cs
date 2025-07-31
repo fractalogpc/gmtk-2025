@@ -29,7 +29,6 @@ public class InventoryController : InputHandlerBase
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

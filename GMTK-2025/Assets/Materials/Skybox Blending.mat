@@ -100,7 +100,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CubemapPosition: 0
-    - _CubemapTransition: 1
+    - _CubemapTransition: 0.746673
     - _Cubemapp: 1
     - _Cull: 2
     - _Cutoff: 0.5
