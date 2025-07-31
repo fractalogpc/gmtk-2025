@@ -10,6 +10,12 @@ public class SheepSpawner : MonoBehaviour
     public Vector2 _scale, _amount;
     public float jitter;
 
+
+    public List<Vector2> points = new List<Vector2>();
+    public List<SheepObject> tempSpawning = new List<SheepObject>();
+    public List<GameObject> spawning = new List<GameObject>();
+    public List<Vector2> spawnpoint = new List<Vector2>();
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -21,10 +27,7 @@ public class SheepSpawner : MonoBehaviour
 
     public void SpawnSheepWave(Vector2 scale, Vector2 amount, float jitter)
     {
-        List<Vector2> points = new List<Vector2>();
-        List<SheepObject> tempSpawning = new List<SheepObject>();
-        List<GameObject> spawning = new List<GameObject>();
-        List<Vector2> spawnpoint = new List<Vector2>();
+        
         for (int i = 0; i < amount.x; i++)
         {
             for (int j = 0; j < amount.y; j++)
@@ -37,13 +40,14 @@ public class SheepSpawner : MonoBehaviour
         {
             for (int j = 0; j < sheep.Count(); j++)
             {
-                if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r > .5f)
+                if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt(points[i].x), Mathf.RoundToInt(points[i].y)).r > .2f)
                 {
                     Debug.Log("Spawned");
 
                     tempSpawning.Add(sheep[j]);
                 }
-                    
+                Debug.Log(tempSpawning.Count());
+
             }
 
             int r = 0;
@@ -55,6 +59,7 @@ public class SheepSpawner : MonoBehaviour
 
             spawning.Add(tempSpawning[r].sheep);
             spawnpoint.Add(points[i]);
+            tempSpawning.Clear();
         }
 
         for (int i = 0; i < spawning.Count(); i++)
