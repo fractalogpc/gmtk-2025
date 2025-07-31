@@ -3,9 +3,21 @@ using UnityEngine.Events;
 
 public class GenericInteractable : MonoBehaviour, IInteractable
 {
+    public UnityEvent OnHoverEnterEvent;
+    public UnityEvent OnHoverExitEvent;
     public UnityEvent OnInteract;
     public UnityEvent<float> OnHoldInteract;
     public UnityEvent OnReleaseInteract;
+
+    public void OnHoverEnter()
+    {
+        OnHoverEnterEvent?.Invoke();
+    }
+
+    public void OnHoverExit()
+    {
+        OnHoverExitEvent?.Invoke();
+    }
 
     public void Interact()
     {
