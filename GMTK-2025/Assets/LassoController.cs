@@ -12,10 +12,12 @@ public class LassoController : InputHandlerBase
     public AnimationCurve lassoCurve;
     public float maxLassoTime = 2f;
 
+    public LayerMask groundMask;
+
     private Rigidbody rb;
     private Collider lassoCollider;
 
-    private List<SimpleSheepMover> lassoedSheep = new List<SimpleSheepMover>();
+    private List<AdvancedSheepController> lassoedSheep = new List<AdvancedSheepController>();
 
     // Lasso State Booleans
     private bool lassoHeldInHand = true;         // Lasso is in player's hand
@@ -59,19 +61,19 @@ public class LassoController : InputHandlerBase
             // Player is pulling the lasso back
             if (isRetracting)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f);
+                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 15f));
             }
 
             // Fully retracted
-            if (Vector3.Distance(transform.position, targetPos) < 3f)
+            if (Vector3.Distance(transform.position, targetPos) < 2f)
             {
                 ResetLasso();
             }
 
             // Safety reset if too far
-            if (Vector3.Distance(transform.position, targetPos) > 20f)
+            if (Vector3.Distance(transform.position, targetPos) > 15f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f);
+                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f));
             }
         }
     }
@@ -119,7 +121,6 @@ public class LassoController : InputHandlerBase
             if (ctx.phase == InputActionPhase.Performed)
             {
                 isRetracting = true;
-                Debug.Log("Reeling in lasso");
             }
             else if (ctx.phase == InputActionPhase.Canceled)
             {
@@ -165,6 +166,7 @@ public class LassoController : InputHandlerBase
         {
             sheep.Reset(); // Stop following the lasso
         }
+        lassoedSheep.Clear();
     }
 
     public void OnLassoHit()
@@ -182,15 +184,29 @@ public class LassoController : InputHandlerBase
         isChargingThrow = false;
         isPullingTarget = true;
 
+        transform.position = GetGroundHeight(transform.position);
+
         Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 5f);
         foreach (var hit in nearbyHits)
         {
-            var sheep = hit.GetComponent<SimpleSheepMover>();
+            var sheep = hit.GetComponent<AdvancedSheepController>();
             if (sheep != null)
             {
-                sheep.GetLassoed(transform);
+                sheep.GetLassoed(transform, playerController.transform);
                 lassoedSheep.Add(sheep);
             }
         }
+    }
+
+    private Vector3 GetGroundHeight(Vector3 position)
+    {
+        Vector3 newPosition = position;
+        RaycastHit hit;
+        if (Physics.Raycast(position + Vector3.up * 100f, Vector3.down, out hit, 200f, layerMask: groundMask))
+        {
+            newPosition.y = hit.point.y;
+            return newPosition;
+        }
+        return position; // Default to current height if no ground found
     }
 }

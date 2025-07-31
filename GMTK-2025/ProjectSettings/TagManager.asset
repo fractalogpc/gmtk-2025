@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LassoTarget
   - Obstacle
+  - Pen
   layers:
   - Default
   - TransparentFX
