@@ -22,6 +22,8 @@ public class InventoryController : InputHandlerBase
 
     public InventorySlot[] inventorySlots;
 
+    public int SelectedSlot => selectedSlot;
+
     private void Awake()
     {
         if (Instance == null)

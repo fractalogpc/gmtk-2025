@@ -21,7 +21,18 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     public void Interact()
     {
         // If player is holding wool, deposit it
+        if (InventoryController.Instance.IsHoldingObject(InventoryController.ItemType.Wool))
+        {
+            int slot = InventoryController.Instance.SelectedSlot;
 
+            DepositedWool wool = new DepositedWool
+            {
+                Size = 1,
+                Type = 0 
+            };
+            woolDeposits.Add(wool);
+            InventoryController.Instance.TryRemoveItem(slot);
+        }
         // Otherwise play the close animation and empty the machine
 
         if (false)
