@@ -25,7 +25,7 @@ public class ShearsController : InputHandlerBase
         Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 1f);
         if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, sheepLayer, QueryTriggerInteraction.Collide))
         {
-            Debug.Log("Shearable object hit: " + hit.collider.name);
+            // Debug.Log("Shearable object hit: " + hit.collider.name);
             IShearable shearable = hit.collider.GetComponentInParent<IShearable>();
             if (shearable != null)
             {
@@ -33,12 +33,12 @@ public class ShearsController : InputHandlerBase
             }
             else
             {
-                Debug.LogWarning("Hit object is not shearable: " + hit.collider.name);
+                // Debug.LogWarning("Hit object is not shearable: " + hit.collider.name);
             }
         }
         else
         {
-            Debug.Log("No shearable object in range.");
+            // Debug.Log("No shearable object in range.");
         }
     }
 }

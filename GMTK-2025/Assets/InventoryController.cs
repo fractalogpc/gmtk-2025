@@ -103,7 +103,7 @@ public class InventoryController : InputHandlerBase
                 ToolController.Instance.SetTool(ToolController.ToolType.Shears);
                 break;
             case ItemType.Wool:
-                ToolController.Instance.SetTool(ToolController.ToolType.None);
+                ToolController.Instance.SetTool(ToolController.ToolType.Wool);
                 break;
             case ItemType.None:
                 ToolController.Instance.SetTool(ToolController.ToolType.None);
