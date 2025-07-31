@@ -10,13 +10,15 @@ public class ToolController : MonoBehaviour
     {
         None,
         Shears,
-        Lasso
+        Lasso,
+        Wool
     }
     public ToolType defaultTool = ToolType.None;
     public ToolType currentTool = ToolType.None;
 
     public GameObject shearsObject;
     public GameObject lassoObject;
+    public GameObject woolobject;
 
     private void Awake()
     {
@@ -47,6 +49,9 @@ public class ToolController : MonoBehaviour
                 lassoObject.GetComponent<LassoController>().DeselectLasso();
                 lassoObject.SetActive(false);
                 break;
+            case ToolType.Wool:
+                woolobject.SetActive(false);
+                break;
             default:
                 break;
         }
@@ -60,6 +65,9 @@ public class ToolController : MonoBehaviour
                 break;
             case ToolType.Lasso:
                 lassoObject.SetActive(true);
+                break;
+            case ToolType.Wool:
+                woolobject.SetActive(true);
                 break;
             default:
                 break;

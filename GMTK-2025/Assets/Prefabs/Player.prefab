@@ -141,7 +141,40 @@ Transform:
   m_Children:
   - {fileID: 8005652620864592608}
   - {fileID: 1852919400231116360}
+  - {fileID: 1293078742280334626}
+  - {fileID: 5222166131986721597}
   m_Father: {fileID: 4542543093105628933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3535607356801190457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1293078742280334626}
+  m_Layer: 0
+  m_Name: ShearsOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1293078742280334626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3535607356801190457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.092, y: -0.625, z: 0.481}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1566482951118930262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4987277951650541974
 GameObject:
@@ -252,7 +285,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -339,6 +372,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1566482951118930262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7319236484909063428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5222166131986721597}
+  m_Layer: 0
+  m_Name: WoolOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5222166131986721597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319236484909063428}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.155, z: 1.984}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1566482951118930262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8439618641201908378
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +417,7 @@ GameObject:
   - component: {fileID: 5594479811758454358}
   - component: {fileID: 7726873158498081664}
   - component: {fileID: 8465391921487714893}
+  - component: {fileID: 4758215103353764182}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -459,7 +524,7 @@ MonoBehaviour:
   PlayerCamera: {fileID: 8534801688195039062}
   MaxStableCrouchSpeed: 0
   MaxStableMoveSpeed: 9
-  MaxStableSprintSpeed: 15
+  MaxStableSprintSpeed: 13
   StableMovementSharpness: 15
   MaxAirMoveSpeed: 10
   AirAccelerationSpeed: 30
@@ -541,3 +606,20 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &4758215103353764182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439618641201908378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90dee8951859124e8cb3ce6108ad9e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultTool: 0
+  currentTool: 0
+  shearsObject: {fileID: 0}
+  lassoObject: {fileID: 0}
+  woolobject: {fileID: 0}
