@@ -8,7 +8,13 @@ public class SimpleSheepMover : MonoBehaviour
         StartCoroutine(RandomMoveSheep(true));
     }
 
-    public IEnumerator RandomMoveSheep(bool recursive)
+    public void Reset()
+    {
+        StopAllCoroutines();
+        StartCoroutine(RandomMoveSheep(true));
+    }
+
+    private IEnumerator RandomMoveSheep(bool recursive)
     {
         // Wait random time before moving
         float randomTime = Random.Range(1f, 5f);
@@ -35,5 +41,24 @@ public class SimpleSheepMover : MonoBehaviour
         {
             StartCoroutine(RandomMoveSheep(true));
         }
+    }
+
+    private IEnumerator FollowPosition(Transform position)
+    {
+        while (true)
+        {
+            if (Vector3.Distance(transform.position, position.position) > 0.1f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, position.position, 3f * Time.deltaTime);
+            }
+            yield return null; // Wait for the next frame
+        }
+    }
+
+    public void GetLassoed(Transform target)
+    {
+        StopAllCoroutines();
+
+        StartCoroutine(FollowPosition(target));
     }
 }
