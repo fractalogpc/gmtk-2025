@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class ToolController : MonoBehaviour
 {
+    public static ToolController Instance { get; private set; }
+
+
     public enum ToolType
     {
         None,
@@ -14,6 +17,19 @@ public class ToolController : MonoBehaviour
 
     public GameObject shearsObject;
     public GameObject lassoObject;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void SetTool(ToolType tool)
     {
