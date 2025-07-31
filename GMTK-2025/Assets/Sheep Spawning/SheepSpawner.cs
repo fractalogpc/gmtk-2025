@@ -78,7 +78,7 @@ public class SheepSpawner : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(new Vector3(spawnpoint[i].x - (scale.x / 2f), 100, spawnpoint[i].y - (scale.x / 2f)) + transform.position, Vector3.down, out hit, 100f, layer))
             {
-                GameObject shoop = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, .5f, 0), Quaternion.identity);
+                GameObject shoop = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, .5f, 0), randomRotation);
                 shoop.name = "Sheep_" + i;
                 shoop.transform.SetParent(shoopParent);
                 shoop.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;

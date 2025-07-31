@@ -15,6 +15,7 @@ public class AdvancedSheepController : MonoBehaviour
     float currentMoveSpeed = 0f;
 
     bool lockMovement = false;
+    bool isRunning = false;
 
     void Start()
     {
@@ -144,7 +145,7 @@ public class AdvancedSheepController : MonoBehaviour
         }
 
         // If the player is close, enter panic mode
-        if (DistanceIgnoreY(transform.position, playerTransform.position) < 7f)
+        if (DistanceIgnoreY(transform.position, playerTransform.position) < 7f && !isRunning)
         {
             StopAllCoroutines();
             StartCoroutine(PanicSheep(playerTransform.position));
@@ -289,15 +290,17 @@ public class AdvancedSheepController : MonoBehaviour
 
     private IEnumerator PanicSheep(Vector3 playerPosition)
     {
+        isRunning = true;
+
         // Panic mode: run away from the player
         Vector3 directionAwayFromPlayer = transform.position - playerPosition;
         directionAwayFromPlayer.y = 0; // Ignore vertical distance
         directionAwayFromPlayer.Normalize();
 
-        float panicSpeed = UnityEngine.Random.Range(5f, 8f);
+        float panicSpeed = UnityEngine.Random.Range(10f, 12f);
         currentMoveSpeed = panicSpeed;
 
-        float panicDuration = UnityEngine.Random.Range(2f, 5f);
+        float panicDuration = UnityEngine.Random.Range(0.25f, 1.0f);
         float elapsedTime = 0f;
 
         while (elapsedTime < panicDuration)
@@ -306,11 +309,12 @@ public class AdvancedSheepController : MonoBehaviour
             transform.position += directionAwayFromPlayer * panicSpeed * Time.deltaTime;
 
             // Slerp the rotation to face away from the player
-            transform.SetPositionAndRotation(GetGroundHeight(transform.position), Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(transform.position - playerPosition)), 500f * Time.deltaTime));
+            transform.SetPositionAndRotation(GetGroundHeight(transform.position), Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(transform.position - playerPosition)), 360f * Time.deltaTime));
             elapsedTime += Time.deltaTime;
             yield return null; // Wait for the next frame
         }
 
+        isRunning = false;
         // After panic, resume normal movement
         StartCoroutine(RandomMoveSheep(true));
     }
