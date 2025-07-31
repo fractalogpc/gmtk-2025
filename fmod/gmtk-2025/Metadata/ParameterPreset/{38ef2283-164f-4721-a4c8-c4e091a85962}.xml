@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{38ef2283-164f-4721-a4c8-c4e091a85962}">
+		<property name="name">
+			<value>TimeOfDay</value>
+		</property>
+		<relationship name="folder">
+			<destination>{fc1f117c-dd83-4037-8e04-a98872e36fcd}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{bca6215c-8ceb-4551-bcd5-5423633611ee}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{bca6215c-8ceb-4551-bcd5-5423633611ee}">
+		<property name="maximum">
+			<value>24</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
