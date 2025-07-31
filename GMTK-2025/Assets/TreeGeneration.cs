@@ -101,7 +101,9 @@ public class TreeGeneration : MonoBehaviour
                 }
 
                 GameObject treePrefab = _treePrefabs[Random.Range(0, _treePrefabs.Length)];
-                GameObject treeInstance = Instantiate(treePrefab, position, Quaternion.identity, _treeParent);
+                // Random Y rotation
+                Quaternion rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                GameObject treeInstance = Instantiate(treePrefab, position, rotation, _treeParent);
 
                 // Randomly scale the tree
                 float treeScale = Random.Range(_treeScaleMin, _treeScaleMax);
