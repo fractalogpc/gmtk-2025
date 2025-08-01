@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{1e0565d2-8a6d-453b-8549-fce794b39e0b}">
+		<property name="assetPath">
+			<value>Constant/Background/522299__defelozedd94__crickets-at-night-raw-sound Looped.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>25.420770833333332</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8254108-0aaa-44b5-a648-09ae2c5829da}</destination>
+		</relationship>
+	</object>
+</objects>

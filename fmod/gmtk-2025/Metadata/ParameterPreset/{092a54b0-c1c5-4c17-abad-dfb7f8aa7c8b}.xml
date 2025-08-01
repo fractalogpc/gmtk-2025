@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{092a54b0-c1c5-4c17-abad-dfb7f8aa7c8b}">
+		<property name="name">
+			<value>Creepyness</value>
+		</property>
+		<relationship name="folder">
+			<destination>{fc1f117c-dd83-4037-8e04-a98872e36fcd}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{b9a696a0-a85f-48f1-965a-c54e0d15cf84}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{b9a696a0-a85f-48f1-965a-c54e0d15cf84}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
