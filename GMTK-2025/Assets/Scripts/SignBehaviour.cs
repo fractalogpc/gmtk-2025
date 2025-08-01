@@ -31,16 +31,16 @@ public class SignBehaviour : MonoBehaviour
 
     public void Purchase()
     {
-        Debug.Log("Purchased: " + signTextObject.text);
+        // Debug.Log("Purchased: " + signTextObject.text);
         
         if (UpgradeManager.Instance.TryBuyUpgrade(upgradeName))
         {
-            Debug.Log("Wool removed successfully.");
+            // Debug.Log("Wool removed successfully.");
             Destroy(gameObject);
         }
         else
         {
-            Debug.LogWarning("Not enough wool to complete the purchase.");
+            // Debug.LogWarning("Not enough wool to complete the purchase.");
         }
     }
 }

@@ -178,23 +178,45 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         }
 
         // Handle object collision
+        // Obstacle avoidance using ComputePenetration
         {
-            int obstacleCount = Physics.OverlapSphereNonAlloc(transform.position, 1.5f, obstacleBuffer, groundMask | collisionLayer); // This value should change with the size of the sheep
+            int obstacleCount = Physics.OverlapSphereNonAlloc(
+              transform.position,
+              1.5f,
+              obstacleBuffer,
+              collisionLayer
+            );
+
+            Vector3 totalOffset = Vector3.zero;
+
             for (int i = 0; i < obstacleCount; i++)
             {
-                if (obstacleBuffer[i].CompareTag("Obstacle"))
-                {
-                    Vector3 directionToObstacle = obstacleBuffer[i].transform.position - transform.position;
-                    directionToObstacle.y = 0;
-                    directionToObstacle.Normalize();
+                Collider obstacle = obstacleBuffer[i];
 
-                    float escapeSpeed = currentMoveSpeed + 2f;
-                    escapeSpeed = Mathf.Clamp(escapeSpeed, 0.1f, 5f);
-                    transform.position -= directionToObstacle * Time.deltaTime * escapeSpeed;
+                // Skip self
+                if (obstacle == thisCollider) continue;
+
+                if (Physics.ComputePenetration(
+                  thisCollider, transform.position, transform.rotation,
+                  obstacle, obstacle.transform.position, obstacle.transform.rotation,
+                  out Vector3 direction, out float distance))
+                {
+                    // Only apply horizontal offset
+                    direction.y = 0;
+                    Vector3 offset = direction.normalized * distance;
+                    totalOffset += offset;
                 }
             }
 
+            if (totalOffset != Vector3.zero)
+            {
+                transform.position += totalOffset;
+
+                // Optional: sync physics if using Rigidbody with interpolation
+                // Physics.SyncTransforms();
+            }
         }
+
 
         // If the sheep is lassoed, it should follow the lasso
         if (lockMovement)
