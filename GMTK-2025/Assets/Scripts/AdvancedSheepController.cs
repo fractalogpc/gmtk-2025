@@ -227,10 +227,13 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         // If the player is close, enter panic mode
         if (DistanceIgnoreY(transform.position, playerTransform.position) < 10f && !isRunning)
         {
-            moving = false;
-            looking = false;
-            StopAllCoroutines();
-            StartCoroutine(PanicSheep(playerTransform.position));
+            if (InventoryController.Instance.IsHoldingObject(InventoryController.ItemType.Shears))
+            {
+                moving = false;
+                looking = false;
+                StopAllCoroutines();
+                StartCoroutine(PanicSheep(playerTransform.position));
+            }
         }
 
         if (timeSinceLastQueenCheck >= SECONDS_BETWEEN_QUEEN_CHECKS)
