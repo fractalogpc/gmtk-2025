@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3536823181160686242}
   - component: {fileID: 1785615113025134610}
   - component: {fileID: 1040298081181148362}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138957283524060113}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -102,7 +102,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -136,7 +136,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &1040298081181148362
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -162,9 +162,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 2116353625727934032}
   - component: {fileID: 5238094482529412273}
   - component: {fileID: 598918511716117361}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665627129950673812}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -341,7 +341,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -375,7 +375,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &598918511716117361
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -401,9 +401,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 8402074681538309806}
   - component: {fileID: 2494388456715639814}
   - component: {fileID: 4878071090421036169}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2645369870546711433}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -580,7 +580,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -614,7 +614,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &4878071090421036169
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -640,9 +640,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 3778615379106543220}
   - component: {fileID: 5648375695896415535}
   - component: {fileID: 7613569883430552751}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +768,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2937386210457059110}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -819,7 +819,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -853,7 +853,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 14
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &7613569883430552751
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -879,9 +879,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -970,7 +970,7 @@ GameObject:
   - component: {fileID: 7036181606950945067}
   - component: {fileID: 5123380993335271434}
   - component: {fileID: 1232834907070203969}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1007,7 +1007,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3462880514000391855}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1058,7 +1058,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1092,7 +1092,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 14
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &1232834907070203969
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -1118,9 +1118,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -1209,7 +1209,7 @@ GameObject:
   - component: {fileID: 897946145833110895}
   - component: {fileID: 7793226090763195978}
   - component: {fileID: 7448510076983115458}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1246,7 +1246,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112315353212178445}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1297,7 +1297,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1331,7 +1331,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &7448510076983115458
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -1357,9 +1357,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -1448,7 +1448,7 @@ GameObject:
   - component: {fileID: 6460544442607494256}
   - component: {fileID: 7060211751596433601}
   - component: {fileID: 7959064893082542851}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1485,7 +1485,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6293088615840956535}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1536,7 +1536,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1570,7 +1570,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &7959064893082542851
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -1596,9 +1596,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -1687,7 +1687,7 @@ GameObject:
   - component: {fileID: 1094332829932126793}
   - component: {fileID: 5957144019144431426}
   - component: {fileID: 2405815159936538379}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1724,7 +1724,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6513738761603944231}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1775,7 +1775,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1809,7 +1809,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &2405815159936538379
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -1835,9 +1835,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -1926,7 +1926,7 @@ GameObject:
   - component: {fileID: 4605273164006027020}
   - component: {fileID: 9188702591359646763}
   - component: {fileID: 5048773570199163025}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1963,7 +1963,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7363426467267831143}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2014,7 +2014,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2048,7 +2048,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &5048773570199163025
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -2074,9 +2074,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -2165,7 +2165,7 @@ GameObject:
   - component: {fileID: 5361914980097342577}
   - component: {fileID: 5683071955992806442}
   - component: {fileID: 8200017165417092566}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Joint (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2202,7 +2202,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8325015217746879848}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2253,7 +2253,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2287,7 +2287,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!153 &8200017165417092566
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -2313,9 +2313,9 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LinearLimit:
-    limit: 2
+    limit: 2.5
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 1
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -2402,7 +2402,7 @@ GameObject:
   - component: {fileID: 2249604710748167484}
   - component: {fileID: 7565615069220801688}
   - component: {fileID: 7657699625320391733}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope V1 (10sg)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2457,8 +2457,7 @@ MonoBehaviour:
   - {fileID: 698375496701142964}
   - {fileID: 8358142303375510755}
   - {fileID: 2181351821275484680}
-  radius: 0.1
-  offset: {x: 0.2, y: -1.5, z: 3.5}
+  radius: 0.15
 --- !u!33 &7565615069220801688
 MeshFilter:
   m_ObjectHideFlags: 0
