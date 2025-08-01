@@ -6,8 +6,6 @@ public class RopeController : MonoBehaviour
 
     public void SetJointLengths(float length)
     {
-        Debug.Log("Setting joint lengths to: " + length);
-
         foreach (var joint in joints)
         {
             if (joint != null)

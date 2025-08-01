@@ -23,6 +23,10 @@ public class PitManager : MonoBehaviour
     public Vector3 pitSize;
 
     private void Start() {
+        Debug.LogWarning("Matthew I disabled pit manager because there were errors");
+        this.enabled = false;
+        return;
+
         offerTrigger.OnInteract.AddListener(HandleOffer);
         ResetFallingRocks();
     }
