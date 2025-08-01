@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 
 public class AdvancedSheepController : MonoBehaviour, IShearable
 {
@@ -24,9 +23,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public int woolSize = 1; // Default size
 
     public Collider[] colliders;
-
-    private bool outOfRange = false;
-    float currentMoveSpeed = 0f;
+    public GameObject inCartCollider;
 
     bool lockMovement = false;
     bool isRunning = false;
@@ -53,6 +50,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     [SerializeField] private float[] lodDistances = new float[] { 50f, 150f, 300f, 500f, 1000f };
     [SerializeField] private int[] lodModules = new int[] { 1, 4, 16, 64, 256 };
     private int currentLOD = 0;
+
+    public Renderer[] renderers;
 
     void Awake()
     {
@@ -121,8 +120,21 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         isQueen = true;
     }
 
+    private void Update()
+    {
+        if (inCart) return;
+        if (isHeld)
+        {
+            // If the sheep is held, move it to the held position
+            transform.position = heldPosition.position;
+            transform.rotation = heldPosition.rotation;
+        }
+    }
+
     private void FixedUpdate()
     {
+        if (inCart) return;
+        if (isHeld) return;
         currentUpdateGroupCount++;
 
         currentLOD = Mathf.Clamp(currentLOD, 0, lodModules.Length - 1);
@@ -331,7 +343,6 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
             // Pick a random speed
             float speed = UnityEngine.Random.Range(2f, 3f);
-            currentMoveSpeed = speed;
 
             Vector3 targetPosition = transform.position + new Vector3(radius * Mathf.Cos((float)angle), 0, radius * Mathf.Sin((float)angle));
             targetPosition = GetGroundHeight(targetPosition);
@@ -386,7 +397,6 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
             // Pick a random speed
             float speed = UnityEngine.Random.Range(3f, 4f);
-            currentMoveSpeed = speed;
 
             Vector3 targetPosition = transform.position + biasedOffset;
             targetPosition = GetGroundHeight(targetPosition);
@@ -406,8 +416,6 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
                 yield return null; // Wait for the next frame
             }
             looking = false;
-
-            currentMoveSpeed = 5f; // This is for cases of pushing with other sheep
 
             moving = true;
             // Start moving towards the target position
@@ -445,7 +453,6 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         directionAwayFromPlayer.Normalize();
 
         float panicSpeed = UnityEngine.Random.Range(7f, 9f);
-        currentMoveSpeed = panicSpeed;
 
         float panicDuration = UnityEngine.Random.Range(0.25f, 1.0f);
         float elapsedTime = 0f;
@@ -512,6 +519,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 2.0f));
 
+        inPen = true;
         StartCoroutine(InPen(pen));
     }
 
@@ -530,6 +538,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         }
     }
 
+    private bool inPen = false;
     private IEnumerator InPen(Pen pen)
     {
         Vector2 center = new Vector2(transform.position.x, transform.position.z);
@@ -675,5 +684,62 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         woolInstance.GetComponentsInChildren<Pickuppable>()[0].woolColorIdx = woolColorIndex;
         Vector3 initialVelocity = new Vector3(UnityEngine.Random.Range(-.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f)).normalized * 5f;
         woolInstance.GetComponent<Rigidbody>().AddForce(initialVelocity, ForceMode.Impulse);
+    }
+
+    private bool isHeld = false;
+    private Transform heldPosition;
+    private Collider[] collidersToDeactivate;
+    public void TryPickup()
+    {
+        if (!inPen) return;
+
+        if (isSheared) return;
+
+        collidersToDeactivate = GetComponentsInChildren<Collider>();
+        foreach (Collider col in collidersToDeactivate)
+        {
+            col.enabled = false;
+        }
+
+        if (InventoryController.Instance.GetNextAvailableSlot(out int index))
+        {
+            StopAllCoroutines();
+            InventoryController.Instance.TryAddItem(InventoryController.ItemType.Sheep, index, sheep: this);
+
+            isHeld = true;
+            heldPosition = ToolController.Instance.sheepHoldPosition;
+        }
+
+        transform.localScale *= heldPosition.localScale.x; // Scale the sheep to match the held position
+    }
+
+    public void Show()
+    {
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.enabled = true;
+        }
+    }
+
+    public void Hide()
+    {
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.enabled = false;
+        }
+    }
+
+    private bool inCart = false;
+    public void PutInCart(CartController cartController)
+    {
+        Debug.Log("Putting sheep in cart: " + gameObject.name);
+        StopAllCoroutines();
+        inCartCollider.SetActive(true);
+        inCartCollider.GetComponentInParent<GenericInteractable>().OnInteract.AddListener(() =>
+        {
+            cartController.TryPlaceSheep();
+        });
+
+        inCart = true;
     }
 }

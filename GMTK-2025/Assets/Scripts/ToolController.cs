@@ -11,6 +11,7 @@ public class ToolController : MonoBehaviour
         None,
         Shears,
         Lasso,
+        Sheep,
         Wool
     }
     public ToolType defaultTool = ToolType.None;
@@ -19,6 +20,10 @@ public class ToolController : MonoBehaviour
     public GameObject shearsObject;
     public GameObject lassoObject;
     public GameObject woolobject;
+
+    public AdvancedSheepController currentlyHeldSheep;
+
+    public Transform sheepHoldPosition;
 
     private void Awake()
     {
@@ -33,7 +38,7 @@ public class ToolController : MonoBehaviour
         }
     }
 
-    public void SetTool(ToolType tool)
+    public void SetTool(ToolType tool, AdvancedSheepController sheep = null)
     {
         if (currentTool == tool)
         {
@@ -52,6 +57,10 @@ public class ToolController : MonoBehaviour
             case ToolType.Wool:
                 woolobject.SetActive(false);
                 break;
+            case ToolType.Sheep:
+                currentlyHeldSheep.Hide();
+                currentlyHeldSheep = null;
+                break;
             default:
                 break;
         }
@@ -69,6 +78,18 @@ public class ToolController : MonoBehaviour
                 break;
             case ToolType.Wool:
                 woolobject.SetActive(true);
+                break;
+            case ToolType.Sheep:
+                if (sheep != null)
+                {
+                    currentlyHeldSheep = sheep;
+                }
+                else
+                {
+                    Debug.LogWarning("No sheep provided to hold.");
+                }
+
+                currentlyHeldSheep.Show();
                 break;
             default:
                 break;

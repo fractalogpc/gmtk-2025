@@ -10,12 +10,14 @@ public class InventoryController : InputHandlerBase
         None,
         Lasso,
         Shears,
-        Wool
+        Wool,
+        Sheep
     }
 
     public Sprite lassoSprite;
     public Sprite shearsSprite;
     public Sprite woolSprite;
+    public Sprite sheepSprite;
 
     private int selectedSlot = 0;
 
@@ -34,6 +36,7 @@ public class InventoryController : InputHandlerBase
     }
 
     private WoolData[] heldWool = new WoolData[3];
+    private AdvancedSheepController[] heldSheep = new AdvancedSheepController[3];
 
     private void Awake()
     {
@@ -47,7 +50,7 @@ public class InventoryController : InputHandlerBase
         }
     }
 
-    public bool TryAddItem(ItemType item, int slot, int colorIndex = 0, int size = 1)
+    public bool TryAddItem(ItemType item, int slot, int colorIndex = 0, int size = 1, AdvancedSheepController sheep = null)
     {
         if (slot < 0 || slot >= inventory.Length)
         {
@@ -74,6 +77,13 @@ public class InventoryController : InputHandlerBase
                 heldWool[slot] = new WoolData { ColorIndex = colorIndex, Size = size };
                 // Debug.Log($"Added wool of color {colorIndex} and size {size} to slot {slot}");
                 break;
+            case ItemType.Sheep:
+                if (sheep == null) {
+                    Debug.LogError("Sheep cannot be null when adding to inventory.");
+                }
+                heldSheep[slot] = sheep;
+                inventorySlots[slot].SetImage(sheepSprite);
+                break;
         }
 
         SelectItem(slot);
@@ -93,6 +103,13 @@ public class InventoryController : InputHandlerBase
             Debug.LogWarning("Inventory slot is already empty.");
             return false;
         }
+
+        if (inventory[slot] == ItemType.Sheep && heldSheep != null)
+        {
+            // heldSheep.Reset(); // Reset the sheep if it's being held
+            heldSheep[slot] = null;
+        }
+
         inventory[slot] = ItemType.None;
 
         inventorySlots[slot].SetImage(null);
@@ -125,6 +142,9 @@ public class InventoryController : InputHandlerBase
                 break;
             case ItemType.Wool:
                 ToolController.Instance.SetTool(ToolController.ToolType.Wool);
+                break;
+            case ItemType.Sheep:
+                ToolController.Instance.SetTool(ToolController.ToolType.Sheep, sheep: heldSheep[slot]);
                 break;
             case ItemType.None:
                 ToolController.Instance.SetTool(ToolController.ToolType.None);
