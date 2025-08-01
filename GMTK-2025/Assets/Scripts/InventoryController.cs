@@ -71,6 +71,7 @@ public class InventoryController : InputHandlerBase
             case ItemType.Wool:
                 inventorySlots[slot].SetImage(woolSprite);
                 heldWool[slot] = new WoolData { ColorIndex = colorIndex, Size = size };
+                // Debug.Log($"Added wool of color {colorIndex} and size {size} to slot {slot}");
                 break;
         }
 

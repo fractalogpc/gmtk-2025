@@ -7,6 +7,13 @@ public class UpgradeManager : MonoBehaviour
     public static UpgradeManager Instance { get; private set; }
 
     [System.Serializable]
+    private struct WoolColorCost
+    {
+        public int ColorIndex;
+        public int Count;
+    }
+
+    [System.Serializable]
     private class Upgrade
     {
 
@@ -14,6 +21,7 @@ public class UpgradeManager : MonoBehaviour
         public GameObject[] EnabledObjects;
         public GameObject[] DisabledObjects;
         public bool IsOwned;
+        public WoolColorCost[] WoolCosts;
 
     }
 
@@ -63,6 +71,47 @@ public class UpgradeManager : MonoBehaviour
         }
 
         UpdateWoolCounters();
+    }
+
+    public bool TryBuyUpgrade(string upgradeName)
+    {
+        Upgrade upgrade = System.Array.Find(upgrades, u => u.Name == upgradeName);
+        if (upgrade != null && !upgrade.IsOwned)
+        {
+            bool canAfford = true;
+            foreach (var cost in upgrade.WoolCosts)
+            {
+                if (cost.ColorIndex < 0 || cost.ColorIndex >= woolColorCounts.Length || woolColorCounts[cost.ColorIndex].Count < cost.Count)
+                {
+                    canAfford = false;
+                    break;
+                }
+            }
+            if (canAfford)
+            {
+                // Deduct the wool costs
+                foreach (var cost in upgrade.WoolCosts)
+                {
+                    woolColorCounts[cost.ColorIndex].Count -= cost.Count;
+                }
+
+                upgrade.IsOwned = true;
+                UpdateUpgradeState(upgrade);
+                Debug.Log("Upgrade purchased: " + upgradeName);
+                UpdateWoolCounters();
+                return true;
+            }
+            else
+            {
+                Debug.LogWarning("Not enough wool to purchase upgrade: " + upgradeName);
+                return false;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Upgrade not found or already owned: " + upgradeName);
+            return false;
+        }
     }
 
     public void DepositWool(int colorIndex, int count)

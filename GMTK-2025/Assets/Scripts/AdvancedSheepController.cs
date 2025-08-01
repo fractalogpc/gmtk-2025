@@ -581,15 +581,16 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     public void Shear()
     {
-        Debug.Log("Shearing sheep: " + gameObject.name);
+        // Debug.Log("Shearing sheep: " + gameObject.name);
         if (isSheared) return;
 
         isSheared = true;
         woolObject.SetActive(false);
 
         GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);
-        woolInstance.GetComponent<Pickuppable>().woolSize = 1;
-        woolInstance.GetComponent<Pickuppable>().woolColorIdx = 0;
+        woolInstance.GetComponentsInChildren<Pickuppable>()[0].woolSize = woolSize;
+        // Debug.Log("Wool size: " + woolSize);
+        woolInstance.GetComponentsInChildren<Pickuppable>()[0].woolColorIdx = woolColorIndex;
         Vector3 initialVelocity = new Vector3(UnityEngine.Random.Range(-.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f)).normalized * 5f;
         woolInstance.GetComponent<Rigidbody>().AddForce(initialVelocity, ForceMode.Impulse);
     }
