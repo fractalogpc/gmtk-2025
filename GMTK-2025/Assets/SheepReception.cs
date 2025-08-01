@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SheepReception : MonoBehaviour, IInteractable
@@ -51,7 +52,7 @@ public class SheepReception : MonoBehaviour, IInteractable
             pen.CurrentSheep += sheepToTransfer;
             currentSheepCount -= sheepToTransfer;
 
-            LassoController.ReleaseSheep(sheepToTransfer);
+            LassoController.ReleaseSheep(sheepToTransfer, pen);
         }
     }
 
@@ -68,10 +69,26 @@ public class SheepReception : MonoBehaviour, IInteractable
     }
 }
 
+[System.Serializable]
 public class Pen
 {
     public int MaximumSheep;
     public int CurrentSheep;
+    public Vector3 center;
+    public BoxCollider mesh;
+
+    public float2x4 GetCorners()
+    {
+        Bounds bounds = mesh.bounds;
+        float2x4 corners = new float2x4(
+        new float2(bounds.min.x + 0.5f, bounds.min.z + 0.5f), // Bottom Left
+        new float2(bounds.max.x - 0.5f, bounds.min.z + 0.5f), // Bottom Right
+        new float2(bounds.max.x - 0.5f, bounds.max.z - 0.5f), // Top Right
+        new float2(bounds.min.x + 0.5f, bounds.max.z - 0.5f)  // Top Left
+        );
+
+        return corners;
+    }
 
     public int AvailableSpace => MaximumSheep - CurrentSheep;
     public bool IsFull => CurrentSheep >= MaximumSheep;

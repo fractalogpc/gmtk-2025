@@ -144,6 +144,8 @@ MonoBehaviour:
   woolPrefab: {fileID: 2867281913176661523, guid: 46467d343af2ee14190c15663bb4f007, type: 3}
   woolColorIndex: 0
   woolSize: 1
+  colliders:
+  - {fileID: 6838635234615712217}
   lodDistances:
   - 50
   - 150

@@ -22,6 +22,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public int woolColorIndex = 0; // Default color index
     public int woolSize = 1; // Default size
 
+    public Collider[] colliders;
+
     private bool outOfRange = false;
     float currentMoveSpeed = 0f;
 
@@ -71,24 +73,24 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         looking = false;
         StopAllCoroutines();
         // Check if in a pen
-        Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 2f); // This value should change with the size of the sheep
-        foreach (var hit in nearbyHits)
-        {
-            if (hit.CompareTag("Pen"))
-            {
-                var bounds = hit.GetComponent<Collider>().bounds;
-                float2x4 corners = new float2x4(
-                new float2(bounds.min.x + 0.5f, bounds.min.z + 0.5f), // Bottom Left
-                new float2(bounds.max.x - 0.5f, bounds.min.z + 0.5f), // Bottom Right
-                new float2(bounds.max.x - 0.5f, bounds.max.z - 0.5f), // Top Right
-                new float2(bounds.min.x + 0.5f, bounds.max.z - 0.5f)  // Top Left
-                );
+        // Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 2f); // This value should change with the size of the sheep
+        // foreach (var hit in nearbyHits)
+        // {
+        //     if (hit.CompareTag("Pen"))
+        //     {
+        //         var bounds = hit.GetComponent<Collider>().bounds;
+        //         float2x4 corners = new float2x4(
+        //         new float2(bounds.min.x + 0.5f, bounds.min.z + 0.5f), // Bottom Left
+        //         new float2(bounds.max.x - 0.5f, bounds.min.z + 0.5f), // Bottom Right
+        //         new float2(bounds.max.x - 0.5f, bounds.max.z - 0.5f), // Top Right
+        //         new float2(bounds.min.x + 0.5f, bounds.max.z - 0.5f)  // Top Left
+        //         );
 
-                StartCoroutine(InPen(corners));
-                // Debug.Log($"Sheep {gameObject.name} is in a pen at time {Time.frameCount}");
-                return;
-            }
-        }
+        //         StartCoroutine(InPen(corners));
+        //         // Debug.Log($"Sheep {gameObject.name} is in a pen at time {Time.frameCount}");
+        //         return;
+        //     }
+        // }
 
         lockMovement = false;
 
@@ -274,6 +276,18 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         timeSinceLastQueenCheck += Time.deltaTime;
     }
 
+    public void SendToPen(Pen pen)
+    {
+        StopAllCoroutines();
+
+        foreach (Collider col in colliders)
+        {
+            col.enabled = false;
+        }
+
+        StartCoroutine(RunToPen(pen));
+    }
+
     private IEnumerator RandomMoveSheep(bool recursive, float? angle = null)
     {
         moveTimer = 0f;
@@ -450,6 +464,20 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(position.position - transform.position)), 500f * Time.deltaTime);
             yield return null; // Wait for the next frame
         }
+    }
+
+    private IEnumerator RunToPen(Pen pen)
+    {
+        transform.rotation = Quaternion.LookRotation(pen.center - transform.position);
+        float speed = UnityEngine.Random.Range(10f, 12f);
+
+        while (DistanceIgnoreY(transform.position, pen.center) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, pen.center, speed * Time.deltaTime);
+            yield return null;
+        }
+
+        StartCoroutine(InPen(pen.GetCorners()));
     }
 
     private IEnumerator InPen(float2x4 corners)
