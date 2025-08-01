@@ -5,7 +5,7 @@
 			<value>Wind</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{2d20911f-0242-4b93-a3f0-f56392d0643e}</destination>
@@ -66,9 +66,6 @@
 	<object class="EventAutomatableProperties" id="{bf181caf-ea0a-48a9-87d1-a3ebd91abb31}" />
 	<object class="MarkerTrack" id="{e63477b8-98d4-4a17-b499-a17fe8f13404}" />
 	<object class="GroupTrack" id="{7aacac58-3c33-402d-8b5a-08a1a2f9b4ce}">
-		<relationship name="modules">
-			<destination>{cc505b7f-2986-48d3-8095-16ea66aa5a6b}</destination>
-		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{18db9dcd-2718-4089-8b2e-21b055045afd}</destination>
 		</relationship>
@@ -92,9 +89,6 @@
 		<relationship name="automationTracks">
 			<destination>{0e02fdf2-0376-4a29-9b13-35010df6cb39}</destination>
 		</relationship>
-		<relationship name="modules">
-			<destination>{a3ad22ef-5285-405f-885e-22986864ad04}</destination>
-		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{e930bc19-dff3-4f30-b116-15835486a1ca}</destination>
 		</relationship>
@@ -105,10 +99,6 @@
 		</property>
 	</object>
 	<object class="ParameterProxy" id="{c6355239-f200-430e-8b2c-6bd5b0d57899}">
-		<relationship name="modules">
-			<destination>{a3ad22ef-5285-405f-885e-22986864ad04}</destination>
-			<destination>{cc505b7f-2986-48d3-8095-16ea66aa5a6b}</destination>
-		</relationship>
 		<relationship name="preset">
 			<destination>{ce584323-484b-49e4-88ec-8ed23d9e243f}</destination>
 		</relationship>
@@ -130,20 +120,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{5e3fb912-ce2d-4d4a-ad01-14273f3c8547}" />
-	<object class="SingleSound" id="{cc505b7f-2986-48d3-8095-16ea66aa5a6b}">
-		<property name="length">
-			<value>0.25</value>
-		</property>
-		<property name="looping">
-			<value>true</value>
-		</property>
-		<relationship name="modulators">
-			<destination>{31a003f7-7573-4385-9509-91690612ac01}</destination>
-		</relationship>
-		<relationship name="audioFile">
-			<destination>{6d943ad5-d29d-4301-bc3b-e0119e543670}</destination>
-		</relationship>
-	</object>
 	<object class="EventMixerGroup" id="{18db9dcd-2718-4089-8b2e-21b055045afd}">
 		<property name="name">
 			<value>Audio 1</value>
@@ -205,23 +181,6 @@
 			<destination>{d12a139a-6ee1-4d94-82fc-6b76f22ba225}</destination>
 		</relationship>
 	</object>
-	<object class="SingleSound" id="{a3ad22ef-5285-405f-885e-22986864ad04}">
-		<property name="start">
-			<value>0.14999999999999999</value>
-		</property>
-		<property name="length">
-			<value>0.84999999999999998</value>
-		</property>
-		<property name="looping">
-			<value>true</value>
-		</property>
-		<relationship name="modulators">
-			<destination>{36228b39-6cc8-4141-bfb7-ca46ac2df1c8}</destination>
-		</relationship>
-		<relationship name="audioFile">
-			<destination>{230994fd-b509-4ac1-8be0-9276868cb656}</destination>
-		</relationship>
-	</object>
 	<object class="EventMixerGroup" id="{e930bc19-dff3-4f30-b116-15835486a1ca}">
 		<property name="name">
 			<value>Audio 5</value>
@@ -246,20 +205,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{0099f58a-7ac7-445b-8901-257d42622c80}" />
 	<object class="MixerBusFader" id="{716e43e7-2860-4f23-8761-593eeddbc1e1}" />
-	<object class="ADSRModulator" id="{31a003f7-7573-4385-9509-91690612ac01}">
-		<property name="nameOfPropertyBeingModulated">
-			<value>volume</value>
-		</property>
-		<property name="initialValue">
-			<value>-80</value>
-		</property>
-		<property name="attackTime">
-			<value>160</value>
-		</property>
-		<property name="finalValue">
-			<value>-80</value>
-		</property>
-	</object>
 	<object class="MixerBusEffectChain" id="{4b642233-9bd3-4ec3-b68d-db806621e5b6}">
 		<relationship name="effects">
 			<destination>{94f65b6d-98a1-4458-8d05-43a159c85d48}</destination>
@@ -284,20 +229,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{9752b5f2-9737-4d96-befa-b2858b47a69d}" />
-	<object class="ADSRModulator" id="{36228b39-6cc8-4141-bfb7-ca46ac2df1c8}">
-		<property name="nameOfPropertyBeingModulated">
-			<value>volume</value>
-		</property>
-		<property name="initialValue">
-			<value>-80</value>
-		</property>
-		<property name="attackTime">
-			<value>280</value>
-		</property>
-		<property name="finalValue">
-			<value>-80</value>
-		</property>
-	</object>
 	<object class="Automator" id="{d12a139a-6ee1-4d94-82fc-6b76f22ba225}">
 		<property name="nameOfPropertyBeingAutomated">
 			<value>volume</value>
