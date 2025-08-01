@@ -62,6 +62,12 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    public bool OwnsUpgrade(string upgradeName)
+    {
+        Upgrade upgrade = System.Array.Find(upgrades, u => u.Name == upgradeName);
+        return upgrade != null && upgrade.IsOwned;
+    }
+
     private void Start()
     {
         foreach (var upgrade in upgrades)
@@ -120,7 +126,10 @@ public class UpgradeManager : MonoBehaviour
             Debug.LogError("Invalid color index for wool deposit.");
             return;
         }
-
+        if (OwnsUpgrade("Wool-O-Tron #1"))
+        {
+            count *= 2; // Double the count if the upgrade is owned
+        }
         woolColorCounts[colorIndex].Count += count;
         UpdateWoolCounters();
     }
