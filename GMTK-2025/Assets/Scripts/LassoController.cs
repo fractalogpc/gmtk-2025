@@ -18,6 +18,8 @@ public class LassoController : InputHandlerBase
     private Rigidbody rb;
     private Collider lassoCollider;
 
+    public GameObject heldLasso;
+
     public LassoVisualController visualController;
 
     public List<AdvancedSheepController> lassoedSheep = new List<AdvancedSheepController>();
@@ -155,6 +157,7 @@ public class LassoController : InputHandlerBase
 
         throwChargeTime = 0f;
 
+        heldLasso.SetActive(false);
         visualController.EnableVisual();
     }
 
@@ -181,6 +184,7 @@ public class LassoController : InputHandlerBase
 
     public void ResetLasso()
     {
+        heldLasso.SetActive(true);
         visualController.DisableVisual();
 
         // Debug.Log("Reset lasso");
