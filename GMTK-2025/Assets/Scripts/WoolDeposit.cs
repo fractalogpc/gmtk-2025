@@ -15,6 +15,8 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     [SerializeField] private AnimationCurve spinCurve;
     [SerializeField] private ParticleSystem finishEffect;
 
+    [SerializeField] private MonoBehaviour outlineScript;
+
     struct DepositedWool
     {
         public int Size;
@@ -58,9 +60,15 @@ public class WoolDeposit : MonoBehaviour, IInteractable
         }
     }
 
-    public void OnHoverEnter() { }
+    public void OnHoverEnter()
+    {
+        outlineScript.enabled = true;
+    }
 
-    public void OnHoverExit() { }
+    public void OnHoverExit()
+    {
+        outlineScript.enabled = false;
+    }
 
     public void HoldInteract(float holdTime) { }
 
