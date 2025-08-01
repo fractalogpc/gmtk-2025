@@ -1731,7 +1731,7 @@
     "m_ObjectId": "b17ccd2f63264fe8ba68435770a53d99",
     "m_Title": "Scanlines",
     "m_Position": {
-        "x": -1542.0001220703125,
+        "x": -1542.0,
         "y": 257.0
     }
 }
@@ -2511,7 +2511,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
     "m_StageCapability": 2,
-    "m_Value": 0.5,
+    "m_Value": 0.0,
     "m_DefaultValue": 0.5,
     "m_Labels": []
 }

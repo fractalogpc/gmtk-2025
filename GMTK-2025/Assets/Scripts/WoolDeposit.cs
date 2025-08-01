@@ -90,10 +90,10 @@ public class WoolDeposit : MonoBehaviour, IInteractable
         washEffect.Stop();
         isWashing = false;
 
-        // Deposit wool after washing TODO!
+        // Deposit wool after washing
         foreach (var deposit in woolDeposits)
         {
-            // Here you can handle the deposited wool, e.g., increase player's wool count
+            UpgradeManager.Instance.DepositWool(deposit.Type, deposit.Size);
             // Delete the deposit object
             Destroy(depositPoints[woolDeposits.IndexOf(deposit)].GetChild(0).gameObject);
         }

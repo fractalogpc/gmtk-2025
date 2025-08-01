@@ -111,11 +111,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ScanLines: 30
+    - _ScanLines: 25
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 10
+    - _Speed: -10
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0

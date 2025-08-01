@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -19,11 +21,26 @@ public class UpgradeManager : MonoBehaviour
     private class WoolColorCount
     {
         public int ColorIndex;
+        public Sprite Icon;
+        public string ColorName;
         public int Count;
     }
 
     [SerializeField] private Upgrade[] upgrades;
     [SerializeField] private WoolColorCount[] woolColorCounts;
+
+    [SerializeField] private GameObject[] woolCounters;
+
+    private void UpdateWoolCounters()
+    {
+        foreach (var woolColorCount in woolColorCounts)
+        {
+            GameObject reference = woolCounters[woolColorCount.ColorIndex];
+            reference.SetActive(woolColorCount.Count > 0);
+            reference.GetComponentInChildren<TextMeshProUGUI>().text = woolColorCount.ColorName + ": " + woolColorCount.Count.ToString();
+            reference.GetComponentInChildren<Image>().sprite = woolColorCount.Icon;
+        }
+    }
 
     private void Awake()
     {
@@ -44,6 +61,20 @@ public class UpgradeManager : MonoBehaviour
         {
             UpdateUpgradeState(upgrade);
         }
+
+        UpdateWoolCounters();
+    }
+
+    public void DepositWool(int colorIndex, int count)
+    {
+        if (colorIndex < 0 || colorIndex >= woolColorCounts.Length)
+        {
+            Debug.LogError("Invalid color index for wool deposit.");
+            return;
+        }
+
+        woolColorCounts[colorIndex].Count += count;
+        UpdateWoolCounters();
     }
 
     private void UpdateUpgradeState(Upgrade upgrade)
