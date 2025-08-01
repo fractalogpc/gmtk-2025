@@ -16,7 +16,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public LayerMask sheapLayer;
     public LayerMask collisionLayer;
 
-    public GameObject woolObject;
+    public GameObject[] woolObjects;
 
     public GameObject woolPrefab;
     public int woolColorIndex = 0; // Default color index
@@ -613,7 +613,10 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         if (isSheared) return;
 
         isSheared = true;
-        woolObject.SetActive(false);
+        foreach (GameObject obj in woolObjects)
+        {
+            obj.SetActive(false);
+        }
 
         GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);
         woolInstance.GetComponentsInChildren<Pickuppable>()[0].woolSize = woolSize;

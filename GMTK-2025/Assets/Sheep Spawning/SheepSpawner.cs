@@ -102,13 +102,9 @@ public class SheepSpawner : MonoBehaviour
                 sheep.GetComponent<AdvancedSheepController>().woolSize = sheepSize;
                 sheep.GetComponent<AdvancedSheepController>().woolColorIndex = spawning[i].colorIndex;
 
-                foreach (var rend in sheep.GetComponentsInChildren<Renderer>(true))
+                foreach (var rend in sheep.GetComponent<AdvancedSheepController>().woolObjects)
                 {
-                    if (rend.gameObject.name == "sheep-colorable")
-                    {
-                        rend.material = spawning[i].color;
-                        break;
-                    }
+                    rend.GetComponent<Renderer>().material = spawning[i].color;   
                 }
             }
         }
