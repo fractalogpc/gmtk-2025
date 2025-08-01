@@ -6,10 +6,14 @@ public class WoolDeposit : MonoBehaviour, IInteractable
 {
 
     [SerializeField] private Animation anim;
-    [SerializeField] private float timePerWool = 1f;
+    [SerializeField] private float timeToWash = 1f;
     [SerializeField] private ParticleSystem washEffect;
     [SerializeField] private GameObject woolDepositPrefab;
     [SerializeField] private Transform[] depositPoints;
+    [SerializeField] private Transform woolDepositParent;
+    [SerializeField] private float spinSpeed = 100f;
+    [SerializeField] private AnimationCurve spinCurve;
+    [SerializeField] private ParticleSystem finishEffect;
 
     struct DepositedWool
     {
@@ -85,22 +89,39 @@ public class WoolDeposit : MonoBehaviour, IInteractable
         anim.Play("woolotrondoorclose");
         yield return new WaitForSeconds(anim.clip.length);
         washEffect.Play();
-        yield return new WaitForSeconds(timePerWool * woolDeposits.Count);
+        yield return StartCoroutine(SpinCycle(timeToWash));
         washEffect.Stop();
+        finishEffect.Play();
         isWashing = false;
 
         // Deposit wool after washing
-        foreach (var deposit in woolDeposits)
+        for (int i = 0; i < woolDeposits.Count; i++)
         {
+            var deposit = woolDeposits[i];
             UpgradeManager.Instance.DepositWool(deposit.Type, deposit.Size);
             // Delete the deposit object
-            Destroy(depositPoints[woolDeposits.IndexOf(deposit)].GetChild(0).gameObject);
+            Destroy(depositPoints[i].GetChild(0).gameObject);
         }
         // After washing, clear the deposits
         woolDeposits.Clear();
 
         anim.Play("woolotrondooropen");
         yield return new WaitForSeconds(anim.clip.length);
+    }
+
+    private IEnumerator SpinCycle(float duration)
+    {
+        float elapsed = 0f;
+        float angle = 0f;
+        Quaternion initialRotation = woolDepositParent.localRotation;
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            angle += spinCurve.Evaluate(t) * spinSpeed * Time.deltaTime;
+            woolDepositParent.localRotation = initialRotation * Quaternion.Euler(angle, 0, 0);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
     
 }

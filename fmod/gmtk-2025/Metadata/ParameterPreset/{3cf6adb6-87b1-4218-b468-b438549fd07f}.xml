@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{3cf6adb6-87b1-4218-b468-b438549fd07f}">
+		<property name="name">
+			<value>Windiness</value>
+		</property>
+		<relationship name="folder">
+			<destination>{fc1f117c-dd83-4037-8e04-a98872e36fcd}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ce584323-484b-49e4-88ec-8ed23d9e243f}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ce584323-484b-49e4-88ec-8ed23d9e243f}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
