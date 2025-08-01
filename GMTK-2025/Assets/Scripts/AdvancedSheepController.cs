@@ -7,6 +7,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 {
     public bool looking = false;
     public bool moving = false;
+    public bool running = false;
     public float moveTimer = 0f;
     public bool isQueen = false;
     public AdvancedSheepController currentQueen = null;
@@ -435,9 +436,9 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         }
     }
 
-    private IEnumerator PanicSheep(Vector3 playerPosition)
-    {
-        isRunning = true;
+    private IEnumerator PanicSheep(Vector3 playerPosition) {
+        moving = true;
+        running = true;
 
         // Panic mode: run away from the player
         Vector3 directionAwayFromPlayer = transform.position - playerPosition;
@@ -461,13 +462,14 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             yield return null; // Wait for the next frame
         }
 
-        isRunning = false;
+        moving = false;
+        running = false;
         // After panic, resume normal movement
         StartCoroutine(RandomMoveSheep(true));
     }
 
-    private IEnumerator FollowPosition(Transform position, Vector3 playerPosition, LassoController lasso)
-    {
+    private IEnumerator FollowPosition(Transform position, Vector3 playerPosition, LassoController lasso) {
+        moving = true;
         while (true)
         {
             if (position == null)
@@ -490,6 +492,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(position.position - transform.position)), 500f * Time.deltaTime);
             yield return null; // Wait for the next frame
         }
+        moving = false;
     }
 
     private IEnumerator RunToPen(Pen pen)
@@ -523,11 +526,13 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             yield return null; // Wait for the next frame
         }
 
+        moving = true;
         while (DistanceIgnoreY(transform.position, point) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, point, speed * Time.deltaTime);
             yield return null;
         }
+        moving = false;
     }
 
     private IEnumerator InPen(Pen pen)
@@ -571,11 +576,13 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             yield return null; // Wait for the next frame
         }
 
+        moving = true;
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
             yield return null;
         }
+        moving = false;
 
         float randomTime = UnityEngine.Random.Range(4f, 7f);
         yield return new WaitForSeconds(randomTime);
