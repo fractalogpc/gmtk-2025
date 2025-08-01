@@ -2402,6 +2402,7 @@ GameObject:
   - component: {fileID: 2249604710748167484}
   - component: {fileID: 7565615069220801688}
   - component: {fileID: 7657699625320391733}
+  - component: {fileID: 1379773750793493080}
   m_Layer: 12
   m_Name: Rope V1 (10sg)
   m_TagString: Untagged
@@ -2511,3 +2512,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1379773750793493080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969883047787487028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8337e9b27e8ed54eb97d62f5b14dbf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joints:
+  - {fileID: 5123380993335271434}
+  - {fileID: 9188702591359646763}
+  - {fileID: 5957144019144431426}
+  - {fileID: 1785615113025134610}
+  - {fileID: 5683071955992806442}
+  - {fileID: 2494388456715639814}
+  - {fileID: 5238094482529412273}
+  - {fileID: 7060211751596433601}
+  - {fileID: 7793226090763195978}
+  - {fileID: 5648375695896415535}
+  jointStart: {fileID: 5123380993335271434}
+  jointEnd: {fileID: 5648375695896415535}
+  maxForce: 50
