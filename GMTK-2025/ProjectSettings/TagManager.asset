@@ -22,7 +22,7 @@ TagManager:
   - Wool
   - Collision
   - IgnorePlayer
-  - 
+  - RopeCollider
   - 
   - 
   - 
