@@ -18,6 +18,8 @@ public class LassoController : InputHandlerBase
     private Rigidbody rb;
     private Collider lassoCollider;
 
+    public LassoVisualController visualController;
+
     public List<AdvancedSheepController> lassoedSheep = new List<AdvancedSheepController>();
 
     // Lasso State Booleans
@@ -157,7 +159,7 @@ public class LassoController : InputHandlerBase
         return lassoCurve.Evaluate(t);
     }
 
-    public void ReleaseSheep(int count)
+    public void ReleaseSheep(int count, Pen targetPen)
     {
         if (count != lassoedSheep.Count)
         {
@@ -166,14 +168,17 @@ public class LassoController : InputHandlerBase
 
         for (int i = 0; i < count; i++)
         {
-            lassoedSheep[i].Reset();
+            lassoedSheep[i].SendToPen(targetPen);
         }
 
         lassoedSheep.RemoveRange(0, count);
     }
 
-    private void ResetLasso()
+    public void ResetLasso()
     {
+        // Debug.Log("Reset lasso");
+        Debug.Log(visualController == null ? "visualController is null" : "visualController is assigned");
+        // visualController.EnableVisual();
         lassoHeldInHand = true;
         lassoInAir = false;
         isPullingTarget = false;
@@ -191,6 +196,7 @@ public class LassoController : InputHandlerBase
         lassoedSheep.Clear();
 
         SheepReception.Instance.currentSheepCount = 0;
+
     }
 
     public void OnLassoHit()
@@ -282,5 +288,7 @@ public class LassoController : InputHandlerBase
         }
 
         SheepReception.Instance.currentSheepCount = 0;
+
+        GetComponent<LassoVisualController>().DisableVisual();
     }
 }

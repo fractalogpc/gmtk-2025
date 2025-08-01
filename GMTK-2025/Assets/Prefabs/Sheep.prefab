@@ -140,10 +140,14 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 2048
-  woolObject: {fileID: 3766419243111527485}
+  woolObjects:
+  - {fileID: 3766419243111527485}
+  - {fileID: 4478404273318724273}
   woolPrefab: {fileID: 2867281913176661523, guid: 46467d343af2ee14190c15663bb4f007, type: 3}
   woolColorIndex: 0
   woolSize: 1
+  colliders:
+  - {fileID: 6838635234615712217}
   lodDistances:
   - 50
   - 150
@@ -401,6 +405,11 @@ Transform:
 --- !u!23 &3615126734180583490 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 428885674823635382, guid: 409f2e24808c4f0488f89aaf3173bc2d, type: 3}
+  m_PrefabInstance: {fileID: 4024027443794270708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4478404273318724273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8503276210769962171, guid: 409f2e24808c4f0488f89aaf3173bc2d, type: 3}
   m_PrefabInstance: {fileID: 4024027443794270708}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &8225920304290951447 stripped

@@ -6,24 +6,19 @@ using UnityEngine;
 
 public class SheepSpawner : MonoBehaviour
 {
-    public SheepObject[] sheep;
+    public SheepObject[] sheeps;
+    public SheepObject[] rareSheeps;
+    public Transform[] rareSheepSpawnpoint;
     public Vector2 _scale, _amount;
     public float jitter;
     public LayerMask layer;
     public PlayerController playerController;
-    public Transform shoopParent;
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // SpawnSheepWave(_scale, _amount, jitter);
-        }
-    }
+    public Transform sheepParent;
 
     private void Start()
     {
         SpawnSheepWave(_scale, _amount, jitter);
+        SpawnRareSheep(3, .6f);
     }
 
     public void SpawnSheepWave(Vector2 scale, Vector2 amount, float jitter)
@@ -44,13 +39,13 @@ public class SheepSpawner : MonoBehaviour
         for (int i = 0; i < points.Count; i++)
         {
             // Debug.Log(Mathf.RoundToInt(points[i].x));
-            for (int j = 0; j < sheep.Count(); j++)
+            for (int j = 0; j < sheeps.Count(); j++)
             {
-                if (sheep[j].heatmap.GetPixel(Mathf.RoundToInt((points[i].x / scale.x) * sheep[j].heatmap.width), Mathf.RoundToInt((points[i].y / scale.y) * sheep[j].heatmap.height)).r > .2f)
+                if (sheeps[j].heatmap.GetPixel(Mathf.RoundToInt((points[i].x / scale.x) * sheeps[j].heatmap.width), Mathf.RoundToInt((points[i].y / scale.y) * sheeps[j].heatmap.height)).r > .2f)
                 {
                     // Debug.Log("Spawned");
 
-                    tempSpawning.Add(sheep[j]);
+                    tempSpawning.Add(sheeps[j]);
                 }
                 // Debug.Log(tempSpawning.Count());
 
@@ -93,30 +88,72 @@ public class SheepSpawner : MonoBehaviour
 
             if (Physics.Raycast(rayOrigin, Vector3.down, out hit, 100f, layer))
             {
-                GameObject shoop = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
-                shoop.name = "Sheep_" + i;
-                shoop.transform.SetParent(shoopParent);
+                GameObject sheep = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
+                sheep.name = "Sheep_" + i;
+                sheep.transform.SetParent(sheepParent);
 
-                shoop.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
+                sheep.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
 
                 int sheepSize = Random.Range(spawning[i].minSize, spawning[i].maxSize + 1);
                 float myScale = sheepSize / 10f;
                 myScale += 1;
-                shoop.transform.localScale *= myScale;
+                sheep.transform.localScale *= myScale;
 
-                shoop.GetComponent<AdvancedSheepController>().woolSize = sheepSize;
-                shoop.GetComponent<AdvancedSheepController>().woolColorIndex = spawning[i].colorIndex;
+                sheep.GetComponent<AdvancedSheepController>().woolSize = sheepSize;
+                sheep.GetComponent<AdvancedSheepController>().woolColorIndex = spawning[i].colorIndex;
 
-                foreach (var rend in shoop.GetComponentsInChildren<Renderer>(true))
+                foreach (var rend in sheep.GetComponent<AdvancedSheepController>().woolObjects)
                 {
-                    if (rend.gameObject.name == "sheep-colorable")
-                    {
-                        rend.material = spawning[i].color;
-                        break;
-                    }
+                    rend.GetComponent<Renderer>().material = spawning[i].color;   
                 }
             }
         }
 
+    }
+
+    public void SpawnRareSheep(int amount, float probability)
+    {
+        int count = 0;
+        for (int i = 0; i < rareSheepSpawnpoint.Count(); i++)
+        {
+            if (Random.Range(0f, 1f) > probability)
+            {
+                Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                int randomSheep = Random.Range(0, rareSheeps.Count());
+                Vector3 jit = Random.insideUnitSphere * jitter;
+                jit.y = 0;
+                RaycastHit hit;
+
+                if (Physics.Raycast(rareSheepSpawnpoint[i].position + jit, Vector3.down, out hit, 100f, layer))
+                {
+                    GameObject sheep = Instantiate(rareSheeps[randomSheep].sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
+                    sheep.name = "RareSheep_" + i;
+                    sheep.transform.SetParent(sheepParent);
+
+                    sheep.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
+
+                    int sheepSize = Random.Range(rareSheeps[randomSheep].minSize, rareSheeps[randomSheep].maxSize + 1);
+                    float myScale = sheepSize / 10f;
+                    myScale += 1;
+                    sheep.transform.localScale *= myScale;
+
+                    sheep.GetComponent<AdvancedSheepController>().woolSize = sheepSize;
+                    sheep.GetComponent<AdvancedSheepController>().woolColorIndex = rareSheeps[randomSheep].colorIndex;
+
+                    foreach (var rend in sheep.GetComponentsInChildren<Renderer>(true))
+                    {
+                        if (rend.gameObject.name == "sheep-colorable")
+                        {
+                            rend.material = rareSheeps[randomSheep].color;
+                            break;
+                        }
+                    }
+                    count++;
+                }
+            }
+
+            if (count >= amount)
+                break;
+        }
     }
 }
