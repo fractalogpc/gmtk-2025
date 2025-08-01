@@ -122,11 +122,6 @@ namespace Player
       TransitionToState(CharacterState.Default);
 
       Motor.CharacterController = this;
-
-
-      // Eventually add a pause
-      Cursor.lockState = CursorLockMode.Locked;
-      Cursor.visible = false;
     }
 
     public void InitializeStart()
@@ -151,6 +146,15 @@ namespace Player
 
     private void Update()
     {
+      if (Input.GetKeyDown(KeyCode.P))
+      {
+        Time.timeScale = 5f;
+      }
+      if (Input.GetKeyUp(KeyCode.P))
+      {
+        Time.timeScale = 1f;
+      }
+
       if (!isEnabled) return;
 
       if (Motor.Velocity.y != 0)

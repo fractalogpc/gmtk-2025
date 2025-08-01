@@ -5,19 +5,22 @@ TagManager:
   serializedVersion: 3
   tags:
   - LassoTarget
+  - Obstacle
+  - Pen
+  - Sheep
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Ground
   - Tree Occluder
-  - 
-  - 
-  - 
-  - 
+  - Interactable
+  - Sheep
+  - Wool
+  - Collision
   - 
   - 
   - 
