@@ -24,6 +24,7 @@ public class Bobbing : MonoBehaviour
         transform.localPosition = _initialPosition + _axis * height;
 
         // Noise rotation
+        if (_maxRotation == 0) return;
         float rotation = Mathf.Sin((Time.time + _timeOffset) / _timePerCycle * Mathf.PI * 2) * _maxRotation;
         transform.localRotation = Quaternion.Euler(_axis * rotation + new Vector3(0, rotation, 0));
     }
