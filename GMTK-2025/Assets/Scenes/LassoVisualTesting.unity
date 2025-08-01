@@ -194,10 +194,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lasso
       objectReference: {fileID: 0}
-    - target: {fileID: 7375428663479603946, guid: 878822b469a49804aaae21e8cb09d7e6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -553,6 +549,10 @@ PrefabInstance:
     - target: {fileID: 8439618641201908378, guid: 998135aad49c752429dfb7a534be8cab, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439618641201908378, guid: 998135aad49c752429dfb7a534be8cab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
