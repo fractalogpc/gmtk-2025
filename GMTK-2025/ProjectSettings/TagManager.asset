@@ -8,6 +8,8 @@ TagManager:
   - Obstacle
   - Pen
   - Sheep
+  - Cart
+  - Falling
   layers:
   - Default
   - TransparentFX

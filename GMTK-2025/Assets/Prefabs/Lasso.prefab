@@ -368,3 +368,4 @@ MonoBehaviour:
   ropePrefab: {fileID: 8969883047787487028, guid: cf178cc23c68e174e84e290df30064f0, type: 3}
   lassoOrigin: {fileID: 0}
   lassoGoal: {fileID: 619647672610392005}
+  lassoLoopController: {fileID: 0}

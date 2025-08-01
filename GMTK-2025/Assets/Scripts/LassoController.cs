@@ -138,6 +138,7 @@ public class LassoController : InputHandlerBase
         }
     }
 
+    // Lasso leaves the player's hand and is thrown
     private void ThrowLasso()
     {
         Quaternion camRot = Camera.main.transform.rotation;
@@ -151,6 +152,8 @@ public class LassoController : InputHandlerBase
         lassoCollider.enabled = true;
 
         throwChargeTime = 0f;
+
+        visualController.EnableVisual();
     }
 
     private float GetLassoMagnitude(float chargeTime)
@@ -176,6 +179,8 @@ public class LassoController : InputHandlerBase
 
     public void ResetLasso()
     {
+        visualController.DisableVisual();
+
         // Debug.Log("Reset lasso");
         // Debug.Log(visualController == null ? "visualController is null" : "visualController is assigned");
         // visualController.EnableVisual();
@@ -203,6 +208,8 @@ public class LassoController : InputHandlerBase
     {
         if (lassoInAir)
         {
+            Debug.Log("Lasso hit something, starting to pull target.");
+            visualController.HitGround();
             lassoInAir = false;
             isPullingTarget = true;
             StartPullingTarget();

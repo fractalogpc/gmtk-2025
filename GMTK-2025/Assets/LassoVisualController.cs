@@ -11,18 +11,20 @@ public class LassoVisualController : MonoBehaviour
     public Transform lassoOrigin;
     public Transform lassoGoal;
 
+    public LassoLoopController lassoLoopController;
+
+    private void Start()
+    {
+        lassoLoopController = GetComponentInChildren<LassoLoopController>();
+    }
+
     bool isEnabled;
 
     void Update()
     {
         if (!isEnabled) return;
         ropeStart.transform.position = lassoOrigin.position + Vector3.down * 1.0f;
-        ropeEnd.transform.position = lassoGoal.position;
-    }
-
-    private void OnEnable()
-    {
-        EnableVisual();
+        ropeEnd.transform.position = lassoLoopController.ropeEnd.position;
     }
 
     public void EnableVisual()
@@ -30,10 +32,20 @@ public class LassoVisualController : MonoBehaviour
         // Debug.Log("Resetting");
         rope = Instantiate(ropePrefab, transform.position, transform.rotation);
 
-        ropeStart = rope.transform.GetChild(0).gameObject;
-        ropeEnd = rope.transform.GetChild(9).gameObject;
+        ropeStart = rope.transform.GetChild(1).gameObject;
+        ropeEnd = rope.transform.GetChild(10).gameObject;
+
+        lassoLoopController = rope.GetComponentInChildren<LassoLoopController>();
+        lassoLoopController.center = lassoGoal;
+        lassoLoopController.CreatePrefabs();
 
         isEnabled = true;
+    }
+
+    public void HitGround()
+    {
+        Debug.Log("Hit gorund");
+        lassoLoopController.onGround = true;
     }
 
     public void DisableVisual()
