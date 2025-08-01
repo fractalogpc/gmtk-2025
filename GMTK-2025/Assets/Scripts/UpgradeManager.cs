@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class UpgradeManager : MonoBehaviour
         public GameObject[] DisabledObjects;
         public bool IsOwned;
         public WoolColorCost[] WoolCosts;
+        public UnityEvent OnUnlockEvent;
 
     }
 
@@ -104,6 +106,7 @@ public class UpgradeManager : MonoBehaviour
                 UpdateUpgradeState(upgrade);
                 Debug.Log("Upgrade purchased: " + upgradeName);
                 UpdateWoolCounters();
+                upgrade.OnUnlockEvent?.Invoke();
                 return true;
             }
             else

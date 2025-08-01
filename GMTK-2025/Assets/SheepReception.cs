@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -7,9 +8,11 @@ public class SheepReception : MonoBehaviour, IInteractable
 
     public int currentSheepCount = 0;
 
-    public Pen[] pens;
+    public List<Pen> pens;
 
     public LassoController LassoController;
+
+    public Transform[] pathingPoints;
 
     private void Awake()
     {
@@ -67,6 +70,50 @@ public class SheepReception : MonoBehaviour, IInteractable
     public void ReleaseInteract()
     {
     }
+
+    private Pen pen1;
+    public int[] pen1Pathing;
+    public BoxCollider pen1AMesh;
+    public void UnlockPen1()
+    {
+        pen1 = new Pen
+        {
+            MaximumSheep = 10,
+            mesh = pen1AMesh,
+            pathingIndices = pen1Pathing
+        };
+
+        pens.Add(pen1);
+    }
+
+    public BoxCollider pen1BMesh;
+    public void UpgradePen1()
+    {
+        pen1.MaximumSheep = 20;
+        pen1.mesh = pen1BMesh;
+    }
+
+    private Pen pen2;
+    public int[] pen2Pathing;
+    public BoxCollider pen2AMesh;
+    public void UnlockPen2()
+    {
+        pen2 = new Pen
+        {
+            MaximumSheep = 10,
+            mesh = pen2AMesh,
+            pathingIndices = pen2Pathing
+        };
+
+        pens.Add(pen1);
+    }
+
+    public BoxCollider pen2BMesh;
+    public void UpgradePen2()
+    {
+        pen2.MaximumSheep = 20;
+        pen2.mesh = pen2BMesh;
+    }
 }
 
 [System.Serializable]
@@ -74,8 +121,9 @@ public class Pen
 {
     public int MaximumSheep;
     public int CurrentSheep;
-    public Vector3 center;
     public BoxCollider mesh;
+
+    public int[] pathingIndices;
 
     public float2x4 GetCorners()
     {

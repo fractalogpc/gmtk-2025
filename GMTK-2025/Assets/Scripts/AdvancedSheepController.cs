@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 
 public class AdvancedSheepController : MonoBehaviour, IShearable
 {
@@ -468,22 +469,47 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     private IEnumerator RunToPen(Pen pen)
     {
-        transform.rotation = Quaternion.LookRotation(pen.center - transform.position);
-        float speed = UnityEngine.Random.Range(10f, 12f);
+        Vector3[] allPositions = System.Array.ConvertAll(SheepReception.Instance.pathingPoints, t => t.position);
+        int[] indices = pen.pathingIndices;
 
-        while (DistanceIgnoreY(transform.position, pen.center) > 0.1f)
+        Vector3[] selectedPositions = new Vector3[indices.Length];
+        for (int i = 0; i < indices.Length; i++)
         {
-            transform.position = Vector3.MoveTowards(transform.position, pen.center, speed * Time.deltaTime);
-            yield return null;
+            selectedPositions[i] = GetGroundHeight(allPositions[indices[i]]);
         }
 
-        StartCoroutine(InPen(pen.GetCorners()));
+        float speed = UnityEngine.Random.Range(5f, 9f);
+
+        foreach (int i in indices)
+        {
+            yield return StartCoroutine(RunToPoint(speed, selectedPositions[i]));
+        }
+
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 2.0f));
+
+        StartCoroutine(InPen(pen));
     }
 
-    private IEnumerator InPen(float2x4 corners)
+    private IEnumerator RunToPoint(float speed, Vector3 point)
     {
-        // Debug.Log("In pen coroutine started");
+        while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(point - transform.position))) > 0.1f)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(point - transform.position)), 300f * Time.deltaTime);
+            yield return null; // Wait for the next frame
+        }
+
+        while (DistanceIgnoreY(transform.position, point) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, point, speed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    private IEnumerator InPen(Pen pen)
+    {
         Vector2 center = new Vector2(transform.position.x, transform.position.z);
+
+        float2x4 corners = pen.GetCorners(); // Recalculate because bounds might have changed
 
         // Convert float2x4 to Vector2[]
         Vector2[] penCorners = new Vector2[4]
@@ -514,7 +540,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         float speed = UnityEngine.Random.Range(3f, 4f);
 
         // Rotate the sheep to face the target position
-        while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetPosition - transform.position)) > 0.1f)
+        while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position))) > 0.1f)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 180f * Time.deltaTime);
             yield return null; // Wait for the next frame
@@ -528,7 +554,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         float randomTime = UnityEngine.Random.Range(4f, 7f);
         yield return new WaitForSeconds(randomTime);
-        StartCoroutine(InPen(corners));
+        StartCoroutine(InPen(pen));
     }
 
     public void GetLassoed(Transform target, Transform playerPosition, LassoController lasso)
