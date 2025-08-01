@@ -9,7 +9,7 @@ public class LassoLoopController : MonoBehaviour
 
     public Transform ropeEnd;
 
-    private Transform[] joints;
+    public Transform[] joints;
 
     public AnimationCurve sizeCurve;
 

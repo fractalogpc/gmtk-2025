@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LassoVisualController : MonoBehaviour
@@ -11,13 +12,10 @@ public class LassoVisualController : MonoBehaviour
     public Transform lassoOrigin;
     public Transform lassoGoal;
 
+    private RopeController ropeController;
     public LassoLoopController lassoLoopController;
 
-    private void Start()
-    {
-        lassoLoopController = GetComponentInChildren<LassoLoopController>();
-    }
-
+    bool onGround = false;
     bool isEnabled;
 
     void Update()
@@ -25,6 +23,20 @@ public class LassoVisualController : MonoBehaviour
         if (!isEnabled) return;
         ropeStart.transform.position = lassoOrigin.position + Vector3.down * 1.0f;
         ropeEnd.transform.position = lassoLoopController.ropeEnd.position;
+
+        // Tighten the rope if on ground
+        if (onGround || true)
+        {
+            float distance = Vector3.Distance(ropeStart.transform.position, ropeEnd.transform.position);
+            int numberOfSegments = lassoLoopController.joints.Length;
+
+            // Calculate the segment length based on the distance and number of segments
+            float segmentLength = distance / numberOfSegments;
+            segmentLength = Mathf.Max(segmentLength, 0.1f); // Ensure a minimum segment length
+            segmentLength *= 0.7f; // Allow some slack
+
+            ropeController.SetJointLengths(segmentLength);
+        }
     }
 
     public void EnableVisual()
@@ -35,6 +47,8 @@ public class LassoVisualController : MonoBehaviour
         ropeStart = rope.transform.GetChild(1).gameObject;
         ropeEnd = rope.transform.GetChild(10).gameObject;
 
+        ropeController = rope.GetComponent<RopeController>();
+
         lassoLoopController = rope.GetComponentInChildren<LassoLoopController>();
         lassoLoopController.center = lassoGoal;
         lassoLoopController.CreatePrefabs();
@@ -44,7 +58,7 @@ public class LassoVisualController : MonoBehaviour
 
     public void HitGround()
     {
-        Debug.Log("Hit gorund");
+        onGround = true;
         lassoLoopController.onGround = true;
     }
 
