@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Player;
@@ -17,7 +18,7 @@ public class LassoController : InputHandlerBase
     private Rigidbody rb;
     private Collider lassoCollider;
 
-    private List<AdvancedSheepController> lassoedSheep = new List<AdvancedSheepController>();
+    public List<AdvancedSheepController> lassoedSheep = new List<AdvancedSheepController>();
 
     // Lasso State Booleans
     private bool lassoHeldInHand = true;         // Lasso is in player's hand
@@ -102,7 +103,7 @@ public class LassoController : InputHandlerBase
         if (!canLasso) return;
 
         // Lasso is being held, initiate throw charge
-        if (!lassoInAir)
+        if (!lassoInAir && !isPullingTarget)
         {
             if (ctx.phase == InputActionPhase.Performed)
             {
@@ -150,6 +151,21 @@ public class LassoController : InputHandlerBase
         return lassoCurve.Evaluate(t);
     }
 
+    public void ReleaseSheep(int count)
+    {
+        if (count != lassoedSheep.Count)
+        {
+            Debug.LogWarning("Missmatching counts, something is wrong!");
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            lassoedSheep[i].Reset();
+        }
+
+        lassoedSheep.RemoveRange(0, count);
+    }
+
     private void ResetLasso()
     {
         lassoHeldInHand = true;
@@ -167,12 +183,16 @@ public class LassoController : InputHandlerBase
             sheep.Reset(); // Stop following the lasso
         }
         lassoedSheep.Clear();
+
+        SheepReception.Instance.currentSheepCount = 0;
     }
 
     public void OnLassoHit()
     {
         if (lassoInAir)
         {
+            lassoInAir = false;
+            isPullingTarget = true;
             StartPullingTarget();
         }
     }
@@ -192,10 +212,33 @@ public class LassoController : InputHandlerBase
             var sheep = hit.GetComponent<AdvancedSheepController>();
             if (sheep != null)
             {
-                sheep.GetLassoed(transform, playerController.transform);
+                sheep.GetLassoed(transform, playerController.transform, this);
                 lassoedSheep.Add(sheep);
             }
         }
+
+        SheepReception.Instance.currentSheepCount = lassoedSheep.Count;
+    }
+
+    public void RemoveSheep(AdvancedSheepController sheep)
+    {
+    
+        StartCoroutine(DelayRecalculateAmount(0.1f, sheep)); // This is stupid, i know
+    }
+
+    private IEnumerator DelayRecalculateAmount(float time, AdvancedSheepController sheep)
+    {
+        yield return new WaitForSeconds(time);
+        if (lassoedSheep.Contains(sheep))
+        {
+            lassoedSheep.Remove(sheep);
+        }
+        else
+        {
+            Debug.LogWarning("Sheep not found in lassoedSheep list!");
+        }
+
+        SheepReception.Instance.currentSheepCount = lassoedSheep.Count;
     }
 
     private Vector3 GetGroundHeight(Vector3 position)
@@ -231,5 +274,7 @@ public class LassoController : InputHandlerBase
             }
             lassoedSheep.Clear();
         }
+
+        SheepReception.Instance.currentSheepCount = 0;
     }
 }

@@ -426,7 +426,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         StartCoroutine(RandomMoveSheep(true));
     }
 
-    private IEnumerator FollowPosition(Transform position, Vector3 playerPosition)
+    private IEnumerator FollowPosition(Transform position, Vector3 playerPosition, LassoController lasso)
     {
         while (true)
         {
@@ -439,6 +439,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             {
                 // If the sheep is too far, break it out of the lasso
                 lockMovement = false;
+                lasso.RemoveSheep(this);
                 Reset();
             }
             if (distanceToPosition > 2f)
@@ -502,7 +503,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         StartCoroutine(InPen(corners));
     }
 
-    public void GetLassoed(Transform target, Transform playerPosition)
+    public void GetLassoed(Transform target, Transform playerPosition, LassoController lasso)
     {
         StopAllCoroutines();
         moving = false;
@@ -510,7 +511,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         isQueen = false;
         currentQueen = null;
         lockMovement = true;
-        StartCoroutine(FollowPosition(target, playerPosition.position));
+        StartCoroutine(FollowPosition(target, playerPosition.position, lasso));
     }
 
     private float DistanceIgnoreY(Vector3 a, Vector3 b)
