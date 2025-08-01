@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{00bc9190-9beb-4dba-a046-925173112ff8}">
 		<property name="assetPath">
-			<value>Background/Weather/Thunder/ThunderCloseExplosive.wav</value>
+			<value>Constant/Weather/Thunder/ThunderCloseExplosive.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

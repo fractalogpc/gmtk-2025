@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{4571373c-1bc5-4de2-aaa8-24793eced448}">
 		<property name="assetPath">
-			<value>Background/Weather/Thunder/ThunderAverage01.wav</value>
+			<value>Constant/Weather/Thunder/ThunderAverage01.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

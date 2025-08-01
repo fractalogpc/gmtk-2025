@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{788d28a2-2b9e-451e-8bbf-d2ff57a8882a}">
 		<property name="assetPath">
-			<value>Background/Rain/2520__rhumphries__rbh-rain-02.wav</value>
+			<value>Constant/Rain/2520__rhumphries__rbh-rain-02.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

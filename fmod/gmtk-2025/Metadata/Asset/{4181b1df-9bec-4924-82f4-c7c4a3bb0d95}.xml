@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="EncodableAsset" id="{4181b1df-9bec-4924-82f4-c7c4a3bb0d95}">
 		<property name="assetPath">
-			<value>Background/Weather/</value>
+			<value>Constant/Weather/</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{e8254108-0aaa-44b5-a648-09ae2c5829da}</destination>

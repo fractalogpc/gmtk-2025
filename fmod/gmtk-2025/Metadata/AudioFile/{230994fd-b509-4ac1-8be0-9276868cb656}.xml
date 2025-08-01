@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{230994fd-b509-4ac1-8be0-9276868cb656}">
 		<property name="assetPath">
-			<value>Background/Wind/Weather Ambience Hurricane Storm Sea Rain Thunder Waves Ocean Wind 01.wav</value>
+			<value>Constant/Wind/Weather Ambience Hurricane Storm Sea Rain Thunder Waves Ocean Wind 01.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
