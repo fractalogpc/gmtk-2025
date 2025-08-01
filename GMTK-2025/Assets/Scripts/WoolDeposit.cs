@@ -36,11 +36,10 @@ public class WoolDeposit : MonoBehaviour, IInteractable
                 return;
             }
             int slot = InventoryController.Instance.SelectedSlot;
-
             DepositedWool wool = new DepositedWool
             {
-                Size = 1,
-                Type = 0
+                Size = InventoryController.Instance.SelectedWoolSize,
+                Type = InventoryController.Instance.SelectedWoolColorIndex
             };
             woolDeposits.Add(wool);
             Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);

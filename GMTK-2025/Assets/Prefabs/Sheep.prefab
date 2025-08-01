@@ -122,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2867281913176661523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c663a223ed5852b4b819dbbe7f4558d5, type: 3}
+  m_Script: {fileID: 11500000, guid: afb4d86580f15464aab3bce9c2ce2dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   looking: 0
@@ -142,6 +142,8 @@ MonoBehaviour:
     m_Bits: 2048
   woolObject: {fileID: 3766419243111527485}
   woolPrefab: {fileID: 2867281913176661523, guid: 46467d343af2ee14190c15663bb4f007, type: 3}
+  woolColorIndex: 0
+  woolSize: 1
   lodDistances:
   - 50
   - 150

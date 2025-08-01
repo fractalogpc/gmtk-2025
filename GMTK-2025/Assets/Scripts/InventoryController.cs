@@ -23,6 +23,16 @@ public class InventoryController : InputHandlerBase
     public InventorySlot[] inventorySlots;
 
     public int SelectedSlot => selectedSlot;
+    public int SelectedWoolColorIndex => inventory[selectedSlot] == ItemType.Wool ? heldWool[selectedSlot].ColorIndex : -1;
+    public int SelectedWoolSize => inventory[selectedSlot] == ItemType.Wool ? heldWool[selectedSlot].Size : -1;
+
+    private struct WoolData
+    {
+        public int ColorIndex;
+        public int Size;
+    }
+
+    private WoolData[] heldWool = new WoolData[3];
 
     private void Awake()
     {
@@ -36,7 +46,7 @@ public class InventoryController : InputHandlerBase
         }
     }
 
-    public bool TryAddItem(ItemType item, int slot)
+    public bool TryAddItem(ItemType item, int slot, int colorIndex = 0, int size = 1)
     {
         if (slot < 0 || slot >= inventory.Length)
         {
@@ -60,6 +70,7 @@ public class InventoryController : InputHandlerBase
                 break;
             case ItemType.Wool:
                 inventorySlots[slot].SetImage(woolSprite);
+                heldWool[slot] = new WoolData { ColorIndex = colorIndex, Size = size };
                 break;
         }
 

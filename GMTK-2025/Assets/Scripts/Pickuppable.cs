@@ -5,23 +5,29 @@ public class Pickuppable : MonoBehaviour, IInteractable
 {
 
     public InventoryController.ItemType itemType;
+    public int woolColorIdx = 0;
+    public int woolSize = 1;
 
     public void HoldInteract(float holdTime)
     {
-        
+
     }
 
     public void Interact()
     {
         if (InventoryController.Instance.GetNextAvailableSlot(out int index))
         {
-            InventoryController.Instance.TryAddItem(itemType, index);
 
             // Wool is different
             if (itemType == InventoryController.ItemType.Wool)
             {
+                InventoryController.Instance.TryAddItem(itemType, index, woolColorIdx, woolSize);
                 GameObject parent = transform.parent.gameObject;
                 Destroy(parent);
+            }
+            else
+            {
+                InventoryController.Instance.TryAddItem(itemType, index);
             }
 
             Destroy(gameObject);

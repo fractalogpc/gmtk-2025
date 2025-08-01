@@ -99,8 +99,13 @@ public class SheepSpawner : MonoBehaviour
 
                 shoop.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
 
-                float myScale = Random.Range(0.8f, 1.3f);
+                int sheepSize = Random.Range(spawning[i].minSize, spawning[i].maxSize + 1);
+                float myScale = sheepSize / 10f;
+                myScale += 1;
                 shoop.transform.localScale *= myScale;
+
+                shoop.GetComponent<AdvancedSheepController>().woolSize = sheepSize;
+                shoop.GetComponent<AdvancedSheepController>().woolColorIndex = spawning[i].colorIndex;
 
                 foreach (var rend in shoop.GetComponentsInChildren<Renderer>(true))
                 {

@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class SheepObject : ScriptableObject
 {
     public Material color;
+    public int colorIndex;
     public Texture2D heatmap;
     public GameObject sheep;
+    public int minSize;
+    public int maxSize;
     public int priority;
 }

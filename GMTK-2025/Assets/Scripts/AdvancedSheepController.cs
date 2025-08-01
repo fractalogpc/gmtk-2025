@@ -19,6 +19,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public GameObject woolObject;
 
     public GameObject woolPrefab;
+    public int woolColorIndex = 0; // Default color index
+    public int woolSize = 1; // Default size
 
     private bool outOfRange = false;
     float currentMoveSpeed = 0f;
@@ -585,6 +587,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         woolObject.SetActive(false);
 
         GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);
+        woolInstance.GetComponent<Pickuppable>().woolSize = 1;
+        woolInstance.GetComponent<Pickuppable>().woolColorIdx = 0;
         Vector3 initialVelocity = new Vector3(UnityEngine.Random.Range(-.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f)).normalized * 5f;
         woolInstance.GetComponent<Rigidbody>().AddForce(initialVelocity, ForceMode.Impulse);
     }
