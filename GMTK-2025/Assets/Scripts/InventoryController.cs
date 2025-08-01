@@ -1,3 +1,4 @@
+using System.Data.Common;
 using UnityEngine;
 
 public class InventoryController : InputHandlerBase
@@ -108,6 +109,8 @@ public class InventoryController : InputHandlerBase
         RegisterAction(_inputActions.Player.Slot1, _ => SelectItem(0));
         RegisterAction(_inputActions.Player.Slot2, _ => SelectItem(1));
         RegisterAction(_inputActions.Player.Slot3, _ => SelectItem(2));
+
+        RegisterAction(_inputActions.Player.Scroll, ctx => HandleScroll(ctx));
     }
 
     private void SelectItem(int slot)
@@ -134,6 +137,42 @@ public class InventoryController : InputHandlerBase
         }
 
         selectedSlot = slot;
+    }
+
+    private void HandleScroll(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    {
+        float value = ctx.ReadValue<float>();
+
+        if (value > 0)
+        {
+            switch (selectedSlot)
+            {
+                case 0:
+                    SelectItem(1);
+                    break;
+                case 1:
+                    SelectItem(2);
+                    break;
+                case 2:
+                    SelectItem(0);
+                    break;
+            }
+        }
+        else
+        {
+            switch (selectedSlot)
+            {
+                case 0:
+                    SelectItem(2);
+                    break;
+                case 1:
+                    SelectItem(0);
+                    break;
+                case 2:
+                    SelectItem(1);
+                    break;
+            }
+        }
     }
 
     public bool GetNextAvailableSlot(out int slot)
