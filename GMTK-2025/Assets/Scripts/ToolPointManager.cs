@@ -5,7 +5,7 @@ public class ToolPointManager : MonoBehaviour, IInteractable
 
     [SerializeField] private Renderer[] placedRenderers;
     [SerializeField] private Renderer[] removedRenderers;
-    [SerializeField] private MonoBehaviour outlineScript;
+    [SerializeField] private Outline outlineScript;
     [SerializeField] private InventoryController.ItemType toolType;
     [SerializeField] private Material[] toolLevelMaterials;
 
@@ -14,12 +14,16 @@ public class ToolPointManager : MonoBehaviour, IInteractable
 
     public void OnHoverEnter()
     {
-        outlineScript.enabled = true;
+        Color outlineColor = outlineScript.OutlineColor;
+        outlineColor.a = 1f;
+        outlineScript.OutlineColor = outlineColor;
     }
 
     public void OnHoverExit()
     {
-        outlineScript.enabled = false;
+        Color outlineColor = outlineScript.OutlineColor;
+        outlineColor.a = 0f;
+        outlineScript.OutlineColor = outlineColor;
     }
 
     public void SetToolLevel(int level)

@@ -15,7 +15,7 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     [SerializeField] private AnimationCurve spinCurve;
     [SerializeField] private ParticleSystem finishEffect;
 
-    [SerializeField] private MonoBehaviour outlineScript;
+    [SerializeField] private Outline outlineScript;
 
     struct DepositedWool
     {
@@ -62,12 +62,16 @@ public class WoolDeposit : MonoBehaviour, IInteractable
 
     public void OnHoverEnter()
     {
-        outlineScript.enabled = true;
+        Color outlineColor = outlineScript.OutlineColor;
+        outlineColor.a = 1f;
+        outlineScript.OutlineColor = outlineColor;
     }
 
     public void OnHoverExit()
     {
-        outlineScript.enabled = false;
+        Color outlineColor = outlineScript.OutlineColor;
+        outlineColor.a = 0f;
+        outlineScript.OutlineColor = outlineColor;
     }
 
     public void HoldInteract(float holdTime) { }

@@ -24,9 +24,11 @@ public class Outline : MonoBehaviour {
     SilhouetteOnly
   }
 
-  public Mode OutlineMode {
+  public Mode OutlineMode
+  {
     get { return outlineMode; }
-    set {
+    set
+    {
       outlineMode = value;
       needsUpdate = true;
     }
@@ -79,6 +81,12 @@ public class Outline : MonoBehaviour {
   private Material outlineFillMaterial;
 
   private bool needsUpdate;
+
+  public void SetOutlineAlpha(float alpha) {
+    Color outlineColor_ = OutlineColor;
+    outlineColor_.a = alpha;
+    OutlineColor = outlineColor_;
+  }
 
   void Awake() {
 
