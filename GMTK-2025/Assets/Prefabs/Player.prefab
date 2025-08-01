@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5052508049968423145}
   - component: {fileID: 6075137940936149141}
   - component: {fileID: 2647496399035161508}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1566482951118930262}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CameraOffset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,6 +141,7 @@ Transform:
   m_Children:
   - {fileID: 8005652620864592608}
   - {fileID: 1852919400231116360}
+  - {fileID: 2536885787225193914}
   - {fileID: 1293078742280334626}
   - {fileID: 5222166131986721597}
   m_Father: {fileID: 4542543093105628933}
@@ -154,7 +155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1293078742280334626}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShearsOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -189,7 +190,7 @@ GameObject:
   - component: {fileID: 4230550606631524617}
   - component: {fileID: 8534801688195039062}
   - component: {fileID: -2190786054644163554}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -350,7 +351,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1852919400231116360}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LassoOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -381,7 +382,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5222166131986721597}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WoolOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -418,7 +419,7 @@ GameObject:
   - component: {fileID: 7726873158498081664}
   - component: {fileID: 8465391921487714893}
   - component: {fileID: 4758215103353764182}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,3 +624,34 @@ MonoBehaviour:
   shearsObject: {fileID: 0}
   lassoObject: {fileID: 0}
   woolobject: {fileID: 0}
+--- !u!1 &8706811180049314970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2536885787225193914}
+  m_Layer: 3
+  m_Name: LassoVisualOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2536885787225193914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706811180049314970}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.584, y: -1.364, z: -0.016}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1566482951118930262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

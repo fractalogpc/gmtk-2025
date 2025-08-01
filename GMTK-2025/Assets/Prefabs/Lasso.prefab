@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3239010663533437656}
   - component: {fileID: 2568110195682067164}
   - component: {fileID: 7155547373110241535}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,8 @@ GameObject:
   - component: {fileID: 4072052035556881032}
   - component: {fileID: 4524969789910851273}
   - component: {fileID: 2089795282631770854}
-  m_Layer: 0
+  - component: {fileID: 2131917488127391299}
+  m_Layer: 12
   m_Name: Lasso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,6 +322,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  visualController: {fileID: 2131917488127391299}
+  lassoedSheep: []
 --- !u!54 &2089795282631770854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -348,3 +351,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &2131917488127391299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7375428663479603946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193141607b3f6c64eb6b828fc7673bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ropeStart: {fileID: 0}
+  ropeEnd: {fileID: 0}
+  ropePrefab: {fileID: 8969883047787487028, guid: cf178cc23c68e174e84e290df30064f0, type: 3}
+  lassoOrigin: {fileID: 0}
+  lassoGoal: {fileID: 619647672610392005}

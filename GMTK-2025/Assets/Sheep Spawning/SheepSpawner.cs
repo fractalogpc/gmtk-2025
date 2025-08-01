@@ -116,7 +116,6 @@ public class SheepSpawner : MonoBehaviour
         int count = 0;
         for (int i = 0; i < rareSheepSpawnpoint.Count(); i++)
         {
-            Debug.Log("Hi");
             if (Random.Range(0f, 1f) > probability)
             {
                 Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);

@@ -65,6 +65,7 @@ public class ToolController : MonoBehaviour
                 break;
             case ToolType.Lasso:
                 lassoObject.SetActive(true);
+                lassoObject.GetComponent<LassoController>().ResetLasso();
                 break;
             case ToolType.Wool:
                 woolobject.SetActive(true);
