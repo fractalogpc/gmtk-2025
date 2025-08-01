@@ -177,7 +177,7 @@ public class LassoController : InputHandlerBase
     public void ResetLasso()
     {
         // Debug.Log("Reset lasso");
-        Debug.Log(visualController == null ? "visualController is null" : "visualController is assigned");
+        // Debug.Log(visualController == null ? "visualController is null" : "visualController is assigned");
         // visualController.EnableVisual();
         lassoHeldInHand = true;
         lassoInAir = false;
