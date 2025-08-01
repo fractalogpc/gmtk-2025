@@ -55,12 +55,17 @@ public class UpgradeManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    public bool OwnsUpgrade(string upgradeName)
+    {
+        Upgrade upgrade = System.Array.Find(upgrades, u => u.Name == upgradeName);
+        return upgrade != null && upgrade.IsOwned;
     }
 
     private void Start()
@@ -121,7 +126,10 @@ public class UpgradeManager : MonoBehaviour
             Debug.LogError("Invalid color index for wool deposit.");
             return;
         }
-
+        if (OwnsUpgrade("Wool-O-Tron #1"))
+        {
+            count *= 2; // Double the count if the upgrade is owned
+        }
         woolColorCounts[colorIndex].Count += count;
         UpdateWoolCounters();
     }
@@ -132,23 +140,35 @@ public class UpgradeManager : MonoBehaviour
         {
             foreach (var obj in upgrade.EnabledObjects)
             {
-                obj.SetActive(true);
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
             }
             foreach (var obj in upgrade.DisabledObjects)
             {
-                obj.SetActive(false);
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
             }
         }
         else
         {
             foreach (var obj in upgrade.EnabledObjects)
             {
-                obj.SetActive(false);
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
             }
-            foreach (var obj in upgrade.DisabledObjects)
-            {
-                obj.SetActive(true);
-            }
+            // foreach (var obj in upgrade.DisabledObjects)
+            // {
+            //     if (obj != null)
+            //     {
+            //         obj.SetActive(true);
+            //     }
+            // }
         }
     }
     
