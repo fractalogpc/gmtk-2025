@@ -54,6 +54,7 @@ public class CartController : MonoBehaviour
 
     public void TryPlaceSheep()
     {
+        Debug.Log("Trying to place sheep in cart");
         if (ToolController.Instance.currentTool == ToolController.ToolType.Sheep)
         {
             AdvancedSheepController sheep = ToolController.Instance.currentlyHeldSheep;
