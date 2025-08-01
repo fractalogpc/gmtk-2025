@@ -92,7 +92,7 @@ public class SheepSpawner : MonoBehaviour
                 sheep.name = "Sheep_" + i;
                 sheep.transform.SetParent(sheepParent);
 
-                sheep.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
+                sheep.GetComponent<AdvancedSheepController>().PlayerTransform = playerController.transform;
 
                 int sheepSize = Random.Range(spawning[i].minSize, spawning[i].maxSize + 1);
                 float myScale = sheepSize / 10f;
@@ -130,7 +130,7 @@ public class SheepSpawner : MonoBehaviour
                     sheep.name = "RareSheep_" + i;
                     sheep.transform.SetParent(sheepParent);
 
-                    sheep.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
+                    sheep.GetComponent<AdvancedSheepController>().PlayerTransform = playerController.transform;
 
                     int sheepSize = Random.Range(rareSheeps[randomSheep].minSize, rareSheeps[randomSheep].maxSize + 1);
                     float myScale = sheepSize / 10f;

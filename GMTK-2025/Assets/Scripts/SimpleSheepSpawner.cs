@@ -38,7 +38,7 @@ public class SimpleSheepSpawner : MonoBehaviour
             GameObject sheep = Instantiate(sheepPrefab, spawnPoints[i], randomRotation);
             sheep.name = "Sheep_" + i;
             sheep.transform.SetParent(sheepParent);
-            sheep.GetComponent<AdvancedSheepController>().playerTransform = playerController.transform;
+            sheep.GetComponent<AdvancedSheepController>().PlayerTransform = playerController.transform;
         }
     }
 

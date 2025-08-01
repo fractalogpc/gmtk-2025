@@ -12,7 +12,15 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public AdvancedSheepController currentQueen = null;
 
     public LayerMask groundMask;
-    public Transform playerTransform;
+    public Transform PlayerTransform
+    {
+        set
+        {
+            playerTransform = value;
+            sheepAnimation.playerPosition = value;
+        }
+    }
+    private Transform playerTransform;
 
     public LayerMask sheapLayer;
     public LayerMask collisionLayer;
@@ -48,6 +56,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     private Collider thisCollider;
 
+    private SheepAnimation sheepAnimation;
+
     [SerializeField] private float[] lodDistances = new float[] { 50f, 150f, 300f, 500f, 1000f };
     [SerializeField] private int[] lodModules = new int[] { 1, 4, 16, 64, 256 };
     private int currentLOD = 0;
@@ -57,6 +67,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     void Awake()
     {
         thisCollider = GetComponent<Collider>();
+
+        sheepAnimation = GetComponentInChildren<SheepAnimation>();
     }
 
     void Start()
@@ -154,6 +166,9 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
                 currentLOD++;
             }
         }
+
+        // Handle animations
+        sheepAnimation.TestForAnimation();
 
         // Check if current queen is still valid
         if (currentQueen != null && !currentQueen.isQueen)
@@ -444,7 +459,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         }
     }
 
-    private IEnumerator PanicSheep(Vector3 playerPosition) {
+    private IEnumerator PanicSheep(Vector3 playerPosition)
+    {
         moving = true;
         running = true;
 
@@ -475,7 +491,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         StartCoroutine(RandomMoveSheep(true));
     }
 
-    private IEnumerator FollowPosition(Transform position, Vector3 playerPosition, LassoController lasso) {
+    private IEnumerator FollowPosition(Transform position, Vector3 playerPosition, LassoController lasso)
+    {
         moving = true;
         while (true)
         {
