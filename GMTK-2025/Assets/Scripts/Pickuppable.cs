@@ -5,8 +5,8 @@ public class Pickuppable : MonoBehaviour, IInteractable
 {
 
     public InventoryController.ItemType itemType;
-    public int woolColorIdx = 0;
-    public int woolSize = 1;
+    public int woolColorIdx;
+    public int woolSize;
 
     public void HoldInteract(float holdTime)
     {
@@ -21,6 +21,7 @@ public class Pickuppable : MonoBehaviour, IInteractable
             // Wool is different
             if (itemType == InventoryController.ItemType.Wool)
             {
+                // Debug.Log("Picked up wool of color index: " + woolColorIdx + " and size: " + woolSize);
                 InventoryController.Instance.TryAddItem(itemType, index, woolColorIdx, woolSize);
                 GameObject parent = transform.parent.gameObject;
                 Destroy(parent);
