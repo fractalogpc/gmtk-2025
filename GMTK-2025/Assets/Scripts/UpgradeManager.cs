@@ -55,7 +55,6 @@ public class UpgradeManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -132,23 +131,35 @@ public class UpgradeManager : MonoBehaviour
         {
             foreach (var obj in upgrade.EnabledObjects)
             {
-                obj.SetActive(true);
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
             }
             foreach (var obj in upgrade.DisabledObjects)
             {
-                obj.SetActive(false);
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
             }
         }
         else
         {
             foreach (var obj in upgrade.EnabledObjects)
             {
-                obj.SetActive(false);
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
             }
-            foreach (var obj in upgrade.DisabledObjects)
-            {
-                obj.SetActive(true);
-            }
+            // foreach (var obj in upgrade.DisabledObjects)
+            // {
+            //     if (obj != null)
+            //     {
+            //         obj.SetActive(true);
+            //     }
+            // }
         }
     }
     
