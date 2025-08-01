@@ -404,7 +404,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         directionAwayFromPlayer.y = 0; // Ignore vertical distance
         directionAwayFromPlayer.Normalize();
 
-        float panicSpeed = UnityEngine.Random.Range(10f, 12f);
+        float panicSpeed = UnityEngine.Random.Range(7f, 9f);
         currentMoveSpeed = panicSpeed;
 
         float panicDuration = UnityEngine.Random.Range(0.25f, 1.0f);
