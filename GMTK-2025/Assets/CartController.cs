@@ -51,4 +51,35 @@ public class CartController : MonoBehaviour
     {
         return new Vector3(v.x, 0, v.z);
     }
+
+    public void TryPlaceSheep()
+    {
+        Debug.Log("Trying to place sheep in cart");
+        if (ToolController.Instance.currentTool == ToolController.ToolType.Sheep)
+        {
+            AdvancedSheepController sheep = ToolController.Instance.currentlyHeldSheep;
+            InventoryController.Instance.TryRemoveItem(InventoryController.Instance.SelectedSlot);
+            ToolController.Instance.SetTool(ToolController.ToolType.None);
+
+            // Place the sheep in the cart
+            sheep.transform.SetParent(transform);
+
+            // Raycast to find where to place the sheep
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+            {
+                sheep.transform.position = hit.point;
+            }
+
+            // Randomize the sheep's rotation on all axes
+            sheep.transform.rotation = Quaternion.Euler(
+                Random.Range(0f, 360f),
+                Random.Range(0f, 360f),
+                Random.Range(0f, 360f)
+            );
+
+            sheep.Show();
+            sheep.PutInCart(this);
+        }
+    }
 }
