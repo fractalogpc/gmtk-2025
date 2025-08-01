@@ -19,6 +19,12 @@ public class InventoryController : InputHandlerBase
     public Sprite woolSprite;
     public Sprite sheepSprite;
 
+    private int lassoLevel = 0;
+    private int shearsLevel = 0;
+
+    public int LassoLevel => lassoLevel;
+    public int ShearsLevel => shearsLevel;
+
     private int selectedSlot = 0;
 
     public ItemType[] inventory = new ItemType[3];
@@ -50,7 +56,7 @@ public class InventoryController : InputHandlerBase
         }
     }
 
-    public bool TryAddItem(ItemType item, int slot, int colorIndex = 0, int size = 1, AdvancedSheepController sheep = null)
+    public bool TryAddItem(ItemType item, int slot, int colorIndex = 0, int size = 1, AdvancedSheepController sheep = null, int level = 0)
     {
         if (slot < 0 || slot >= inventory.Length)
         {
@@ -68,9 +74,11 @@ public class InventoryController : InputHandlerBase
         {
             case ItemType.Lasso:
                 inventorySlots[slot].SetImage(lassoSprite);
+                lassoLevel = level;
                 break;
             case ItemType.Shears:
                 inventorySlots[slot].SetImage(shearsSprite);
+                shearsLevel = level;
                 break;
             case ItemType.Wool:
                 inventorySlots[slot].SetImage(woolSprite);
