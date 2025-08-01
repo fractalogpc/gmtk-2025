@@ -68,4 +68,9 @@ public class LassoVisualController : MonoBehaviour
 
         Destroy(rope);
     }
+
+    public void StartPulling(bool isRetracting)
+    {
+        lassoLoopController.isPulling = isRetracting;
+    }
 }

@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 public class LassoLoopController : MonoBehaviour
@@ -14,6 +15,15 @@ public class LassoLoopController : MonoBehaviour
     public AnimationCurve sizeCurve;
 
     public bool onGround = false;
+    public bool isPulling = false;
+
+    private Transform playerTransform;
+
+    void Start()
+    {
+        playerTransform = FindFirstObjectByType<PlayerController>().transform;
+    }
+
 
     public void CreatePrefabs()
     {
@@ -36,7 +46,7 @@ public class LassoLoopController : MonoBehaviour
     float timer;
     float rotation;
 
-    void LateUpdate()
+    void Update()
     {
         if (joints == null || joints.Length < 2) return;
 
@@ -45,6 +55,17 @@ public class LassoLoopController : MonoBehaviour
         {
             timer += Time.deltaTime;
             rotation += rotationSpeed * Time.deltaTime;
+        }
+        else
+        {
+            // If pulling, rotate towards the player
+            if (isPulling)
+            {
+                Vector3 directionToPlayer = (playerTransform.position - center.position).normalized;
+                // Rotate towards the player at a fixed speed
+                float angleToPlayer = Mathf.Atan2(directionToPlayer.z, directionToPlayer.x) * Mathf.Rad2Deg;
+                rotation = Mathf.MoveTowardsAngle(rotation, angleToPlayer, 180f * Time.deltaTime);
+            }
         }
 
         // Update the positions of the joints to form a rotating loop

@@ -130,10 +130,12 @@ public class LassoController : InputHandlerBase
             if (ctx.phase == InputActionPhase.Performed)
             {
                 isRetracting = true;
+                visualController.StartPulling(true);
             }
             else if (ctx.phase == InputActionPhase.Canceled)
             {
                 isRetracting = false;
+                visualController.StartPulling(false);
             }
         }
     }
