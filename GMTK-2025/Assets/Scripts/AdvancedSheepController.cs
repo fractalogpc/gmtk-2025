@@ -54,6 +54,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     private const float MAX_MOVE_TIME = 5f;
 
+    private const float ROTATION_SPEED = 90f; // Degrees per second
+
     private Collider thisCollider;
 
     private SheepAnimation sheepAnimation;
@@ -364,19 +366,36 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             targetPosition = GetGroundHeight(targetPosition);
 
             looking = true;
-            // Rotate the sheep to face the target position
-            while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position))) > 0.1f)
+            Quaternion initialRotation = transform.rotation;
+            Quaternion finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
+
+            float angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
+
+            float rotationDuration = angleToRotate / ROTATION_SPEED;
+            float rotationElapsed = 0f;
+
+            while (Quaternion.Angle(transform.rotation, finalRotation) > 0.1f)
             {
                 moveTimer += Time.deltaTime;
+                rotationElapsed += Time.deltaTime;
+
                 if (moveTimer > MAX_MOVE_TIME * 2f)
                 {
-                    // If the sheep has been moving for too long, stop moving
                     transform.position = GetGroundHeight(transform.position);
                     break;
                 }
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 180f * Time.deltaTime);
-                yield return null; // Wait for the next frame
+
+                finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
+                angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
+                rotationDuration = Mathf.Max(angleToRotate / ROTATION_SPEED, 0.01f); // Avoid division by zero
+
+                float t = Mathf.Clamp01(rotationElapsed / rotationDuration);
+                float easedT = Mathf.SmoothStep(0f, 1f, t);
+                transform.rotation = Quaternion.Slerp(initialRotation, finalRotation, easedT);
+
+                yield return null;
             }
+
             looking = false;
 
             moving = true;
@@ -418,19 +437,37 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             targetPosition = GetGroundHeight(targetPosition);
 
             looking = true;
-            // Rotate the sheep to face the target position
-            while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position))) > 0.1f)
+
+            Quaternion initialRotation = transform.rotation;
+            Quaternion finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
+
+            float angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
+
+            float rotationDuration = angleToRotate / ROTATION_SPEED;
+            float rotationElapsed = 0f;
+
+            while (Quaternion.Angle(transform.rotation, finalRotation) > 0.1f)
             {
                 moveTimer += Time.deltaTime;
-                if (moveTimer > MAX_MOVE_TIME)
+                rotationElapsed += Time.deltaTime;
+
+                if (moveTimer > MAX_MOVE_TIME * 2f)
                 {
-                    // If the sheep has been moving for too long, stop moving
                     transform.position = GetGroundHeight(transform.position);
                     break;
                 }
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 75f * Time.deltaTime);
-                yield return null; // Wait for the next frame
+
+                finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
+                angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
+                rotationDuration = Mathf.Max(angleToRotate / ROTATION_SPEED, 0.01f); // Avoid division by zero
+
+                float t = Mathf.Clamp01(rotationElapsed / rotationDuration);
+                float easedT = Mathf.SmoothStep(0f, 1f, t);
+                transform.rotation = Quaternion.Slerp(initialRotation, finalRotation, easedT);
+
+                yield return null;
             }
+
             looking = false;
 
             moving = true;
@@ -596,10 +633,34 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         float speed = UnityEngine.Random.Range(3f, 4f);
 
         // Rotate the sheep to face the target position
-        while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position))) > 0.1f)
+        Quaternion initialRotation = transform.rotation;
+        Quaternion finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
+
+        float angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
+
+        float rotationDuration = angleToRotate / ROTATION_SPEED;
+        float rotationElapsed = 0f;
+
+        while (Quaternion.Angle(transform.rotation, finalRotation) > 0.1f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(IgnoreY(targetPosition - transform.position)), 180f * Time.deltaTime);
-            yield return null; // Wait for the next frame
+            moveTimer += Time.deltaTime;
+            rotationElapsed += Time.deltaTime;
+
+            if (moveTimer > MAX_MOVE_TIME * 2f)
+            {
+                transform.position = GetGroundHeight(transform.position);
+                break;
+            }
+
+            finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
+            angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
+            rotationDuration = Mathf.Max(angleToRotate / ROTATION_SPEED, 0.01f); // Avoid division by zero
+
+            float t = Mathf.Clamp01(rotationElapsed / rotationDuration);
+            float easedT = Mathf.SmoothStep(0f, 1f, t);
+            transform.rotation = Quaternion.Slerp(initialRotation, finalRotation, easedT);
+
+            yield return null;
         }
 
         moving = true;
