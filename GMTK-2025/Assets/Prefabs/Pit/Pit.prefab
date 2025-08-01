@@ -1744,6 +1744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4405642498032390579}
+  - component: {fileID: 8296754030049220211}
   m_Layer: 0
   m_Name: Pit
   m_TagString: Untagged
@@ -1771,6 +1772,27 @@ Transform:
   - {fileID: 194450214522951813}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8296754030049220211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062314754087459368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c11da26cc1536c45862931141cc48e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingPrefab: {fileID: 6745334130901370116, guid: 777c83babeffaed4c8cf4c636a3b35a6, type: 3}
+  offerTrigger: {fileID: 0}
+  gameManager: {fileID: 0}
+  fallingObject: {fileID: 4822673915579436930}
+  cthutluSoundsEmitter: {fileID: 0}
+  eatSoundEmitter: {fileID: 0}
+  woolExplosion: {fileID: 0}
+  pitCenter: {x: 0, y: 0, z: 0}
+  pitSize: {x: 50, y: 50, z: 50}
 --- !u!1 &2081590859661581032
 GameObject:
   m_ObjectHideFlags: 0
@@ -8106,5 +8128,10 @@ PrefabInstance:
 --- !u!4 &3257171957616475136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3621568495566829190, guid: 777c83babeffaed4c8cf4c636a3b35a6, type: 3}
+  m_PrefabInstance: {fileID: 2265778973350185606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4822673915579436930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6745334130901370116, guid: 777c83babeffaed4c8cf4c636a3b35a6, type: 3}
   m_PrefabInstance: {fileID: 2265778973350185606}
   m_PrefabAsset: {fileID: 0}
