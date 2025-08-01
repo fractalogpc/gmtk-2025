@@ -40,6 +40,12 @@ public class LassoController : InputHandlerBase
         lassoCollider = GetComponent<Collider>();
     }
 
+    public override void Start()
+    {
+        base.Start();
+        ResetLasso();
+    }
+
     void Update()
     {
         // Charging throw
@@ -222,7 +228,7 @@ public class LassoController : InputHandlerBase
 
     public void RemoveSheep(AdvancedSheepController sheep)
     {
-    
+
         StartCoroutine(DelayRecalculateAmount(0.1f, sheep)); // This is stupid, i know
     }
 
