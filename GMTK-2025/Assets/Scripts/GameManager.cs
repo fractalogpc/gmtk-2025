@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using FMODUnity;
 using Player;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerObject;
     [SerializeField] private PitManager pitManager;
     [SerializeField] private Transform playerStart;
+    [SerializeField] private StudioEventEmitter normalMusicEmitter;
+    [SerializeField] private StudioEventEmitter scaryMusicEmitter;
     public int sheepQuota {
         get;
         private set;
@@ -91,11 +94,13 @@ public class GameManager : MonoBehaviour
             gameState = GameState.CollectSheep;
             ResetPlayerToStart();
             StartDay(currentDay);
+            normalMusicEmitter.Play();
             yield return new WaitForSeconds(SetPlayerVision(true));
             while (timeLeftInDay > 0) {
                 timeLeftInDay -= Time.deltaTime;
                 yield return null;
             }
+            normalMusicEmitter.Stop();
             yield return new WaitForSeconds(SetPlayerVision(false));
             ResetPlayerToStart();
             gameState = GameState.OfferSheep;
@@ -138,6 +143,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddToQuota(int amount) {
+        print("sheep offered");
         numSheepOffered += amount;
         hasOfferedThisDay = true;
     }
