@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PitManager : MonoBehaviour
 {
@@ -15,11 +16,18 @@ public class PitManager : MonoBehaviour
     public GameManager gameManager;
     public GameObject fallingObject;
     public StudioEventEmitter eatSoundEmitter;
+    public StudioEventEmitter shrineOfferSoundEmitter;
+    public StudioEventEmitter shrineErrorSoundEmitter;
     public ParticleSystem woolExplosion;
 
     [Header("Settings")]
     public Vector3 pitCenter;
     public Vector3 pitSize;
+
+    public bool IsOfferable {
+        get;
+        private set;
+    }
 
     private void Start() {
         gameManager = GameManager.Instance;
@@ -34,6 +42,13 @@ public class PitManager : MonoBehaviour
     private Coroutine handleOfferCoroutine;
     public void HandleOffer() {
         if (handleOfferCoroutine != null) return;
+        if (IsOfferable) {
+            shrineOfferSoundEmitter.Play();
+        }
+        else {
+            shrineErrorSoundEmitter.Play();
+            return;
+        }
         handleOfferCoroutine = StartCoroutine(HandleOfferCoroutine());
     }
     private IEnumerator HandleOfferCoroutine() {
@@ -78,7 +93,7 @@ public class PitManager : MonoBehaviour
 
     private void ClearPit() {
        Collider[] colliders = GetCollidersInPit(new[] { "Sheep", "Falling", "Cart" });
-       for (int i = colliders.Length; i > 0; i++) {
+       for (int i = colliders.Length - 1; i > 0; i++) {
           Destroy(colliders[i].gameObject); 
        }
     }

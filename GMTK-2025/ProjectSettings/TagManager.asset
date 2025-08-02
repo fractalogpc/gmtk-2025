@@ -10,6 +10,7 @@ TagManager:
   - Sheep
   - Cart
   - Falling
+  - PlayerStart
   layers:
   - Default
   - TransparentFX
