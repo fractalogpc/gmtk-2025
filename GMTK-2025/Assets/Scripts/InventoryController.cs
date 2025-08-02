@@ -35,7 +35,7 @@ public class InventoryController : InputHandlerBase
     public int SelectedWoolColorIndex => inventory[selectedSlot] == ItemType.Wool ? heldWool[selectedSlot].ColorIndex : -1;
     public int SelectedWoolSize => inventory[selectedSlot] == ItemType.Wool ? heldWool[selectedSlot].Size : -1;
 
-    private struct WoolData
+    public struct WoolData
     {
         public int ColorIndex;
         public int Size;
@@ -86,7 +86,8 @@ public class InventoryController : InputHandlerBase
                 // Debug.Log($"Added wool of color {colorIndex} and size {size} to slot {slot}");
                 break;
             case ItemType.Sheep:
-                if (sheep == null) {
+                if (sheep == null)
+                {
                     Debug.LogError("Sheep cannot be null when adding to inventory.");
                 }
                 heldSheep[slot] = sheep;
@@ -149,7 +150,7 @@ public class InventoryController : InputHandlerBase
                 ToolController.Instance.SetTool(ToolController.ToolType.Shears);
                 break;
             case ItemType.Wool:
-                ToolController.Instance.SetTool(ToolController.ToolType.Wool);
+                ToolController.Instance.SetTool(ToolController.ToolType.Wool, wool: heldWool[slot]);
                 break;
             case ItemType.Sheep:
                 ToolController.Instance.SetTool(ToolController.ToolType.Sheep, sheep: heldSheep[slot]);
@@ -220,5 +221,21 @@ public class InventoryController : InputHandlerBase
     public bool IsHoldingObject(ItemType item)
     {
         return inventory[selectedSlot] == item;
+    }
+
+    public WoolData GetWoolData(int? slot = null)
+    {
+        int Slot;
+        if (slot == null)
+        {
+            Slot = selectedSlot;
+        }
+        else Slot = slot.Value;
+        if (slot < 0 || slot >= heldWool.Length)
+        {
+            Debug.LogError("Invalid wool slot index.");
+            return new WoolData { ColorIndex = -1, Size = -1 };
+        }
+        return heldWool[Slot];
     }
 }

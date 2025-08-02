@@ -14,8 +14,6 @@ public class PitManager : MonoBehaviour
     public GenericInteractable offerTrigger;
     public GameManager gameManager;
     public GameObject fallingObject;
-    public StudioEventEmitter cthutluSoundsEmitter;
-    public StudioEventEmitter offerSound;
     public StudioEventEmitter eatSoundEmitter;
     public ParticleSystem woolExplosion;
 
