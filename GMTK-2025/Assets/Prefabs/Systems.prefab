@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2720922999190115437}
   - component: {fileID: 9170054804979670163}
+  - component: {fileID: 6036741245760329912}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -44,7 +45,387 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a28c4e0d342ce408d70bba908e2ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startDelay: 2
+  playerObject: {fileID: 0}
+  playerStart: {fileID: 0}
+  sheepQuota: 0
+  currentDay: 1
+  timeLeftInDay: 0
+  sheepCollectionTime: 0
+  dailyQuotaIncrease: 0
+  startDelay: 100
+--- !u!114 &6036741245760329912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3579504265299608075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5757dce824560414e816d4be623ab707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgrades:
+  - Name: Pen #1
+    EnabledObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 10
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: SheepReception, Assembly-CSharp
+          m_MethodName: UnlockPen2
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Pen #1 Expansion
+    EnabledObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    DisabledObjects:
+    - {fileID: 0}
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 20
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: SheepReception, Assembly-CSharp
+          m_MethodName: UpgradePen2
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Wool-O-Tron #1
+    EnabledObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    DisabledObjects:
+    - {fileID: 0}
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 20
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - Name: Pen #2
+    EnabledObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 0
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: SheepReception, Assembly-CSharp
+          m_MethodName: UnlockPen1
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Pen #2 Expansion
+    EnabledObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    DisabledObjects:
+    - {fileID: 0}
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 0
+      Count: 20
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: SheepReception, Assembly-CSharp
+          m_MethodName: UpgradePen1
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Chute #1
+    EnabledObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - Name: Chute #2
+    EnabledObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - Name: Lasso #1
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
+          m_MethodName: SetToolLevel
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Lasso #2
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
+          m_MethodName: SetToolLevel
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Lasso #3
+    EnabledObjects: []
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
+          m_MethodName: SetToolLevel
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Shears #1
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
+          m_MethodName: SetToolLevel
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Shears #2
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
+          m_MethodName: SetToolLevel
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Shears #3
+    EnabledObjects: []
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
+          m_MethodName: SetToolLevel
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Name: Nuclear Reactor
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  woolColorCounts:
+  - ColorIndex: 0
+    Icon: {fileID: 21300000, guid: fdcffa6c311e9c248817854a51f86751, type: 3}
+    ColorName: White Wool
+    Count: 25
+  - ColorIndex: 1
+    Icon: {fileID: 21300000, guid: fdcffa6c311e9c248817854a51f86751, type: 3}
+    ColorName: Gray Wool
+    Count: 15
+  - ColorIndex: 3
+    Icon: {fileID: 21300000, guid: fdcffa6c311e9c248817854a51f86751, type: 3}
+    ColorName: Brown Wool
+    Count: 2
+  - ColorIndex: 4
+    Icon: {fileID: 21300000, guid: fdcffa6c311e9c248817854a51f86751, type: 3}
+    ColorName: Pink Wool
+    Count: 2
+  woolCounters:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!1 &4402494168620324202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402084264252409211}
+  - component: {fileID: 5216679256399097542}
+  m_Layer: 0
+  m_Name: SheepDataHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1402084264252409211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402494168620324202}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4037472184301826090}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5216679256399097542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402494168620324202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510ee964f54434c49aa157a472b59e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheeps:
+  - {fileID: 11400000, guid: 5f857fc7278f6f748ad60b20c984f061, type: 2}
+  - {fileID: 11400000, guid: ae843d2be7ec89c429877d196b10f68b, type: 2}
+  - {fileID: 11400000, guid: 6e98c25507a45b1409b2e1c9ce164ebc, type: 2}
 --- !u!1 &4983557154802967216
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +502,7 @@ Transform:
   - {fileID: 1975923338191106375}
   - {fileID: 2720922999190115437}
   - {fileID: 3202493314982199997}
-  - {fileID: 1918516129200973667}
+  - {fileID: 1402084264252409211}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7815731800435359148
@@ -187,67 +568,3 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
---- !u!1 &8997045622172339807
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1918516129200973667}
-  - component: {fileID: 2014063792528728910}
-  m_Layer: 0
-  m_Name: TimeOfDay
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1918516129200973667
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8997045622172339807}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4037472184301826090}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2014063792528728910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8997045622172339807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72398e4b80dbae04cad0291be8498a63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startGameHour: 8
-  _dayCycleInMinutes: 5
-  _daysStartAtZero: 1
-  TimeOfDay:
-    _day: 0
-    _hour: 0
-    _minute: 0
-    _second: 0
-  OnDayChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHourChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnNight:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDay:
-    m_PersistentCalls:
-      m_Calls: []

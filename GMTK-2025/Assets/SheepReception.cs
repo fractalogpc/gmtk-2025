@@ -74,12 +74,17 @@ public class SheepReception : MonoBehaviour, IInteractable
     {
     }
 
+
+    public GameObject errorText;
+
     private Pen pen1;
     public GameObject pen1Text;
     public int[] pen1Pathing;
     public BoxCollider pen1AMesh;
     public void UnlockPen1()
     {
+        errorText.SetActive(false);
+
         pen1 = new Pen
         {
             Name = "Pen 1",
@@ -110,6 +115,8 @@ public class SheepReception : MonoBehaviour, IInteractable
     public BoxCollider pen2AMesh;
     public void UnlockPen2()
     {
+        errorText.SetActive(false);
+
         pen2 = new Pen
         {
             Name = "Pen 2",
