@@ -184,7 +184,6 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         isQueen = true;
     }
 
-
     public void ManualUpdate()
     {
         if (!isActivated) return;
