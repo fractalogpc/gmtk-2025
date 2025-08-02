@@ -408,7 +408,7 @@ MonoBehaviour:
   normalMusicEmitter: {fileID: 4745233779433477221}
   scaryMusicEmitter: {fileID: 0}
   fadeToBlack: {fileID: 2359082463679124788}
-  dayLengthMinutes: 0.1
+  dayLengthMinutes: 5
   startQuota: 3
   dailyQuotaIncrease: 2
   gameState: 0
