@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using TMPro;
+using NUnit.Framework;
 
 public class SheepReception : MonoBehaviour, IInteractable
 {
@@ -36,29 +37,20 @@ public class SheepReception : MonoBehaviour, IInteractable
     {
         if (currentSheepCount == 0) return;
 
-        int availableSpace = 0;
-        foreach (var pen in pens)
-        {
-            availableSpace += pen.AvailableSpace;
-        }
-
-        if (availableSpace == 0)
-        {
-            Debug.Log("All pens are full.");
-            return;
-        }
-
-        foreach (var pen in pens)
+        foreach (Pen pen in pens)
         {
             if (pen.IsFull) continue;
 
-            int sheepToTransfer = Mathf.Min(currentSheepCount, pen.AvailableSpace);
-            pen.CurrentSheep += sheepToTransfer;
-            currentSheepCount -= sheepToTransfer;
+            int resultingSheepCount = pen.FillSheep(currentSheepCount, out Pen.SubPen[] subPens);
 
-            pen.penText.text = $"{pen.Name} - {pen.CurrentSheep}/{pen.MaximumSheep}";
+            foreach (var subPen in subPens)
+            {
+                LassoController.ReleaseSheep(1, subPen);
+            }
 
-            LassoController.ReleaseSheep(sheepToTransfer, pen);
+            currentSheepCount = resultingSheepCount;
+
+            pen.penText.text = $"{pen.Name} - {pen.CurrentSheep()}/{pen.MaximumSheep()}";
         }
     }
 
@@ -79,7 +71,7 @@ public class SheepReception : MonoBehaviour, IInteractable
 
     private Pen pen1;
     public GameObject pen1Text;
-    public int[] pen1Pathing;
+    public int[] pen1APathing;
     public BoxCollider pen1AMesh;
     public void UnlockPen1()
     {
@@ -88,25 +80,50 @@ public class SheepReception : MonoBehaviour, IInteractable
         pen1 = new Pen
         {
             Name = "Pen 1",
-            MaximumSheep = 10,
-            mesh = pen1AMesh,
-            pathingIndices = pen1Pathing,
             penText = pen1Text.GetComponentInChildren<TextMeshProUGUI>()
         };
+
+        Pen.SubPen subPen1A = new Pen.SubPen
+        {
+            MaximumSheep = 1,
+            mesh = pen1AMesh,
+            pathingIndices = pen1APathing
+        };
+        Assert.IsNotNull(pen1, "Pen 1 is null");
+        Assert.IsNotNull(subPen1A, "SubPen 1 is null");
+        pen1.AddSubPen(subPen1A);
 
         pens.Add(pen1);
 
         pen1Text.SetActive(true);
-        pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep}/{pen1.MaximumSheep}");
+        pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep()}/{pen1.MaximumSheep()}");
     }
 
     public BoxCollider pen1BMesh;
     public void UpgradePen1()
     {
-        pen1.MaximumSheep = 20;
-        pen1.mesh = pen1BMesh;
+        var subPen1A = pen1.subPens[0];
+        subPen1A.MaximumSheep = 1;
+        subPen1A.mesh = pen1BMesh;
+        pen1.subPens[0] = subPen1A;
 
-        pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep}/{pen1.MaximumSheep}");
+        pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep()}/{pen1.MaximumSheep()}");
+    }
+
+    public int[] pen1BPathing;
+    public BoxCollider pen1CMesh;
+    public void UpgradePen1C()
+    {
+        Pen.SubPen subPen1B = new Pen.SubPen
+        {
+            MaximumSheep = 20,
+            mesh = pen1CMesh,
+            pathingIndices = pen1BPathing
+        };
+        pen1.AddSubPen(subPen1B);
+
+        pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep()}/{pen1.MaximumSheep()}");
+
     }
 
     private Pen pen2;
@@ -120,53 +137,136 @@ public class SheepReception : MonoBehaviour, IInteractable
         pen2 = new Pen
         {
             Name = "Pen 2",
-            MaximumSheep = 10,
-            mesh = pen2AMesh,
-            pathingIndices = pen2Pathing,
             penText = pen2Text.GetComponentInChildren<TextMeshProUGUI>()
         };
+
+        Pen.SubPen subPen2A = new Pen.SubPen
+        {
+            MaximumSheep = 10,
+            mesh = pen2AMesh,
+            pathingIndices = pen2Pathing
+        };
+        pen2.AddSubPen(subPen2A);
 
         pens.Add(pen2);
 
         pen2Text.SetActive(true);
-        pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep}/{pen2.MaximumSheep}");
+        pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep()}/{pen2.MaximumSheep()}");
     }
 
     public BoxCollider pen2BMesh;
     public void UpgradePen2()
     {
-        pen2.MaximumSheep = 20;
-        pen2.mesh = pen2BMesh;
+        var subPen2A = pen2.subPens[0];
+        subPen2A.MaximumSheep = 20;
+        subPen2A.mesh = pen2BMesh;
+        pen2.subPens[0] = subPen2A;
 
-        pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep}/{pen2.MaximumSheep}");
+        pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep()}/{pen2.MaximumSheep()}");
     }
 }
 
 [System.Serializable]
 public class Pen
 {
-    public string Name;
-    public int MaximumSheep;
-    public int CurrentSheep;
-    public BoxCollider mesh;
-    public TextMeshProUGUI penText;
-
-    public int[] pathingIndices;
-
-    public float2x4 GetCorners()
+    public struct SubPen
     {
-        Bounds bounds = mesh.bounds;
-        float2x4 corners = new float2x4(
-        new float2(bounds.min.x + 0.5f, bounds.min.z + 0.5f), // Bottom Left
-        new float2(bounds.max.x - 0.5f, bounds.min.z + 0.5f), // Bottom Right
-        new float2(bounds.max.x - 0.5f, bounds.max.z - 0.5f), // Top Right
-        new float2(bounds.min.x + 0.5f, bounds.max.z - 0.5f)  // Top Left
-        );
+        public int MaximumSheep;
+        public int CurrentSheep;
+        public int[] pathingIndices;
+        public BoxCollider mesh;
 
-        return corners;
+        public int AvailableSpace => MaximumSheep - CurrentSheep;
+        public bool IsFull => CurrentSheep >= MaximumSheep;
+
+        public float2x4 GetCorners()
+        {
+            Bounds bounds = mesh.bounds;
+            float2x4 corners = new float2x4(
+            new float2(bounds.min.x + 0.5f, bounds.min.z + 0.5f), // Bottom Left
+            new float2(bounds.max.x - 0.5f, bounds.min.z + 0.5f), // Bottom Right
+            new float2(bounds.max.x - 0.5f, bounds.max.z - 0.5f), // Top Right
+            new float2(bounds.min.x + 0.5f, bounds.max.z - 0.5f)  // Top Left
+            );
+
+            return corners;
+        }
+
+        public void SetMaximumSheep(int count)
+        {
+            MaximumSheep = count;
+        }
+
+        public void SetCurrentSheep(int count)
+        {
+            Debug.Log("Setting current sheep count to: " + count);
+            CurrentSheep = count;
+        }
+
     }
 
-    public int AvailableSpace => MaximumSheep - CurrentSheep;
-    public bool IsFull => CurrentSheep >= MaximumSheep;
+    public string Name;
+    public TextMeshProUGUI penText;
+
+    public List<SubPen> subPens = new List<SubPen>();
+    public int MaximumSheep()
+    {
+        int total = 0;
+        foreach (var subPen in subPens)
+        {
+            total += subPen.MaximumSheep;
+        }
+        return total;
+    }
+
+    public int CurrentSheep()
+    {
+        int total = 0;
+        foreach (var subPen in subPens)
+        {
+            total += subPen.CurrentSheep;
+        }
+        return total;
+    }
+
+    public void AddSubPen(SubPen subPen)
+    {
+        subPens.Add(subPen);
+    }
+
+    public int FillSheep(int count, out SubPen[] filledPens)
+    {
+        List<SubPen> filled = new List<SubPen>();
+        for (int i = 0; i < subPens.Count; i++)
+        {
+            if (subPens[i].IsFull) continue;
+
+            if (count < subPens[i].AvailableSpace)
+            {
+                // Fill the subPen with the remaining count
+
+                subPens[i].SetCurrentSheep(subPens[i].CurrentSheep + count);
+
+                filled.AddRange(System.Linq.Enumerable.Repeat(subPens[i], count));
+                filledPens = filled.ToArray();
+                return 0;
+            }
+            else
+            {
+                // Fill the subPen to its maximum capacity then continue to the next subPen
+                int sheepToFill = subPens[i].AvailableSpace;
+                count -= sheepToFill;
+                subPens[i].SetCurrentSheep(subPens[i].MaximumSheep);
+
+                filled.AddRange(System.Linq.Enumerable.Repeat(subPens[i], sheepToFill));
+            }
+        }
+        filledPens = filled.ToArray();
+        return count;
+    }
+
+
+    public int AvailableSpace => MaximumSheep() - CurrentSheep();
+    public bool IsFull => CurrentSheep() >= MaximumSheep();
 
 }

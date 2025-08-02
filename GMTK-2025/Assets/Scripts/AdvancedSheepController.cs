@@ -342,7 +342,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         timeSinceLastQueenCheck += Time.deltaTime;
     }
 
-    public void SendToPen(Pen pen)
+    public void SendToPen(Pen.SubPen pen)
     {
         StopAllCoroutines();
 
@@ -566,7 +566,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         moving = false;
     }
 
-    private IEnumerator RunToPen(Pen pen)
+    private IEnumerator RunToPen(Pen.SubPen pen)
     {
         Vector3[] allPositions = System.Array.ConvertAll(SheepReception.Instance.pathingPoints, t => t.position);
         int[] indices = pen.pathingIndices;
@@ -608,7 +608,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     }
 
     private bool inPen = false;
-    private IEnumerator InPen(Pen pen)
+    private IEnumerator InPen(Pen.SubPen pen)
     {
         Vector2 center = new Vector2(transform.position.x, transform.position.z);
 
