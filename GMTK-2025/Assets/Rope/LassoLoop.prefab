@@ -120,6 +120,7 @@ MonoBehaviour:
   jointCount: 10
   radius: 0
   ropeEnd: {fileID: 0}
+  joints: []
   sizeCurve:
     serializedVersion: 2
     m_Curve:
@@ -145,4 +146,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   onGround: 0
+  isPulling: 0
+  tightenSpeed: 5
+  sheepWidth: 0.2
+  maxLiftHeight: 2
+  liftDistanceThreshold: 3
   rotationSpeed: 300

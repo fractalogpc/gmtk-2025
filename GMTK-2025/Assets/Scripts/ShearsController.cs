@@ -30,7 +30,7 @@ public class ShearsController : InputHandlerBase
             if (shearable != null)
             {
                 shearable.Shear();
-            }
+            } 
             else
             {
                 // Debug.LogWarning("Hit object is not shearable: " + hit.collider.name);
