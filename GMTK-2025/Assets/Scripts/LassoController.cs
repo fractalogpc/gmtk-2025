@@ -50,8 +50,25 @@ public class LassoController : InputHandlerBase
         ResetLasso();
     }
 
-    void Update()
+    void LateUpdate()
     {
+
+        if (lassoHeldInHand)
+        {
+            transform.rotation = originalPosition.rotation;
+
+            if (isChargingThrow)
+            {
+                float percentCharged = Mathf.Clamp01(throwChargeTime / maxLassoTime);
+                float pullbackDist = percentCharged * 0.5f;
+                transform.position = originalPosition.position + Camera.main.transform.forward * -pullbackDist;
+            }
+            else
+            {
+                transform.position = originalPosition.position;
+            }
+        }
+
         // Charging throw
         if (isChargingThrow)
         {
@@ -85,25 +102,6 @@ public class LassoController : InputHandlerBase
             if (Vector3.Distance(transform.position, targetPos) > 15f)
             {
                 transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f));
-            }
-        }
-    }
-
-    void LateUpdate()
-    {
-        if (lassoHeldInHand)
-        {
-            transform.rotation = originalPosition.rotation;
-
-            if (isChargingThrow)
-            {
-                float percentCharged = Mathf.Clamp01(throwChargeTime / maxLassoTime);
-                float pullbackDist = percentCharged * 0.5f;
-                transform.position = originalPosition.position + Camera.main.transform.forward * -pullbackDist;
-            }
-            else
-            {
-                transform.position = originalPosition.position;
             }
         }
     }
@@ -231,7 +229,8 @@ public class LassoController : InputHandlerBase
 
         transform.position = GetGroundHeight(transform.position);
 
-        Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 5f);
+        float range = visualController.lassoLoopController.radius;
+        Collider[] nearbyHits = Physics.OverlapSphere(transform.position, range);
         foreach (var hit in nearbyHits)
         {
             var sheep = hit.GetComponent<AdvancedSheepController>();
@@ -243,6 +242,8 @@ public class LassoController : InputHandlerBase
         }
 
         SheepReception.Instance.currentSheepCount = lassoedSheep.Count;
+
+        visualController.LassoedSheep(lassoedSheep.ToArray());
     }
 
     public void RemoveSheep(AdvancedSheepController sheep)
