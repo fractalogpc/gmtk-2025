@@ -13,7 +13,7 @@ public class CloningChamber : MonoBehaviour
     [SerializeField] private Transform spinPlate;
     [SerializeField] private float spinSpeed = 100f;
     [SerializeField] private Animation doorAnimation;
-
+    [SerializeField] private float cloneDelayRandomAdd = 0.5f;
     [SerializeField] private Vector3 initialSheepMovePoint = new Vector3(0, 0, 0f);
 
     private bool isCloning = false;
@@ -72,8 +72,8 @@ public class CloningChamber : MonoBehaviour
         {
             // cloneController.Initialize();
         }
-
-        yield return new WaitForSeconds(cloneDelay);
+        float randomDelay = Random.Range(0f, cloneDelayRandomAdd);
+        yield return new WaitForSeconds(cloneDelay + randomDelay);
         if (doorAnimation != null)
         {
             doorAnimation.Play("microwavedoorclose");
