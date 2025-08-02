@@ -350,9 +350,11 @@ MonoBehaviour:
     m_Bits: 2048
   woolObjects:
   - {fileID: 1670391326259468492}
+  - {fileID: 299790257856294394}
   - {fileID: 9118232345565096025}
   tailObjects:
   - {fileID: 1063404799673026961}
+  - {fileID: 2668790479899375183}
   - {fileID: 6893352319646135276}
   woolPrefab: {fileID: 2867281913176661523, guid: 46467d343af2ee14190c15663bb4f007, type: 3}
   woolColorIndex: 0
@@ -380,6 +382,11 @@ MonoBehaviour:
   - {fileID: 2184918076381114973}
   - {fileID: 554932420534319020}
   - {fileID: 1161657202189674956}
+  - {fileID: 4610136200415525592}
+  - {fileID: 4678136926364228832}
+  - {fileID: 9201101897305241866}
+  - {fileID: 6096415756551200720}
+  - {fileID: 4801109176562445009}
   woolMaterial: {fileID: 0}
 --- !u!205 &4103881351445388797
 LODGroup:
@@ -1137,6 +1144,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c663b6a6c180a8f48812d30d03a42db8, type: 3}
+--- !u!1 &299790257856294394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4806290422341657832, guid: c663b6a6c180a8f48812d30d03a42db8, type: 3}
+  m_PrefabInstance: {fileID: 5087464534691334418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2668790479899375183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7175145457196498781, guid: c663b6a6c180a8f48812d30d03a42db8, type: 3}
+  m_PrefabInstance: {fileID: 5087464534691334418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &4610136200415525592 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -477328264482556982, guid: c663b6a6c180a8f48812d30d03a42db8, type: 3}
