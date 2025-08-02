@@ -16,7 +16,7 @@ public class InventoryController : InputHandlerBase
 
     public Sprite lassoSprite;
     public Sprite shearsSprite;
-    public Sprite woolSprite;
+    public Sprite[] woolSprites;
     public Sprite sheepSprite;
 
     private int lassoLevel = 0;
@@ -81,7 +81,7 @@ public class InventoryController : InputHandlerBase
                 shearsLevel = level;
                 break;
             case ItemType.Wool:
-                inventorySlots[slot].SetImage(woolSprite);
+                inventorySlots[slot].SetImage(woolSprites[colorIndex]);
                 heldWool[slot] = new WoolData { ColorIndex = colorIndex, Size = size };
                 // Debug.Log($"Added wool of color {colorIndex} and size {size} to slot {slot}");
                 break;
