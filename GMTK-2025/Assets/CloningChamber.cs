@@ -12,6 +12,7 @@ public class CloningChamber : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform spinPlate;
     [SerializeField] private float spinSpeed = 100f;
+    [SerializeField] private Animation doorAnimation;
 
     [SerializeField] private Vector3 initialSheepMovePoint = new Vector3(0, 0, 0f);
 
@@ -51,10 +52,14 @@ public class CloningChamber : MonoBehaviour
         }
 
         clone.transform.localScale = Vector3.one; // Ensure final scale is set to one
-                                                  // Remove sheep from spin plate
+        // Open the door here
+        if (doorAnimation != null)
+        {
+            doorAnimation.Play("microwavedooropen");
+        }
+        yield return new WaitForSeconds(doorAnimation.clip.length);
         cloneController.enabled = true; // Re-enable sheep controller
 
-        // Open the door here
         yield return StartCoroutine(cloneController.RunToPoint(5f, initialSheepMovePoint));
 
         cloneController.PlayerTransform = GameObject.FindWithTag("Player").transform;
@@ -69,6 +74,10 @@ public class CloningChamber : MonoBehaviour
         }
 
         yield return new WaitForSeconds(cloneDelay);
+        if (doorAnimation != null)
+        {
+            doorAnimation.Play("microwavedoorclose");
+        }
         isCloning = false;
     }
 
