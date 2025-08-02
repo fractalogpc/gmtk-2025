@@ -104,7 +104,7 @@ public class UpgradeManager : MonoBehaviour
 
                 upgrade.IsOwned = true;
                 UpdateUpgradeState(upgrade);
-                Debug.Log("Upgrade purchased: " + upgradeName);
+                // Debug.Log("Upgrade purchased: " + upgradeName);
                 UpdateWoolCounters();
                 upgrade.OnUnlockEvent?.Invoke();
                 return true;

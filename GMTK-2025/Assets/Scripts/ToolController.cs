@@ -43,7 +43,7 @@ public class ToolController : MonoBehaviour
     {
         if (currentTool == tool && (tool != ToolType.Wool))
         {
-            Debug.Log($"Tool is already set to {tool}. No changes made.");
+            // Debug.Log($"Tool is already set to {tool}. No changes made.");
             return;
         }
 
