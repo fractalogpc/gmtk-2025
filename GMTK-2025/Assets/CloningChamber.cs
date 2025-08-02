@@ -7,7 +7,6 @@ public class CloningChamber : MonoBehaviour
     [SerializeField] private GameObject sheepPrefab;
 
     [SerializeField] private AnimationCurve sizeCurve;
-    [SerializeField] private float cloneDuration = 5f;
     [SerializeField] private float cloneDelay = 2f;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform spinPlate;
@@ -16,11 +15,26 @@ public class CloningChamber : MonoBehaviour
     [SerializeField] private float cloneDelayRandomAdd = 0.5f;
     [SerializeField] private Vector3 initialSheepMovePoint = new Vector3(0, 0, 0f);
 
+    private ClonableSheep sheepBeingCloned;
     private bool isCloning = false;
 
-    void Start()
+    void Update()
     {
-        StartCoroutine(CloneSheep());
+        if (sheepBeingCloned != null && !isCloning)
+        {
+            StartCoroutine(CloneSheep());
+        }
+    }
+
+    public void ReplaceSheep(AdvancedSheepController sheepController)
+    {
+        ClonableSheep newSheep = new ClonableSheep
+        {
+            colorIndex = sheepController.woolColorIndex,
+            size = sheepController.woolSize
+        };
+
+        sheepBeingCloned = newSheep;
     }
 
     private IEnumerator CloneSheep()
@@ -29,6 +43,12 @@ public class CloningChamber : MonoBehaviour
         {
             yield break; // Prevent multiple clones from being created simultaneously
         }
+
+        float randomDelay = Random.Range(0f, cloneDelayRandomAdd);
+        yield return new WaitForSeconds(cloneDelay + randomDelay);
+
+        ClonableSheep sheep = sheepBeingCloned;
+
         isCloning = true;
         GameObject clone = Instantiate(sheepPrefab, spawnPoint.position, Quaternion.identity);
         clone.transform.name = "ClonedSheep";
@@ -36,11 +56,53 @@ public class CloningChamber : MonoBehaviour
 
         AdvancedSheepController cloneController = clone.GetComponent<AdvancedSheepController>();
         cloneController.PlayerTransform = GameObject.FindWithTag("Player").transform;
-        cloneController.woolSize = 1;
-        cloneController.woolColorIndex = 0; // Default color index
+        cloneController.woolSize = sheep.size;
+        cloneController.woolColorIndex = sheep.colorIndex;
 
         clone.transform.localScale = Vector3.zero; // Start with zero scale
         float elapsed = 0f;
+
+        float cloneDuration = -1f;
+
+        switch (sheep.colorIndex)
+        {
+            case 0:
+            case 1:
+            case 2:
+                {
+                    switch (sheep.size)
+                    {
+                        case 1:
+                            cloneDuration = 25;
+                            break;
+                        case 2:
+                            cloneDuration = 45;
+                            break;
+                        case 3:
+                            cloneDuration = 60;
+                            break;
+                    }
+                }
+                break;
+            case 3:
+            case 4:
+            case 5:
+                {
+                    switch (sheep.size)
+                    {
+                        case 1:
+                            cloneDuration = 50;
+                            break;
+                        case 2:
+                            cloneDuration = 90;
+                            break;
+                        case 3:
+                            cloneDuration = 120;
+                            break;
+                    }
+                }
+                break;
+        }
 
         while (elapsed < cloneDuration)
         {
@@ -53,7 +115,7 @@ public class CloningChamber : MonoBehaviour
         }
 
         clone.transform.localScale = Vector3.one; // Ensure final scale is set to one
-        // Open the door here
+                                                  // Open the door here
         if (doorAnimation != null)
         {
             doorAnimation.Play("microwavedooropen");
@@ -72,18 +134,16 @@ public class CloningChamber : MonoBehaviour
         {
             // cloneController.Initialize();
         }
-        float randomDelay = Random.Range(0f, cloneDelayRandomAdd);
-        yield return new WaitForSeconds(cloneDelay + randomDelay);
         if (doorAnimation != null)
         {
             doorAnimation.Play("microwavedoorclose");
         }
         isCloning = false;
     }
+}
 
-    void Update()
-    {
-        if (!isCloning) StartCoroutine(CloneSheep());
-    }
-
+public class ClonableSheep
+{
+    public int colorIndex;
+    public int size;
 }

@@ -238,4 +238,20 @@ public class InventoryController : InputHandlerBase
         }
         return heldWool[Slot];
     }
+
+    public AdvancedSheepController GetHeldSheep(int? slot = null)
+    {
+        int Slot;
+        if (slot == null)
+        {
+            Slot = selectedSlot;
+        }
+        else Slot = slot.Value;
+        if (Slot < 0 || Slot >= heldSheep.Length)
+        {
+            Debug.LogError("Invalid sheep slot index.");
+            return null;
+        }
+        return heldSheep[Slot];
+    }
 }

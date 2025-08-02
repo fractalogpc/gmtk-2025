@@ -37,14 +37,18 @@ public class SheepReception : MonoBehaviour, IInteractable
     {
         if (currentSheepCount == 0) return;
 
+        Debug.Log("Interacted with Sheep Reception");
+
         foreach (Pen pen in pens)
         {
             if (pen.IsFull) continue;
+            Debug.Log($"Trying to fill pen: {pen.Name}");
 
             int resultingSheepCount = pen.FillSheep(currentSheepCount, out Pen.SubPen[] subPens);
 
             foreach (var subPen in subPens)
             {
+                Debug.Log($"Filling subPen: {subPen.mesh.name} with {subPen.CurrentSheep}/{subPen.MaximumSheep}");
                 LassoController.ReleaseSheep(1, subPen);
             }
 
@@ -68,6 +72,7 @@ public class SheepReception : MonoBehaviour, IInteractable
 
     public bool TrySendSheepToAvailablePen(AdvancedSheepController sheep, out Pen.SubPen? pen)
     {
+        Debug.Log("Trying to send sheep to available pen...");
         pen = null;
         if (sheep == null) return false;
 

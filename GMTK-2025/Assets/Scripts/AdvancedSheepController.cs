@@ -137,6 +137,11 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     {
         moving = false;
         looking = false;
+        isHeld = false;
+        Show();
+        lockMovement = false;
+        isRunning = false;
+        moveTimer = 0f;
         StopAllCoroutines();
         // Check if in a pen
         // Collider[] nearbyHits = Physics.OverlapSphere(transform.position, 2f); // This value should change with the size of the sheep
@@ -196,10 +201,10 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             transform.position = heldPosition.position;
             transform.rotation = heldPosition.rotation;
         }
-    // }
+        // }
 
-    // private void FixedUpdate()
-    // {
+        // private void FixedUpdate()
+        // {
         currentUpdateGroupCount++;
 
         currentLOD = Mathf.Clamp(currentLOD, 0, lodModules.Length - 1);
@@ -392,16 +397,18 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         timeSinceLastQueenCheck += Time.deltaTime;
     }
 
-    public void SendToPen(Pen.SubPen pen)
+    public void SendToPen(Pen.SubPen pen, bool skipFirstPoint = false)
     {
         StopAllCoroutines();
+
+        Debug.Log("Sheep going to pen");
 
         foreach (Collider col in colliders)
         {
             col.enabled = false;
         }
 
-        StartCoroutine(RunToPen(pen));
+        StartCoroutine(RunToPen(pen, skipFirstPoint));
     }
 
     private IEnumerator RandomMoveSheep(bool recursive, float? angle = null)
@@ -688,13 +695,13 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         moving = false;
     }
 
-    private IEnumerator RunToPen(Pen.SubPen pen)
+    private IEnumerator RunToPen(Pen.SubPen pen, bool skipFirstPoint = false)
     {
         Vector3[] allPositions = System.Array.ConvertAll(SheepReception.Instance.pathingPoints, t => t.position);
         int[] indices = pen.pathingIndices;
 
         Vector3[] selectedPositions = new Vector3[indices.Length];
-        for (int i = 0; i < indices.Length; i++)
+        for (int i = skipFirstPoint ? 2 : 0; i < indices.Length; i++)
         {
             selectedPositions[i] = allPositions[indices[i]];
         }
@@ -915,26 +922,25 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         if (isSheared) return;
 
-        collidersToDeactivate = GetComponentsInChildren<Collider>();
-        foreach (Collider col in collidersToDeactivate)
-        {
-            col.enabled = false;
-        }
-
         if (InventoryController.Instance.GetNextAvailableSlot(out int index))
         {
             // Sheep is picked up
+            collidersToDeactivate = GetComponentsInChildren<Collider>();
+            foreach (Collider col in collidersToDeactivate)
+            {
+                col.enabled = false;
+            }
 
-            SheepSpawner.Instance.RemoveSheep(this);
+            // SheepSpawner.Instance.RemoveSheep(this);
 
             StopAllCoroutines();
             InventoryController.Instance.TryAddItem(InventoryController.ItemType.Sheep, index, sheep: this);
 
             isHeld = true;
             heldPosition = ToolController.Instance.sheepHoldPosition;
+            transform.localScale *= heldPosition.localScale.x; // Scale the sheep to match the held position
+            woolPopSoundEmitter.Play();
         }
-        woolPopSoundEmitter.Play();
-        transform.localScale *= heldPosition.localScale.x; // Scale the sheep to match the held position
     }
 
     public void Show()
