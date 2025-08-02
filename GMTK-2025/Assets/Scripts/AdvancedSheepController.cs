@@ -26,6 +26,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public LayerMask collisionLayer;
 
     public GameObject[] woolObjects;
+    public GameObject[] tailObjects;
 
     public GameObject woolPrefab;
     public int woolColorIndex = 0; // Default color index
@@ -66,6 +67,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     public Renderer[] renderers;
 
+    [HideInInspector] public Material woolMaterial;
+
     void Awake()
     {
         thisCollider = GetComponent<Collider>();
@@ -80,6 +83,13 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         transform.position = GetGroundHeight(transform.position);
         DealWithQueen();
         StartCoroutine(RandomMoveSheep(true));
+
+        woolMaterial = woolObjects[0].GetComponent<Renderer>().material;
+
+        foreach (var rend in tailObjects)
+        {
+            rend.GetComponent<Renderer>().material = woolMaterial;
+        }
     }
 
     public void Reset()
@@ -764,6 +774,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         }
 
         GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);
+        Renderer renderer = woolInstance.GetComponentInChildren<Renderer>();
+        renderer.material = woolMaterial; // Use the first wool material as a base
         woolInstance.GetComponentsInChildren<Pickuppable>()[0].woolSize = woolSize;
         // Debug.Log("Wool size: " + woolSize);
         woolInstance.GetComponentsInChildren<Pickuppable>()[0].woolColorIdx = woolColorIndex;

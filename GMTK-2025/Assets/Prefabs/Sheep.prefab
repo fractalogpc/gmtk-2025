@@ -314,6 +314,9 @@ MonoBehaviour:
   woolObjects:
   - {fileID: 1670391326259468492}
   - {fileID: 9118232345565096025}
+  tailObjects:
+  - {fileID: 1063404799673026961}
+  - {fileID: 6893352319646135276}
   woolPrefab: {fileID: 2867281913176661523, guid: 46467d343af2ee14190c15663bb4f007, type: 3}
   woolColorIndex: 0
   woolSize: 1
@@ -759,6 +762,11 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -477328264482556982, guid: c663b6a6c180a8f48812d30d03a42db8, type: 3}
   m_PrefabInstance: {fileID: 4339543346908957873}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6893352319646135276 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7175145457196498781, guid: c663b6a6c180a8f48812d30d03a42db8, type: 3}
+  m_PrefabInstance: {fileID: 4339543346908957873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &9118232345565096025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4806290422341657832, guid: c663b6a6c180a8f48812d30d03a42db8, type: 3}
@@ -831,6 +839,11 @@ PrefabInstance:
 --- !u!23 &554932420534319020 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7699739668608961603, guid: 577c184e199781547aa53099fc425902, type: 3}
+  m_PrefabInstance: {fileID: 7883969476085971951}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1063404799673026961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2042235713540017538, guid: 577c184e199781547aa53099fc425902, type: 3}
   m_PrefabInstance: {fileID: 7883969476085971951}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &1161657202189674956 stripped
