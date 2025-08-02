@@ -363,6 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   signText: 'Pen #1: 10 White Wool'
   signTextObject: {fileID: 0}
+  purchaseSoundPrefab: {fileID: 6046556571230274076, guid: 1d56e1cb8fe044f498b5353589deaa1a, type: 3}
   upgradeName: Pen #1
 --- !u!1 &5038427122898158495
 GameObject:
