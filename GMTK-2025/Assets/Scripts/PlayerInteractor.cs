@@ -28,50 +28,50 @@ public class PlayerInteractor : InputHandlerBase
 
   private void Update()
   {
-    if (RaycastForInteractable())
-    {
-      if (!isHovering)
-      {
-        currentInteractable.OnHoverEnter();
-        isHovering = true;
-      }
-    }
-    else
-    {
-      if (isHovering)
-      {
-        previousInteractable.OnHoverExit();
-        isHovering = false;
-      }
-    }
+    UpdateHoverState();
 
     if (isInteracting)
     {
       HoldInteract();
     }
-
-
   }
 
-  private bool RaycastForInteractable()
+  private void UpdateHoverState()
+  {
+    IInteractable hitInteractable = RaycastForInteractable();
+
+    if (hitInteractable != previousInteractable)
+    {
+      // Exit hover on old
+      if (previousInteractable != null)
+      {
+        previousInteractable.OnHoverExit();
+      }
+
+      // Enter hover on new
+      if (hitInteractable != null)
+      {
+        hitInteractable.OnHoverEnter();
+      }
+
+      currentInteractable = hitInteractable;
+      previousInteractable = currentInteractable;
+    }
+  }
+
+  private IInteractable RaycastForInteractable()
   {
     Ray ray = new Ray(raycastCamera.transform.position, raycastCamera.transform.forward);
     if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, interactableLayer, QueryTriggerInteraction.Collide))
     {
-      IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-      if (interactable != null)
-      {
-        currentInteractable = interactable;
-        currentInteractableObject = hit.collider.gameObject;
-        return true;
-      }
+      currentInteractableObject = hit.collider.gameObject;
+      isHovering = true;
+      return hit.collider.GetComponent<IInteractable>();
     }
 
-    previousInteractable = currentInteractable;
-
-    currentInteractable = null;
     currentInteractableObject = null;
-    return false;
+    isHovering = false;
+    return null;
   }
 
   private void BeginInteract()
