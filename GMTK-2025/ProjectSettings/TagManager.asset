@@ -12,6 +12,7 @@ TagManager:
   - Falling
   - PlayerStart
   - PitManager
+  - SheepSpawner
   layers:
   - Default
   - TransparentFX

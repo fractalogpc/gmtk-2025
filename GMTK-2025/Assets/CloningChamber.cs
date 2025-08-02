@@ -13,6 +13,8 @@ public class CloningChamber : MonoBehaviour
     [SerializeField] private Transform spinPlate;
     [SerializeField] private float spinSpeed = 100f;
 
+    [SerializeField] private Vector3 initialSheepMovePoint = new Vector3(0, 0, 0f);
+
     private bool isCloning = false;
 
     void Start()
@@ -28,7 +30,13 @@ public class CloningChamber : MonoBehaviour
         }
         isCloning = true;
         GameObject clone = Instantiate(sheepPrefab, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<AdvancedSheepController>().enabled = false; // Disable sheep controller during cloning
+        clone.transform.name = "ClonedSheep";
+        clone.transform.SetParent(GameObject.FindWithTag("SheepSpawner").transform);
+
+        AdvancedSheepController cloneController = clone.GetComponent<AdvancedSheepController>();
+        cloneController.woolSize = 1;
+        cloneController.woolColorIndex = 0; // Default color index
+
         clone.transform.localScale = Vector3.zero; // Start with zero scale
         float elapsed = 0f;
 
@@ -44,8 +52,22 @@ public class CloningChamber : MonoBehaviour
 
         clone.transform.localScale = Vector3.one; // Ensure final scale is set to one
                                                   // Remove sheep from spin plate
-        clone.GetComponent<AdvancedSheepController>().enabled = true; // Re-enable sheep controller
-        // Let sheep go into pen idk how
+        cloneController.enabled = true; // Re-enable sheep controller
+
+        // Open the door here
+        yield return StartCoroutine(cloneController.RunToPoint(5f, initialSheepMovePoint));
+
+        cloneController.PlayerTransform = GameObject.FindWithTag("Player").transform;
+        cloneController.Initialize();
+        if (SheepReception.Instance.TrySendSheepToAvailablePen(cloneController, out var pen))
+        {
+            cloneController.SendToPen(pen);
+        }
+        else
+        {
+            // cloneController.Initialize();
+        }
+
         yield return new WaitForSeconds(cloneDelay);
         isCloning = false;
     }

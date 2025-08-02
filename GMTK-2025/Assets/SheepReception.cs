@@ -66,6 +66,21 @@ public class SheepReception : MonoBehaviour, IInteractable
     {
     }
 
+    public bool TrySendSheepToAvailablePen(AdvancedSheepController sheep, out Pen.SubPen? pen)
+    {
+        pen = null;
+        if (sheep == null) return false;
+
+        foreach (Pen p in pens)
+        {
+            if (p.IsFull) continue;
+
+            p.FillSheep(1, out Pen.SubPen[] filledPens);
+            pen = filledPens[0];
+            return true;
+        }
+        return false;
+    }
 
     public GameObject errorText;
 
@@ -157,7 +172,7 @@ public class SheepReception : MonoBehaviour, IInteractable
         Pen.SubPen subPen2A = pen2.subPens[0];
         subPen2A.MaximumSheep = 1;
         subPen2A.mesh = pen2BMesh;
-    
+
         pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep()}/{pen2.MaximumSheep()}");
     }
 
@@ -212,10 +227,7 @@ public class Pen
 
         public void SetCurrentSheep(int count)
         {
-            Debug.Log("Setting current sheep count to: " + count);
             CurrentSheep = count;
-
-            Debug.Log("SubPen " + this + " now has " + CurrentSheep + " sheep out of " + MaximumSheep);
         }
 
     }

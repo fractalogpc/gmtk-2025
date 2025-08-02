@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb4d86580f15464aab3bce9c2ce2dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDeactivatedOnStart: 0
   looking: 0
   moving: 0
   running: 0
@@ -452,6 +453,7 @@ MonoBehaviour:
   afraidSoundEmitter: {fileID: 4659745972348052130}
   soundCooldownMin: 15
   soundCooldownMax: 240
+  muteDistance: 20
 --- !u!1 &3003525407765442046
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,9 @@ using Unity.Mathematics;
 
 public class AdvancedSheepController : MonoBehaviour, IShearable
 {
+    public bool isDeactivatedOnStart = false;
+    private bool isActivated = true;
+
     public bool looking = false;
     public bool moving = false;
     public bool running = false;
@@ -71,6 +74,11 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     void Awake()
     {
+        if (isDeactivatedOnStart)
+        {
+            isActivated = false;
+        }
+
         thisCollider = GetComponent<Collider>();
 
         sheepAnimation = GetComponentInChildren<SheepAnimation>();
@@ -78,6 +86,28 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     void Start()
     {
+        if (isDeactivatedOnStart) return;
+
+        myUpdateGroupCount = UnityEngine.Random.Range(0, MAX_UPDATE_GROUP_COUNT);
+
+        transform.position = GetGroundHeight(transform.position);
+        DealWithQueen();
+        StartCoroutine(RandomMoveSheep(true));
+
+        woolMaterial = woolObjects[0].GetComponent<Renderer>().material;
+
+        foreach (var rend in tailObjects)
+        {
+            rend.GetComponent<Renderer>().material = woolMaterial;
+        }
+    }
+
+    public void Initialize()
+    {
+        thisCollider = GetComponent<Collider>();
+
+        sheepAnimation = GetComponentInChildren<SheepAnimation>();
+        
         myUpdateGroupCount = UnityEngine.Random.Range(0, MAX_UPDATE_GROUP_COUNT);
 
         transform.position = GetGroundHeight(transform.position);
@@ -147,6 +177,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     private void Update()
     {
+        if (!isActivated) return;
         if (inCart) return;
         if (isHeld)
         {
@@ -158,6 +189,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     private void FixedUpdate()
     {
+        if (!isActivated) return;
         if (inCart) return;
         if (isHeld) return;
         currentUpdateGroupCount++;
@@ -590,7 +622,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         StartCoroutine(InPen(pen));
     }
 
-    private IEnumerator RunToPoint(float speed, Vector3 point)
+    public IEnumerator RunToPoint(float speed, Vector3 point)
     {
         while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(IgnoreY(point - transform.position))) > 0.1f)
         {
