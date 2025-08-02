@@ -89,8 +89,6 @@ public class SheepReception : MonoBehaviour, IInteractable
             mesh = pen1AMesh,
             pathingIndices = pen1APathing
         };
-        Assert.IsNotNull(pen1, "Pen 1 is null");
-        Assert.IsNotNull(subPen1A, "SubPen 1 is null");
         pen1.AddSubPen(subPen1A);
 
         pens.Add(pen1);
@@ -102,10 +100,9 @@ public class SheepReception : MonoBehaviour, IInteractable
     public BoxCollider pen1BMesh;
     public void UpgradePen1()
     {
-        var subPen1A = pen1.subPens[0];
+        Pen.SubPen subPen1A = pen1.subPens[0];
         subPen1A.MaximumSheep = 1;
         subPen1A.mesh = pen1BMesh;
-        pen1.subPens[0] = subPen1A;
 
         pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep()}/{pen1.MaximumSheep()}");
     }
@@ -142,7 +139,7 @@ public class SheepReception : MonoBehaviour, IInteractable
 
         Pen.SubPen subPen2A = new Pen.SubPen
         {
-            MaximumSheep = 10,
+            MaximumSheep = 1,
             mesh = pen2AMesh,
             pathingIndices = pen2Pathing
         };
@@ -157,12 +154,27 @@ public class SheepReception : MonoBehaviour, IInteractable
     public BoxCollider pen2BMesh;
     public void UpgradePen2()
     {
-        var subPen2A = pen2.subPens[0];
-        subPen2A.MaximumSheep = 20;
+        Pen.SubPen subPen2A = pen2.subPens[0];
+        subPen2A.MaximumSheep = 1;
         subPen2A.mesh = pen2BMesh;
-        pen2.subPens[0] = subPen2A;
+    
+        pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep()}/{pen2.MaximumSheep()}");
+    }
+
+    public int[] pen2BPathing;
+    public BoxCollider pen2CMesh;
+    public void UpgradePen2C()
+    {
+        Pen.SubPen subPen2B = new Pen.SubPen
+        {
+            MaximumSheep = 20,
+            mesh = pen2CMesh,
+            pathingIndices = pen2BPathing
+        };
+        pen2.AddSubPen(subPen2B);
 
         pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep()}/{pen2.MaximumSheep()}");
+
     }
 }
 
