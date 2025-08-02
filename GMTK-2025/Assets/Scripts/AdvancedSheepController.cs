@@ -842,7 +842,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             isHeld = true;
             heldPosition = ToolController.Instance.sheepHoldPosition;
         }
-
+        woolPopSoundEmitter.Play();
         transform.localScale *= heldPosition.localScale.x; // Scale the sheep to match the held position
     }
 
