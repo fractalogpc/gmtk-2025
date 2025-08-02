@@ -14,7 +14,6 @@ public class PitManager : MonoBehaviour
     public GenericInteractable offerTrigger;
     public GameManager gameManager;
     public GameObject fallingObject;
-    public StudioEventEmitter cthutluSoundsEmitter;
     public StudioEventEmitter eatSoundEmitter;
     public ParticleSystem woolExplosion;
 
@@ -23,10 +22,6 @@ public class PitManager : MonoBehaviour
     public Vector3 pitSize;
 
     private void Start() {
-        Debug.LogWarning("Matthew I disabled pit manager because there were errors");
-        this.enabled = false;
-        return;
-
         offerTrigger.OnInteract.AddListener(HandleOffer);
         ResetFallingRocks();
     }
@@ -37,14 +32,18 @@ public class PitManager : MonoBehaviour
 
     private Coroutine handleOfferCoroutine;
     public void HandleOffer() {
+        if (handleOfferCoroutine != null) return;
         handleOfferCoroutine = StartCoroutine(HandleOfferCoroutine());
     }
-
     private IEnumerator HandleOfferCoroutine() {
-       MakeFallingFall();
-       yield return new WaitForSeconds(3f);
-       CountSheep();
-       EatEffects();
+        MakeFallingFall();
+        yield return new WaitForSeconds(3f);
+        EatEffects();
+        yield return new WaitForSeconds(1.5f);
+        gameManager.AddToQuota(CountSheep());
+        ClearPit();
+        ResetFallingRocks();
+        handleOfferCoroutine = null;
     }
 
     private void ResetFallingRocks() {
@@ -55,7 +54,7 @@ public class PitManager : MonoBehaviour
     }
 
     private Collider[] GetCollidersInPit(string[] tagFilter) {
-        List<Collider> colliders = Physics.OverlapBox(pitCenter, pitSize / 2).ToList();
+        List<Collider> colliders = Physics.OverlapBox(transform.position + pitCenter, pitSize / 2).ToList();
         for (int i = colliders.Count - 1; i >= 0; i--) {
            if (!tagFilter.Contains(colliders[i].gameObject.tag)) colliders.RemoveAt(i); 
         }
@@ -71,8 +70,8 @@ public class PitManager : MonoBehaviour
     }
 
     private void EatEffects() {
-        woolExplosion.Play();
-        eatSoundEmitter.Play();
+        if (woolExplosion != null) woolExplosion.Play();
+        if (eatSoundEmitter != null) eatSoundEmitter.Play();
         // camera shake for duration of eatSound
     }
 
@@ -85,7 +84,7 @@ public class PitManager : MonoBehaviour
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(pitCenter, 0.1f);
-        Gizmos.DrawWireCube(pitCenter, pitSize);
+        Gizmos.DrawSphere(transform.position + pitCenter, 0.1f);
+        Gizmos.DrawCube(transform.position + pitCenter, pitSize);
     }
 }
