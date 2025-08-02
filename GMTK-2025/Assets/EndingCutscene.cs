@@ -1,0 +1,94 @@
+using UnityEngine;
+using System.Collections;
+
+public class EndingCutscene : MonoBehaviour
+{
+
+    [SerializeField] private GameObject cutsceneCamera;
+    [SerializeField] private AnimationCurve rocketLaunchCurve;
+    [SerializeField] private float rocketLaunchDuration = 5f;
+    [SerializeField] private Transform rocketTransform;
+    [SerializeField] private float rocketLaunchHeight = 10f;
+    [SerializeField] private ParticleSystem[] rocketThrusters;
+    [SerializeField] private Outline doorOutline;
+    [SerializeField] private Animation[] doorAnimations;
+    [SerializeField] private GameObject player;
+    [SerializeField] private FadeElementInOut fadeToBlack;
+    [SerializeField] private GameObject[] canvasesToDisable;
+
+    private bool canTriggerCutscene = false;
+
+    private Vector3 initialRocketPosition;
+
+    public void EnableCutsceneTrigger()
+    {
+        canTriggerCutscene = true;
+    }
+
+    public void TriggerCutscene()
+    {
+        if (canTriggerCutscene)
+        {
+            StartCoroutine(PlayCutscene());
+        }
+    }
+
+    private void Start()
+    {
+        initialRocketPosition = rocketTransform.position;
+    }
+
+    private IEnumerator PlayCutscene()
+    {
+        // Fade to black
+        fadeToBlack.FadeIn();
+        yield return new WaitForSeconds(1f);
+
+        cutsceneCamera.SetActive(true);
+        player.SetActive(false); // Hide player during cutscene
+        foreach (var canvas in canvasesToDisable)
+        {
+            canvas.SetActive(false); // Disable any UI elements that should not be visible during the cutscene
+        }
+        doorOutline.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        fadeToBlack.FadeOut();
+        yield return new WaitForSeconds(1f);
+
+        // Start music
+
+        // Open door
+        foreach (var animation in doorAnimations)
+        {
+            animation.Play();
+        }
+
+        yield return new WaitForSeconds(doorAnimations[0].clip.length);
+
+        // Make sheep go into the rocket
+
+        // Start engines
+        foreach (var thruster in rocketThrusters)
+        {
+            thruster.Play();
+        }
+
+        // Launch rocket
+        float elapsed = 0f;
+        bool faded = false;
+        while (elapsed < rocketLaunchDuration)
+        {
+            float t = elapsed / rocketLaunchDuration;
+            float height = rocketLaunchCurve.Evaluate(t) * rocketLaunchHeight;
+            rocketTransform.position = initialRocketPosition + new Vector3(0, height, 0);
+            elapsed += Time.deltaTime;
+            if (t >= 0.8f && !faded)
+            {
+                faded = true;
+                fadeToBlack.FadeIn();
+            }
+            yield return null;
+        }
+    }
+    
+}

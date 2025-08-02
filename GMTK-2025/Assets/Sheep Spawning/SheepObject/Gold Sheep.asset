@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Gold Sheep
   m_EditorClassIdentifier: 
   color: {fileID: 2100000, guid: 3a2513a0978e4e84d82a720fdcc4e787, type: 2}
-  colorIndex: 0
-  heatmap: {fileID: 2800000, guid: 1977167c74906a24aa363affae633946, type: 3}
+  colorIndex: 4
+  heatmap: {fileID: 0}
   sheep: {fileID: 2867281913176661523, guid: 25afa92c61e1d654d8014cf8c1da55ca, type: 3}
-  minSize: 3
-  maxSize: 5
+  minSize: 2
+  maxSize: 4
   priority: 0
