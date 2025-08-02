@@ -39,6 +39,8 @@ public class LassoVisualController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (!isEnabled) return;
+
         ropeStart.transform.position = lassoOrigin.position + Vector3.down * 1.0f;
         ropeEnd.transform.position = lassoLoopController.ropeEnd.position;
     }
