@@ -169,7 +169,8 @@ public class SheepReception : MonoBehaviour, IInteractable
 [System.Serializable]
 public class Pen
 {
-    public struct SubPen
+    [System.Serializable]
+    public class SubPen
     {
         public int MaximumSheep;
         public int CurrentSheep;
@@ -201,6 +202,8 @@ public class Pen
         {
             Debug.Log("Setting current sheep count to: " + count);
             CurrentSheep = count;
+
+            Debug.Log("SubPen " + this + " now has " + CurrentSheep + " sheep out of " + MaximumSheep);
         }
 
     }

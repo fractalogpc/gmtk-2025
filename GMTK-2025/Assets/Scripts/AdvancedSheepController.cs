@@ -574,12 +574,12 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         Vector3[] selectedPositions = new Vector3[indices.Length];
         for (int i = 0; i < indices.Length; i++)
         {
-            selectedPositions[i] = GetGroundHeight(allPositions[indices[i]]);
+            selectedPositions[i] = allPositions[indices[i]];
         }
 
         float speed = UnityEngine.Random.Range(5f, 9f);
 
-        foreach (int i in indices)
+        for (int i = 0; i < selectedPositions.Length; i++)
         {
             yield return StartCoroutine(RunToPoint(speed, selectedPositions[i]));
         }
@@ -639,7 +639,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
 
         Vector3 targetPosition = new Vector3(targetPoint2D.x, transform.position.y, targetPoint2D.y);
-        targetPosition = GetGroundHeight(targetPosition);
+        // targetPosition = GetGroundHeight(targetPosition);
         float speed = UnityEngine.Random.Range(3f, 4f);
 
         // Rotate the sheep to face the target position
@@ -658,7 +658,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
             if (moveTimer > MAX_MOVE_TIME * 2f)
             {
-                transform.position = GetGroundHeight(transform.position);
+                // transform.position = GetGroundHeight(transform.position);
                 break;
             }
 
