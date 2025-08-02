@@ -59,7 +59,20 @@
 			<destination>{376450b3-ddbd-4c3d-b49f-506aacb49882}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{d09bbe2a-008f-4cf7-b993-c2769ea749c1}" />
+	<object class="EventAutomatableProperties" id="{d09bbe2a-008f-4cf7-b993-c2769ea749c1}">
+		<property name="maxVoices">
+			<value>10</value>
+		</property>
+		<property name="priority">
+			<value>0</value>
+		</property>
+		<property name="dopplerEnabled">
+			<value>true</value>
+		</property>
+		<property name="maximumDistance">
+			<value>15</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{11bc7549-c3ee-4c2e-93b7-101a11f7d2d1}" />
 	<object class="Timeline" id="{5799146e-239c-4403-84e6-f05fe5454c7e}">
 		<property name="isProxyEnabled">
@@ -101,6 +114,9 @@
 	</object>
 	<object class="MixerBusPanner" id="{36179caf-b74d-49a7-a067-92fa7980b6a7}" />
 	<object class="MultiSound" id="{d5faacb0-a13d-48a6-a5fe-a22e2eb21b42}">
+		<relationship name="modulators">
+			<destination>{ed502261-a892-4ddc-bba6-4ceb7cde5f3b}</destination>
+		</relationship>
 		<relationship name="sounds">
 			<destination>{a49148e7-819c-45e7-8a4b-a4ae08439743}</destination>
 			<destination>{d52453d6-2e8d-47ef-83ef-d63696bca9c1}</destination>
@@ -110,7 +126,22 @@
 	</object>
 	<object class="MixerBusFader" id="{ece48654-8095-4422-a419-22f83f932aff}" />
 	<object class="MixerBusFader" id="{253c3ec0-d568-48a4-8820-da4b03bd0d18}" />
-	<object class="SpatialiserEffect" id="{a96d5015-7563-44b7-ae81-48ca323d3db6}" />
+	<object class="SpatialiserEffect" id="{a96d5015-7563-44b7-ae81-48ca323d3db6}">
+		<property name="distanceRolloffType">
+			<value>2</value>
+		</property>
+		<property name="maximumDistance">
+			<value>7.20000029</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{ed502261-a892-4ddc-bba6-4ceb7cde5f3b}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>10</value>
+		</property>
+	</object>
 	<object class="SingleSound" id="{a49148e7-819c-45e7-8a4b-a4ae08439743}">
 		<relationship name="audioFile">
 			<destination>{ae417d27-6543-4f21-82b8-4d8d736a8e44}</destination>

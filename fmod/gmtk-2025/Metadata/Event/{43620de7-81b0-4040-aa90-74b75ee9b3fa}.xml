@@ -59,7 +59,11 @@
 			<destination>{376450b3-ddbd-4c3d-b49f-506aacb49882}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{510d7f8d-353f-49db-b997-3b755fce1297}" />
+	<object class="EventAutomatableProperties" id="{510d7f8d-353f-49db-b997-3b755fce1297}">
+		<property name="dopplerEnabled">
+			<value>true</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{8d7c4227-46bf-4b03-a9a6-34f75d3d21f0}" />
 	<object class="Timeline" id="{f8bda019-4c51-4ee8-8fd3-47d026e07f2a}">
 		<property name="isProxyEnabled">
@@ -101,6 +105,10 @@
 	</object>
 	<object class="MixerBusPanner" id="{ac6ca134-cd13-46d3-a56a-698aa06fe4bb}" />
 	<object class="MultiSound" id="{8225bcf9-c26a-42d1-b7cc-e11aa34c0057}">
+		<relationship name="modulators">
+			<destination>{a7a8669f-b842-46c3-85a9-88486172f39a}</destination>
+			<destination>{5a9f2041-4a44-4e0d-ad67-cdd2135a373b}</destination>
+		</relationship>
 		<relationship name="sounds">
 			<destination>{fc49de99-7ee2-454d-98e9-cc0b720c7308}</destination>
 			<destination>{98aff891-8c14-47e3-9c3a-42482d828574}</destination>
@@ -108,7 +116,27 @@
 	</object>
 	<object class="MixerBusFader" id="{54a509c6-1877-4d2b-9fba-54130b7d5467}" />
 	<object class="MixerBusFader" id="{16bb8106-6816-4e12-84c8-78e357319ea3}" />
-	<object class="SpatialiserEffect" id="{09086358-4771-4cec-a108-78918be81996}" />
+	<object class="SpatialiserEffect" id="{09086358-4771-4cec-a108-78918be81996}">
+		<property name="maximumDistance">
+			<value>9</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{a7a8669f-b842-46c3-85a9-88486172f39a}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>7</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{5a9f2041-4a44-4e0d-ad67-cdd2135a373b}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3</value>
+		</property>
+	</object>
 	<object class="SingleSound" id="{fc49de99-7ee2-454d-98e9-cc0b720c7308}">
 		<relationship name="audioFile">
 			<destination>{a03d47fd-e682-46a4-bd48-70891e826a5c}</destination>
