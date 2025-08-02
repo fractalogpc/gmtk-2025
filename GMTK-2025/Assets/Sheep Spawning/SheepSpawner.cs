@@ -16,6 +16,8 @@ public class SheepSpawner : MonoBehaviour
     public Transform sheepParent;
     public List<Transform> rareSheepsPositions = new List<Transform>();
 
+    private List<AdvancedSheepController> sheepControllers = new List<AdvancedSheepController>();
+
     private void Start()
     {
         SpawnSheepWave(_scale, _amount, jitter);
@@ -117,6 +119,8 @@ public class SheepSpawner : MonoBehaviour
                 {
                     rend.GetComponent<Renderer>().material = spawning[i].color;
                 }
+
+                sheepControllers.Add(sheep.GetComponent<AdvancedSheepController>());
             }
         }
 
@@ -161,6 +165,8 @@ public class SheepSpawner : MonoBehaviour
                         }
                     }
                     count++;
+
+                    sheepControllers.Add(sheep.GetComponent<AdvancedSheepController>());
                 }
             }
 
@@ -168,4 +174,15 @@ public class SheepSpawner : MonoBehaviour
                 break;
         }
     }
+
+  private void Update()
+  {
+    foreach (var sheep in sheepControllers)
+    {
+      if (sheep != null)
+      {
+        sheep.ManualUpdate();
+      }
+    }
+  }
 }

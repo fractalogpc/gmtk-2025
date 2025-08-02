@@ -217,7 +217,6 @@ GameObject:
   - component: {fileID: 6838635234615712217}
   - component: {fileID: 3368125105180785803}
   - component: {fileID: 4103881351445388797}
-  - component: {fileID: 1101873936992400870}
   - component: {fileID: 7332001521323343075}
   m_Layer: 9
   m_Name: Sheep
@@ -362,12 +361,13 @@ MonoBehaviour:
   inCartCollider: {fileID: 895117698176688303}
   woolPopSoundEmitter: {fileID: 7210731200509747256}
   lodDistances:
+  - 20
   - 50
   - 150
   - 300
   - 500
   - 1000
-  lodModules: 0400000020000000800000000001000000040000
+  lodModules: 010000000400000040000000000100000002000000040000
   renderers:
   - {fileID: 4997051471274475387}
   - {fileID: 4201714532694104387}
@@ -411,33 +411,6 @@ LODGroup:
     - renderer: {fileID: 3330896191231875699}
     - renderer: {fileID: 4036244510829227890}
   m_Enabled: 1
---- !u!54 &1101873936992400870
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2867281913176661523}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &7332001521323343075
 MonoBehaviour:
   m_ObjectHideFlags: 0

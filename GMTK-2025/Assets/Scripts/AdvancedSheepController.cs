@@ -15,6 +15,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public bool isQueen = false;
     public AdvancedSheepController currentQueen = null;
 
+    private SheepAudio sheepAudio;
+
     public LayerMask groundMask;
     public Transform PlayerTransform
     {
@@ -52,7 +54,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     private int myUpdateGroupCount = 0;
     private int currentUpdateGroupCount = 0;
 
-    private const float SECONDS_BETWEEN_QUEEN_CHECKS = 2f;
+    private const float SECONDS_BETWEEN_QUEEN_CHECKS = 10f;
     private float timeSinceLastQueenCheck = 0f;
 
     private const float RANGE_FOR_QUEEN_GROUPING = 100f;
@@ -65,7 +67,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     private SheepAnimation sheepAnimation;
 
-  public StudioEventEmitter woolPopSoundEmitter;
+    public StudioEventEmitter woolPopSoundEmitter;
 
     [SerializeField] private float[] lodDistances = new float[] { 50f, 150f, 300f, 500f, 1000f };
     [SerializeField] private int[] lodModules = new int[] { 1, 4, 16, 64, 256 };
@@ -85,6 +87,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         thisCollider = GetComponent<Collider>();
 
         sheepAnimation = GetComponentInChildren<SheepAnimation>();
+
+        sheepAudio = GetComponentInChildren<SheepAudio>();
     }
 
     void Start()
@@ -92,6 +96,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         if (isDeactivatedOnStart) return;
 
         myUpdateGroupCount = UnityEngine.Random.Range(0, MAX_UPDATE_GROUP_COUNT);
+        currentLOD = Mathf.Clamp(currentLOD, 0, lodModules.Length - 1);
 
         transform.position = GetGroundHeight(transform.position);
         DealWithQueen();
@@ -107,11 +112,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
     public void Initialize()
     {
-        thisCollider = GetComponent<Collider>();
-
-        sheepAnimation = GetComponentInChildren<SheepAnimation>();
-        
         myUpdateGroupCount = UnityEngine.Random.Range(0, MAX_UPDATE_GROUP_COUNT);
+        currentLOD = Mathf.Clamp(currentLOD, 0, lodModules.Length - 1);
 
         transform.position = GetGroundHeight(transform.position);
         DealWithQueen();
@@ -123,7 +125,11 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         {
             rend.GetComponent<Renderer>().material = woolMaterial;
         }
+
+        isActivated = true;
     }
+
+    bool skippingFrame = false;
 
     public void Reset()
     {
@@ -178,7 +184,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         isQueen = true;
     }
 
-    private void Update()
+
+    public void ManualUpdate()
     {
         if (!isActivated) return;
         if (inCart) return;
@@ -188,13 +195,10 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             transform.position = heldPosition.position;
             transform.rotation = heldPosition.rotation;
         }
-    }
+    // }
 
-    private void FixedUpdate()
-    {
-        if (!isActivated) return;
-        if (inCart) return;
-        if (isHeld) return;
+    // private void FixedUpdate()
+    // {
         currentUpdateGroupCount++;
 
         currentLOD = Mathf.Clamp(currentLOD, 0, lodModules.Length - 1);
@@ -202,13 +206,18 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         int updateModulo = lodModules[currentLOD];
         if ((currentUpdateGroupCount % updateModulo) != (myUpdateGroupCount % updateModulo))
         {
+            skippingFrame = true;
             return;
+        }
+        else
+        {
+            skippingFrame = false;
         }
 
         // Determine the current LOD based on distance to the player
         {
             currentLOD = 0;
-            while (currentLOD < lodDistances.Length - 1 && DistanceIgnoreY(transform.position, playerTransform.position) > lodDistances[currentLOD + 1])
+            while (currentLOD < lodDistances.Length - 1 && Vector3.Distance(transform.position, playerTransform.position) > lodDistances[currentLOD + 1])
             {
                 currentLOD++;
             }
@@ -216,6 +225,9 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         // Handle animations
         sheepAnimation.TestForAnimation();
+
+        // Handle audio
+        sheepAudio.UpdateSound();
 
         // Check if current queen is still valid
         if (currentQueen != null && !currentQueen.isQueen)
@@ -313,6 +325,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         if (timeSinceLastQueenCheck >= SECONDS_BETWEEN_QUEEN_CHECKS)
         {
+            timeSinceLastQueenCheck = 0f;
+
             // If is queen and another sheep is nearby, bring it to the flock
             if (isQueen)
             {
@@ -421,8 +435,20 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
             while (Quaternion.Angle(transform.rotation, finalRotation) > 0.1f)
             {
-                moveTimer += Time.deltaTime;
-                rotationElapsed += Time.deltaTime;
+
+                float skippedTime = 0f;
+                // Wait for the next frame if the update group count does not match
+                while (skippingFrame)
+                {
+                    skippedTime += Time.deltaTime;
+                    moveTimer += Time.deltaTime;
+                    rotationElapsed += Time.deltaTime;
+                    yield return null; // Wait for the next frame
+                }
+                // if ((currentUpdateGroupCount % updateModulo) != (myUpdateGroupCount % updateModulo))
+                // {
+                //     yield return null; // Wait for the next frame
+                // }
 
                 if (moveTimer > MAX_MOVE_TIME * 2f)
                 {
@@ -433,6 +459,11 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
                 finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
                 angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
                 rotationDuration = Mathf.Max(angleToRotate / ROTATION_SPEED, 0.01f); // Avoid division by zero
+
+                // Add both skipped time and current frame’s deltaTime
+                float currentDelta = Time.deltaTime;
+                float totalDelta = skippedTime + currentDelta;
+                rotationElapsed += totalDelta;
 
                 float t = Mathf.Clamp01(rotationElapsed / rotationDuration);
                 float easedT = Mathf.SmoothStep(0f, 1f, t);
@@ -447,16 +478,38 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             // Start moving towards the target position
             while (DistanceIgnoreY(transform.position, targetPosition) > 0.1f)
             {
-                moveTimer += Time.deltaTime;
+                float skippedTime = 0f;
+
+                // Accumulate skipped time while this sheep is waiting its turn
+                while (skippingFrame)
+                {
+                    float delta = Time.deltaTime;
+                    skippedTime += delta;
+                    moveTimer += delta;
+                    rotationElapsed += delta;
+                    yield return null;
+                }
+
+                float deltaTime = Time.deltaTime;
+                float totalDelta = skippedTime + deltaTime;
+
+                moveTimer += totalDelta;
                 if (moveTimer > MAX_MOVE_TIME * 2f)
                 {
-                    // If the sheep has been moving for too long, stop moving
                     transform.position = GetGroundHeight(transform.position);
                     break;
                 }
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-                yield return null; // Wait for the next frame
+
+                // Move based on total actual time passed
+                transform.position = Vector3.MoveTowards(
+                  transform.position,
+                  targetPosition,
+                  speed * totalDelta
+                );
+
+                yield return null;
             }
+
             moving = false;
         }
         else
@@ -493,8 +546,15 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
             while (Quaternion.Angle(transform.rotation, finalRotation) > 0.1f)
             {
-                moveTimer += Time.deltaTime;
-                rotationElapsed += Time.deltaTime;
+                float skippedTime = 0f;
+                // Wait for the next frame if the update group count does not match
+                while (skippingFrame)
+                {
+                    skippedTime += Time.deltaTime;
+                    moveTimer += Time.deltaTime;
+                    rotationElapsed += Time.deltaTime;
+                    yield return null; // Wait for the next frame
+                }
 
                 if (moveTimer > MAX_MOVE_TIME * 2f)
                 {
@@ -506,6 +566,11 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
                 angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
                 rotationDuration = Mathf.Max(angleToRotate / ROTATION_SPEED, 0.01f); // Avoid division by zero
 
+                // Add both skipped time and current frame’s deltaTime
+                float currentDelta = Time.deltaTime;
+                float totalDelta = skippedTime + currentDelta;
+                rotationElapsed += totalDelta;
+
                 float t = Mathf.Clamp01(rotationElapsed / rotationDuration);
                 float easedT = Mathf.SmoothStep(0f, 1f, t);
                 transform.rotation = Quaternion.Slerp(initialRotation, finalRotation, easedT);
@@ -516,19 +581,40 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             looking = false;
 
             moving = true;
-            // Start moving towards the target position
             while (DistanceIgnoreY(transform.position, targetPosition) > 0.1f)
             {
-                moveTimer += Time.deltaTime;
-                if (moveTimer > MAX_MOVE_TIME)
+                float skippedTime = 0f;
+
+                // Accumulate skipped time while this sheep is waiting its turn
+                while (skippingFrame)
                 {
-                    // If the sheep has been moving for too long, stop moving
+                    float delta = Time.deltaTime;
+                    skippedTime += delta;
+                    moveTimer += delta;
+                    rotationElapsed += delta;
+                    yield return null;
+                }
+
+                float deltaTime = Time.deltaTime;
+                float totalDelta = skippedTime + deltaTime;
+
+                moveTimer += totalDelta;
+                if (moveTimer > MAX_MOVE_TIME * 2f)
+                {
                     transform.position = GetGroundHeight(transform.position);
                     break;
                 }
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-                yield return null; // Wait for the next frame
+
+                // Move based on total actual time passed
+                transform.position = Vector3.MoveTowards(
+                  transform.position,
+                  targetPosition,
+                  speed * totalDelta
+                );
+
+                yield return null;
             }
+
             moving = false;
         }
 
