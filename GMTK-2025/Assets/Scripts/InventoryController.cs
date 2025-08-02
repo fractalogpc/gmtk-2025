@@ -150,7 +150,6 @@ public class InventoryController : InputHandlerBase
                 ToolController.Instance.SetTool(ToolController.ToolType.Shears);
                 break;
             case ItemType.Wool:
-                Debug.Log("Selecting wool");
                 ToolController.Instance.SetTool(ToolController.ToolType.Wool, wool: heldWool[slot]);
                 break;
             case ItemType.Sheep:
