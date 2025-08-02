@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    
     [Header("References")]
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Transform playerStart;
@@ -19,6 +21,15 @@ public class GameManager : MonoBehaviour
     public float startDelay = 2f;
     bool initialized = false;
     private float initalizationTimer = 0f;
+
+    private void Awake() {
+        if (Instance == null) {
+            Instance = this;
+        }
+        else {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
