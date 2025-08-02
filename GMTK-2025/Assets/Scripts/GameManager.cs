@@ -38,13 +38,13 @@ public class GameManager : MonoBehaviour
   }
   [SerializeField] private FadeElementInOut fadeToBlack;
   [Header("Settings")]
-  [SerializeField] private float dayLengthMinutes;
+  public float dayLengthMinutes;
   [SerializeField] private int startQuota;
   [SerializeField] private int dailyQuotaIncrease;
 
   public GameState gameState;
 
-  private int numSheepOffered = 0;
+  public int numSheepOffered = 0;
   private bool hasOfferedThisDay = false;
 
   public float startDelay = 2f;
