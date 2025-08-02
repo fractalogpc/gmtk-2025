@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Background:
-        m_Texture: {fileID: 2800000, guid: 8d1ffe9067c85124ab7be70b32a01c50, type: 3}
+        m_Texture: {fileID: 8400000, guid: 0395d9959e0cbb84f8b36d2cbd7fe966, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ScreenImage:
@@ -58,9 +58,9 @@ Material:
     m_Colors:
     - _Point_Color: {r: 0, g: 1, b: 0.051280685, a: 0}
     - _ScreenColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Sheep0: {r: 0.6606212, g: 0.5814087, b: 0, a: 0}
-    - _Sheep1: {r: 0.7494191, g: 0.51299727, b: 0, a: 0}
-    - _Sheep2: {r: 0.45993122, g: 0.40551227, b: 0, a: 0}
+    - _Sheep0: {r: 0.27658245, g: 0.45148084, b: 0, a: 0}
+    - _Sheep1: {r: 0.35566944, g: 0.57637626, b: 0, a: 0}
+    - _Sheep2: {r: 0.7684794, g: 0.51448506, b: 0, a: 0}
     - _XExtents: {r: 0, g: 0.5, b: 0, a: 0}
     - _YExtents: {r: 0.5, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
