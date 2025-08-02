@@ -111,5 +111,21 @@
 	</object>
 	<object class="MixerBusFader" id="{bd4e8019-26ea-4c66-883b-534353f43f91}" />
 	<object class="MixerBusFader" id="{4165ec28-a420-4f85-be2f-a1280add4fb5}" />
-	<object class="SpatialiserEffect" id="{0dc5cc98-3c5c-42f2-a2bf-fad24d7ac68d}" />
+	<object class="SpatialiserEffect" id="{0dc5cc98-3c5c-42f2-a2bf-fad24d7ac68d}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
+		<property name="maximumDistance">
+			<value>3200</value>
+		</property>
+		<property name="overrideRange">
+			<value>true</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>96</value>
+		</property>
+	</object>
 </objects>

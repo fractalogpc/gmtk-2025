@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PitManager : MonoBehaviour
 {
@@ -14,13 +15,25 @@ public class PitManager : MonoBehaviour
     public GenericInteractable offerTrigger;
     public GameManager gameManager;
     public GameObject fallingObject;
+    public StudioEventEmitter crashSoundEmitter;
     public StudioEventEmitter eatSoundEmitter;
+    public StudioEventEmitter shrineOfferSoundEmitter;
+    public StudioEventEmitter shrineErrorSoundEmitter;
     public ParticleSystem woolExplosion;
 
     [Header("Settings")]
     public Vector3 pitCenter;
     public Vector3 pitSize;
 
+    public bool IsOfferable {
+        get;
+        private set;
+    }
+
+    public void SetOfferable(bool value) {
+        IsOfferable = value;
+    }
+    
     private void Start() {
         gameManager = GameManager.Instance;
         offerTrigger.OnInteract.AddListener(HandleOffer);
@@ -34,13 +47,20 @@ public class PitManager : MonoBehaviour
     private Coroutine handleOfferCoroutine;
     public void HandleOffer() {
         if (handleOfferCoroutine != null) return;
+        if (IsOfferable) {
+            shrineOfferSoundEmitter.Play();
+        }
+        else {
+            shrineErrorSoundEmitter.Play();
+            return;
+        }
         handleOfferCoroutine = StartCoroutine(HandleOfferCoroutine());
     }
     private IEnumerator HandleOfferCoroutine() {
         MakeFallingFall();
         yield return new WaitForSeconds(3f);
         EatEffects();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(8f);
         gameManager.AddToQuota(CountSheep());
         ClearPit();
         ResetFallingRocks();
@@ -68,6 +88,7 @@ public class PitManager : MonoBehaviour
 
     private void MakeFallingFall() {
         fallingObject.GetComponent<MakeChildrenRigidbodies>().MakeRigidbodies();
+        crashSoundEmitter.Play();
     }
 
     private void EatEffects() {
@@ -78,7 +99,7 @@ public class PitManager : MonoBehaviour
 
     private void ClearPit() {
        Collider[] colliders = GetCollidersInPit(new[] { "Sheep", "Falling", "Cart" });
-       for (int i = colliders.Length; i > 0; i++) {
+       for (int i = colliders.Length - 1; i >= 0; i--) {
           Destroy(colliders[i].gameObject); 
        }
     }
