@@ -6,6 +6,7 @@ public class SignBehaviour : MonoBehaviour
 
     [SerializeField] private string signText = "Pen #1: 10 White Wool";
     [SerializeField] private TextMeshProUGUI signTextObject;
+    [SerializeField] private GameObject purchaseSoundPrefab;
 
     [SerializeField] private string upgradeName = "Pen #1";
 
@@ -35,6 +36,8 @@ public class SignBehaviour : MonoBehaviour
         
         if (UpgradeManager.Instance.TryBuyUpgrade(upgradeName))
         {
+            GameObject sound = Instantiate(purchaseSoundPrefab, transform.position, Quaternion.identity, transform.root);
+            Destroy(sound, 5f);
             // Debug.Log("Wool removed successfully.");
             Destroy(gameObject);
         }
