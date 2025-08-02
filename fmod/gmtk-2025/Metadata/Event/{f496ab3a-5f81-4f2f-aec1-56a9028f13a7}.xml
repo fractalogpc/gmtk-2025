@@ -31,6 +31,9 @@
 		<relationship name="parameters">
 			<destination>{453645a7-c097-4c51-a210-58e684c20e73}</destination>
 		</relationship>
+		<relationship name="banks">
+			<destination>{ebe46144-891d-4a2d-9974-0541a631c4ef}</destination>
+		</relationship>
 	</object>
 	<object class="EventMixer" id="{78925bb3-56a1-484c-94c9-ef1926ac19e3}">
 		<relationship name="masterBus">
@@ -69,6 +72,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{a20a3bc2-bdf7-46a3-9512-31de78cce78d}">
+		<property name="volume">
+			<value>-12</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{8e25cde8-7748-4cae-a48d-67164983e754}</destination>
 		</relationship>
@@ -93,6 +99,8 @@
 	<object class="MixerBusEffectChain" id="{8e25cde8-7748-4cae-a48d-67164983e754}">
 		<relationship name="effects">
 			<destination>{0c5712e5-c024-4b60-b685-82c7a029509e}</destination>
+			<destination>{6267c5e7-239c-49ff-b48e-e90a4c3d9a99}</destination>
+			<destination>{14719bc9-841a-49de-9db3-af251f74b65a}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{fcefe033-58d4-4bae-8851-157137d1b030}" />
@@ -106,4 +114,14 @@
 	</object>
 	<object class="MixerBusFader" id="{4870127d-73aa-4213-a4e4-91c48241abea}" />
 	<object class="MixerBusFader" id="{0c5712e5-c024-4b60-b685-82c7a029509e}" />
+	<object class="SFXReverbEffect" id="{6267c5e7-239c-49ff-b48e-e90a4c3d9a99}">
+		<property name="wetLevel">
+			<value>-44</value>
+		</property>
+	</object>
+	<object class="MultibandEqEffect" id="{14719bc9-841a-49de-9db3-af251f74b65a}">
+		<property name="frequencyA">
+			<value>5500</value>
+		</property>
+	</object>
 </objects>

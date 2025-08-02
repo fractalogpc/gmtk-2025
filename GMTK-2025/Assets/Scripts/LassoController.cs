@@ -1,6 +1,8 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FMODUnity;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +14,10 @@ public class LassoController : InputHandlerBase
     public PlayerController playerController;
     public AnimationCurve lassoCurve;
     public float maxLassoTime = 2f;
+    public StudioEventEmitter chargeSoundEmitter;
+    public StudioEventEmitter throwSoundEmitter;
+    public StudioEventEmitter pullSoundEmitter;
+    public StudioEventEmitter breakSoundEmitter;
 
     public LayerMask groundMask;
 
@@ -104,7 +110,71 @@ public class LassoController : InputHandlerBase
                 transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f));
             }
         }
+
+        if (StartedChargingThrow())
+        {
+            print("started charging throw");
+            chargeSoundEmitter.Play();
+        }
+        if (StoppedChargingThrow())
+        {
+            print("stopped charging throw");
+            chargeSoundEmitter.Stop();
+        }
+        if (StartedPulling())
+        {
+            print("started pulling");
+            pullSoundEmitter.Play();
+        }
+        if (StoppedPulling())
+        {
+            print("stopped pulling");
+            pullSoundEmitter.Stop();
+        }
+
+        isRetractingLastFrame = isRetracting;
+        isChargingThrowLastFrame = isChargingThrow;
     }
+    private bool isRetractingLastFrame = false;
+    private bool StartedPulling()
+    {
+        if (!isRetractingLastFrame && isRetracting)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    private bool StoppedPulling()
+    {
+        if (isRetractingLastFrame && !isRetracting)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
+    private bool isChargingThrowLastFrame = false;
+    private bool StartedChargingThrow()
+    {
+        if (!isChargingThrowLastFrame && isChargingThrow)
+        {
+            isChargingThrowLastFrame = isChargingThrow;
+            return true;
+        }
+        return false;
+    }
+    private bool StoppedChargingThrow()
+    {
+        if (isChargingThrowLastFrame && !isChargingThrow)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
     private void OnLasso(InputAction.CallbackContext ctx)
     {
@@ -157,6 +227,7 @@ public class LassoController : InputHandlerBase
 
         heldLasso.SetActive(false);
         visualController.EnableVisual();
+        throwSoundEmitter.Play();
     }
 
     private float GetLassoMagnitude(float chargeTime)
@@ -217,6 +288,7 @@ public class LassoController : InputHandlerBase
             lassoInAir = false;
             isPullingTarget = true;
             StartPullingTarget();
+            throwSoundEmitter.Stop();
         }
     }
 

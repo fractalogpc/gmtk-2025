@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 2286234364493629807}
   - component: {fileID: 830086413794560497}
   - component: {fileID: 5682774850098268507}
+  - component: {fileID: 5681981633975263092}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -227,6 +228,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5681981633975263092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728018281474345059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1307417209
+      Data2: 1305131574
+      Data3: -1867504492
+      Data4: -1491487809
+    Path: event:/Items/Lasso/LassoThrow
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &7375428663479603946
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +274,9 @@ GameObject:
   - component: {fileID: 4524969789910851273}
   - component: {fileID: 2089795282631770854}
   - component: {fileID: 2131917488127391299}
+  - component: {fileID: 2521050091056018570}
+  - component: {fileID: 2425315134852744202}
+  - component: {fileID: 3454720066271721608}
   m_Layer: 12
   m_Name: Lasso
   m_TagString: Untagged
@@ -406,10 +441,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxLassoTime: 1
+  chargeSoundEmitter: {fileID: 2425315134852744202}
+  throwSoundEmitter: {fileID: 5681981633975263092}
+  pullSoundEmitter: {fileID: 3454720066271721608}
+  breakSoundEmitter: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  heldLasso: {fileID: 0}
+  heldLasso: {fileID: 4728018281474345059}
   visualController: {fileID: 2131917488127391299}
   lassoedSheep: []
 --- !u!54 &2089795282631770854
@@ -457,3 +496,96 @@ MonoBehaviour:
   lassoOrigin: {fileID: 0}
   lassoGoal: {fileID: 619647672610392005}
   lassoLoopController: {fileID: 0}
+--- !u!114 &2521050091056018570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7375428663479603946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 976085732
+      Data2: 1219200861
+      Data3: 491936931
+      Data4: -576599336
+    Path: event:/Items/Lasso/LassoEquip
+  Event: 
+  EventPlayTrigger: 11
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &2425315134852744202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7375428663479603946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -2062433317
+      Data2: 1194416845
+      Data3: -1164975208
+      Data4: -1192452609
+    Path: event:/Items/Lasso/LassoCharge
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &3454720066271721608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7375428663479603946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1963107450
+      Data2: 1293545224
+      Data3: 536769687
+      Data4: 1331329118
+    Path: event:/Items/Lasso/LassoPull
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

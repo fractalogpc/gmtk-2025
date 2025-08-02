@@ -5,7 +5,7 @@
 			<value>LassoThrow</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{2b06e21f-7a6e-4eff-b592-5b8bd61f6115}</destination>
@@ -297,6 +297,7 @@
 	<object class="MixerBusEffectChain" id="{0256ea09-ac30-4de1-890b-7ece2c064608}">
 		<relationship name="effects">
 			<destination>{4ec5e781-ff5e-4d92-be7b-9a4bb22bbad7}</destination>
+			<destination>{233dbf0b-666d-4b48-983d-f7b1d2baf059}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{b9975a31-e22d-417d-bfb9-91c4908dbbbd}" />
@@ -342,4 +343,5 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{4ec5e781-ff5e-4d92-be7b-9a4bb22bbad7}" />
+	<object class="SpatialiserEffect" id="{233dbf0b-666d-4b48-983d-f7b1d2baf059}" />
 </objects>
