@@ -340,10 +340,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 0}
+  pitManager: {fileID: 0}
   playerStart: {fileID: 0}
   fadeToBlack: {fileID: 2359082463679124788}
-  dayLengthMinutes: 5
-  dailyQuotaIncrease: 0
+  dayLengthMinutes: 0.1
+  startQuota: 3
+  dailyQuotaIncrease: 2
   gameState: 0
   startDelay: 100
 --- !u!114 &6036741245760329912
@@ -410,6 +412,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - Name: Pen #2 Second Floor
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls: []
   - Name: Wool-O-Tron #1
     EnabledObjects:
     - {fileID: 0}
@@ -635,6 +648,28 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - Name: Nuclear Reactor
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - Name: Particle Accelerator
+    EnabledObjects:
+    - {fileID: 0}
+    DisabledObjects: []
+    IsOwned: 0
+    WoolCosts:
+    - ColorIndex: 1
+      Count: 5
+    OnUnlockEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - Name: Pen #2 Second Floor
     EnabledObjects:
     - {fileID: 0}
     DisabledObjects: []

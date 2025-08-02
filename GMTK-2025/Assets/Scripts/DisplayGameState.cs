@@ -15,6 +15,6 @@ public class DisplayGameState : MonoBehaviour
 	private void Update() {
 		countdownText.text = TimeSpan.FromSeconds(gameManager.timeLeftInDay).ToString(@"mm\:ss");
 		dayText.text = $"Day {gameManager.currentDay.ToString()}";
-		quotaText.text = $"Need {gameManager.sheepQuota} sheep";
+		quotaText.text = $"Need {gameManager.sheepQuota.ToString()} sheep";
 	}
 }

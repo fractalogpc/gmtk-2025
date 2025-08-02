@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Player;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject playerObject;
+    [SerializeField] private PitManager pitManager;
     [SerializeField] private Transform playerStart;
     public int sheepQuota {
         get;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FadeElementInOut fadeToBlack;
     [Header("Settings")]
     [SerializeField] private float dayLengthMinutes;
+    [SerializeField] private int startQuota;
     [SerializeField] private int dailyQuotaIncrease;
 
     public GameState gameState;
@@ -53,6 +56,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        playerObject = GameObject.Find("Player");
+        playerStart = GameObject.FindWithTag("PlayerStart").transform;
+        pitManager = GameObject.FindWithTag("PitManager").GetComponent<PitManager>();
         Initialize();
         StartCoroutine(GameLogic());
     }
@@ -79,8 +85,11 @@ public class GameManager : MonoBehaviour
     }
 
     private IEnumerator GameLogic() {
+        sheepQuota = startQuota;
+        currentDay = 1;
         while (true) {
             gameState = GameState.CollectSheep;
+            ResetPlayerToStart();
             StartDay(currentDay);
             yield return new WaitForSeconds(SetPlayerVision(true));
             while (timeLeftInDay > 0) {
@@ -91,6 +100,7 @@ public class GameManager : MonoBehaviour
             ResetPlayerToStart();
             gameState = GameState.OfferSheep;
             yield return new WaitForSeconds(SetPlayerVision(true));
+            pitManager.SetOfferable(true);
             while (!hasOfferedThisDay) {
                 yield return null;
             }
@@ -105,16 +115,17 @@ public class GameManager : MonoBehaviour
     }
 
     private void StartDay(int numDays) {
-        ResetPlayerToStart();
         timeLeftInDay = dayLengthMinutes * 60;
         sheepQuota = numDays * dailyQuotaIncrease;
         numSheepOffered = 0;
         hasOfferedThisDay = false;
         gameState = GameState.CollectSheep;
+        pitManager.SetOfferable(false);
     }
 
     private void ResetPlayerToStart() {
-        playerObject.transform.position = playerStart.position;
+        playerObject.GetComponent<PlayerController>().SetPosition(playerStart.position);
+        playerObject.GetComponent<PlayerController>().SetRotation(playerStart.rotation);
     }
 
     private float SetPlayerVision(bool setTrue) {
