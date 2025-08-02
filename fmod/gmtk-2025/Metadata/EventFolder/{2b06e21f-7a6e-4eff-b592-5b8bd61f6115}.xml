@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EventFolder" id="{2b06e21f-7a6e-4eff-b592-5b8bd61f6115}">
+		<property name="name">
+			<value>Lasso</value>
+		</property>
+		<relationship name="folder">
+			<destination>{d129a2b2-520b-4da5-ac12-a80c695e625b}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 
 public class ShearsController : InputHandlerBase
@@ -6,6 +7,7 @@ public class ShearsController : InputHandlerBase
 
     public float raycastDistance = 4f;
     public LayerMask sheepLayer;
+    public StudioEventEmitter shearSoundEmitter;
 
     public void LateUpdate()
     {
@@ -23,6 +25,7 @@ public class ShearsController : InputHandlerBase
         // Raycast for sheep
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 1f);
+        shearSoundEmitter.Play();
         if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, sheepLayer, QueryTriggerInteraction.Collide))
         {
             // Debug.Log("Shearable object hit: " + hit.collider.name);
@@ -30,7 +33,7 @@ public class ShearsController : InputHandlerBase
             if (shearable != null)
             {
                 shearable.Shear();
-            } 
+            }
             else
             {
                 // Debug.LogWarning("Hit object is not shearable: " + hit.collider.name);

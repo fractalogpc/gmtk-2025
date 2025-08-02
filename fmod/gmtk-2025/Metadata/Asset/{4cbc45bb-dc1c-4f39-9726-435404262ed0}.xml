@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EncodableAsset" id="{4cbc45bb-dc1c-4f39-9726-435404262ed0}">
+		<property name="assetPath">
+			<value>Particle Baceleerator/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8254108-0aaa-44b5-a648-09ae2c5829da}</destination>
+		</relationship>
+	</object>
+</objects>

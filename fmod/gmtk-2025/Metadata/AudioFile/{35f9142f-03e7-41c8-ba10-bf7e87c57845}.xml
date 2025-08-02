@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{35f9142f-03e7-41c8-ba10-bf7e87c57845}">
+		<property name="assetPath">
+			<value>Wool/Foley Hand Rubbing Pants Fast 01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.95060416666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8254108-0aaa-44b5-a648-09ae2c5829da}</destination>
+		</relationship>
+	</object>
+</objects>
