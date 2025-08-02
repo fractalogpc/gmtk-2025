@@ -79,6 +79,24 @@ public class UpgradeManager : MonoBehaviour
 
         UpdateWoolCounters();
     }
+    
+    public void RemoveWool(int colorIndex, int count)
+    {
+        if (colorIndex < 0 || colorIndex >= woolColorCounts.Length)
+        {
+            Debug.LogError("Invalid color index for wool removal.");
+            return;
+        }
+        if (woolColorCounts[colorIndex].Count >= count)
+        {
+            woolColorCounts[colorIndex].Count -= count;
+            UpdateWoolCounters();
+        }
+        else
+        {
+            Debug.LogWarning("Not enough wool to remove: " + count + " of color index " + colorIndex);
+        }
+    }
 
     public bool TryBuyUpgrade(string upgradeName)
     {
@@ -135,6 +153,16 @@ public class UpgradeManager : MonoBehaviour
         }
         woolColorCounts[colorIndex].Count += count;
         UpdateWoolCounters();
+    }
+
+    public int GetWoolCount(int colorIndex)
+    {
+        if (colorIndex < 0 || colorIndex >= woolColorCounts.Length)
+        {
+            Debug.LogError("Invalid color index for wool count retrieval.");
+            return 0;
+        }
+        return woolColorCounts[colorIndex].Count;
     }
 
     private void UpdateUpgradeState(Upgrade upgrade)
