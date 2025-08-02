@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
@@ -38,10 +39,11 @@ public class ToolController : MonoBehaviour
         }
     }
 
-    public void SetTool(ToolType tool, AdvancedSheepController sheep = null)
+    public void SetTool(ToolType tool, AdvancedSheepController sheep = null, InventoryController.WoolData? wool = null)
     {
-        if (currentTool == tool)
+        if (currentTool == tool && (tool != ToolType.Wool))
         {
+            Debug.Log($"Tool is already set to {tool}. No changes made.");
             return;
         }
 
@@ -78,6 +80,8 @@ public class ToolController : MonoBehaviour
                 break;
             case ToolType.Wool:
                 woolobject.SetActive(true);
+                int index = wool.HasValue ? wool.Value.ColorIndex : -1;
+                woolobject.GetComponent<WoolController>().SetMaterial(SheepDataHolder.Instance.sheeps[index].color);
                 break;
             case ToolType.Sheep:
                 if (sheep != null)
@@ -100,7 +104,15 @@ public class ToolController : MonoBehaviour
     {
         if (System.Enum.TryParse(tool, out ToolType parsedTool))
         {
-            SetTool(parsedTool);
+            if (parsedTool == ToolType.Wool)
+            {
+                Debug.Log("Setting tool to Wool with wool data from inventory.");
+                SetTool(ToolType.Wool, wool: InventoryController.Instance.GetWoolData());
+            }
+            else
+            {
+                SetTool(parsedTool);
+            }
             return;
         }
     }

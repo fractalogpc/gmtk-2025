@@ -22,7 +22,10 @@ public class WoolDepositExpress : MonoBehaviour, IInteractable
             }
             int slot = InventoryController.Instance.SelectedSlot;
             UpgradeManager.Instance.DepositWool(InventoryController.Instance.SelectedWoolColorIndex, InventoryController.Instance.SelectedWoolSize);
+            anim.gameObject.GetComponentInChildren<Renderer>().material = SheepDataHolder.Instance.sheeps[InventoryController.Instance.SelectedWoolColorIndex].color;
+
             InventoryController.Instance.TryRemoveItem(slot);
+
 
             StartCoroutine(DepositWool());
         }

@@ -50,6 +50,7 @@ public class WoolDeposit : MonoBehaviour, IInteractable
             woolDeposits.Add(wool);
             Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             GameObject woolDeposit = Instantiate(woolDepositPrefab, depositPoints[woolDeposits.Count - 1].position, randomRotation);
+            woolDeposit.GetComponentInChildren<Renderer>().material = SheepDataHolder.Instance.sheeps[wool.Type].color;
             woolDeposit.transform.SetParent(depositPoints[woolDeposits.Count - 1]);
             InventoryController.Instance.TryRemoveItem(slot);
         }

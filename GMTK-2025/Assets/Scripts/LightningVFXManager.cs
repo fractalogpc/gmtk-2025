@@ -51,8 +51,8 @@ public class LightningVFXManager : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast(lightningPosition + Vector3.up * 100f, Vector3.down, out hit, 5000f, lightningStrikeLayerMask))
 				SpawnLightning(hit.point);
-			else
-				Debug.LogWarning("No valid surface found for lightning strike.");
+			// else
+				// Debug.LogWarning("No valid surface found for lightning strike.");
 		}
 	}
 
