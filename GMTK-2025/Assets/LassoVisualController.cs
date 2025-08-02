@@ -21,8 +21,6 @@ public class LassoVisualController : MonoBehaviour
     void Update()
     {
         if (!isEnabled) return;
-        ropeStart.transform.position = lassoOrigin.position + Vector3.down * 1.0f;
-        ropeEnd.transform.position = lassoLoopController.ropeEnd.position;
 
         // Tighten the rope if on ground
         if (onGround || true)
@@ -37,6 +35,12 @@ public class LassoVisualController : MonoBehaviour
 
             ropeController.SetJointLengths(segmentLength);
         }
+    }
+
+    void LateUpdate()
+    {
+        ropeStart.transform.position = lassoOrigin.position + Vector3.down * 1.0f;
+        ropeEnd.transform.position = lassoLoopController.ropeEnd.position;
     }
 
     public void EnableVisual()
@@ -54,6 +58,11 @@ public class LassoVisualController : MonoBehaviour
         lassoLoopController.CreatePrefabs();
 
         isEnabled = true;
+    }
+
+    public void LassoedSheep(AdvancedSheepController[] sheep)
+    {
+        lassoLoopController.LassoedSheep(sheep);
     }
 
     public void HitGround()
