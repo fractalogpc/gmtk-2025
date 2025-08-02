@@ -32,6 +32,12 @@ public class WoolTransmuteManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI recipeTimeText;
     [SerializeField] private TextMeshProUGUI transmutingLabelText;
     [SerializeField] private TextMeshProUGUI transmutingProgressText;
+    [SerializeField] private Light transmutingLight;
+    [SerializeField] private AnimationCurve transmutingLightCurve;
+    [SerializeField] private float transmutingLightMaxIntensity = 2f;
+    [SerializeField] private Transform shakingPipeTransform;
+    [SerializeField] private float shakingPipeMaxDisplacement = 0.1f;
+    [SerializeField] private float shakingSpeed = 5f;
 
     private int selectedRecipeIndex = 0;
     private bool isTransmuting = false;
@@ -176,6 +182,7 @@ public class WoolTransmuteManager : MonoBehaviour
     {
         float elapsed = 0f;
         int PROGRESS_STEPS = 31;
+        transmutingLight.enabled = true;
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
@@ -194,8 +201,18 @@ public class WoolTransmuteManager : MonoBehaviour
             }
             transmutingProgressText.text = progressText;
             transmutingLabelText.text = $"Transmuting" + new string('.', (int)(elapsed * 0.5f) % 4);
+            float intensity = transmutingLightCurve.Evaluate(progress);
+            transmutingLight.intensity = intensity * transmutingLightMaxIntensity;
+            shakingPipeTransform.localPosition = new Vector3(
+                Mathf.Sin(elapsed * shakingSpeed * intensity) * shakingPipeMaxDisplacement,
+                Mathf.Cos(elapsed * shakingSpeed * intensity) * shakingPipeMaxDisplacement,
+                0f
+            ) * transmutingLightCurve.Evaluate(progress);
             yield return null;
         }
+
+        transmutingLight.enabled = false;
+        shakingPipeTransform.localPosition = Vector3.zero; // Reset pipe
     }
 
     public void SwitchSelection(int direction)
