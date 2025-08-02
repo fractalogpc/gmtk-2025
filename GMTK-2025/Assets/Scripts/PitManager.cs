@@ -22,6 +22,7 @@ public class PitManager : MonoBehaviour
     public Vector3 pitSize;
 
     private void Start() {
+        gameManager = GameManager.Instance;
         offerTrigger.OnInteract.AddListener(HandleOffer);
         ResetFallingRocks();
     }
