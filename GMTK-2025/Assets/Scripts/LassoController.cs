@@ -165,7 +165,7 @@ public class LassoController : InputHandlerBase
         return lassoCurve.Evaluate(t);
     }
 
-    public void ReleaseSheep(int count, Pen targetPen)
+    public void ReleaseSheep(int count, Pen.SubPen targetPen)
     {
         if (count != lassoedSheep.Count)
         {
