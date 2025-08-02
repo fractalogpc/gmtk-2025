@@ -27,14 +27,14 @@
      labelstyle="default"
      inkscape:clip-to-page="false"
      inkscape:zoom="0.56241178"
-     inkscape:cx="907.69791"
-     inkscape:cy="532.52796"
+     inkscape:cx="927.25654"
+     inkscape:cy="539.64019"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="1508"
      inkscape:window-y="1432"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer4" /><defs
+     inkscape:current-layer="layer2" /><defs
      id="defs1" /><g
      inkscape:label="Bg"
      inkscape:groupmode="layer"
@@ -61,7 +61,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Game"
-     style="display:none"><g
+     style="display:inline"><g
        id="g1"
        transform="translate(-26.809355,-2.1055706)"
        inkscape:label="Hotbar"><image
