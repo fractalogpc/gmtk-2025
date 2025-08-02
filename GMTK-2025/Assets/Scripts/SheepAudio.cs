@@ -14,34 +14,59 @@ public class SheepAudio : MonoBehaviour
 	private bool controllerRunningLastFrame = false;
 	private float cooldown;
 
-	private void Start() {
+	private Camera mainCamera;
+
+	private void Start()
+	{
 		cooldown = Single.NegativeInfinity;
 		controllerRunningLastFrame = sheepController.running;
+		mainCamera = Camera.main;
 	}
 
-	private bool JustStartedRunning() {
+	private bool JustStartedRunning()
+	{
 		bool running = sheepController.running;
 		if (!running) return false;
 		if (controllerRunningLastFrame) return false;
 		return true;
 	}
 
-	private void Update() {
-		if (Vector3.Distance(transform.position, Camera.main.gameObject.transform.position) >= muteDistance) return;
-		if (JustStartedRunning()) {
+	public void UpdateSound()
+	{
+		if ((transform.position - mainCamera.transform.position).sqrMagnitude >= muteDistance * muteDistance) return;
+
+		bool isRunning = sheepController.running;
+
+		if (isRunning && !controllerRunningLastFrame)
+		{
 			cooldown = 0;
 		}
+
 		cooldown -= Time.deltaTime;
-		if (cooldown <= 0) {
-			if (sheepController.running) {
-				print("sheep playing idle");
-				afraidSoundEmitter.Play();
+
+		if (cooldown <= 0f)
+		{
+			if (isRunning)
+			{
+#if UNITY_EDITOR
+				Debug.Log("sheep playing idle");
+#endif
+				if (!afraidSoundEmitter.IsPlaying())
+				{
+					afraidSoundEmitter.Play();
+				}
 			}
-			else {
-				idleSoundEmitter.Play();
+			else
+			{
+				if (!idleSoundEmitter.IsPlaying())
+				{
+					idleSoundEmitter.Play();
+				}
 			}
 			cooldown = Random.Range(soundCooldownMin, soundCooldownMax);
 		}
-		controllerRunningLastFrame = sheepController.running;
+
+		controllerRunningLastFrame = isRunning;
 	}
+
 }

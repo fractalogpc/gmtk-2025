@@ -24,7 +24,7 @@ public class ReplaceTreesWithPrefab : MonoBehaviour
 
             private void ReplaceTrees(ReplaceTreesWithPrefab script)
             {
-                var allObjects = GameObject.FindObjectsOfType<GameObject>();
+                var allObjects = GameObject.FindObjectsByType<GameObject>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
                 foreach (var obj in allObjects)
                 {
                     if (obj.name == script.nameToReplace)
