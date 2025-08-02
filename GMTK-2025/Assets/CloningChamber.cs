@@ -35,6 +35,7 @@ public class CloningChamber : MonoBehaviour
         clone.transform.SetParent(GameObject.FindWithTag("SheepSpawner").transform);
 
         AdvancedSheepController cloneController = clone.GetComponent<AdvancedSheepController>();
+        cloneController.PlayerTransform = GameObject.FindWithTag("Player").transform;
         cloneController.woolSize = 1;
         cloneController.woolColorIndex = 0; // Default color index
 
@@ -62,7 +63,6 @@ public class CloningChamber : MonoBehaviour
 
         yield return StartCoroutine(cloneController.RunToPoint(5f, initialSheepMovePoint));
 
-        cloneController.PlayerTransform = GameObject.FindWithTag("Player").transform;
         cloneController.Initialize();
         if (SheepReception.Instance.TrySendSheepToAvailablePen(cloneController, out var pen))
         {

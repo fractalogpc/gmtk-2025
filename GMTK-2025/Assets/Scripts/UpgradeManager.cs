@@ -19,6 +19,8 @@ public class UpgradeManager : MonoBehaviour
     {
 
         public string Name;
+        public bool StartOwned;
+        public GameObject OptionalSignObjectToDestroyIfStartOwned;
         public GameObject[] EnabledObjects;
         public GameObject[] DisabledObjects;
         public bool IsOwned;
@@ -78,6 +80,20 @@ public class UpgradeManager : MonoBehaviour
         }
 
         UpdateWoolCounters();
+
+        foreach (var upgrade in upgrades)
+        {
+            if (upgrade.StartOwned)
+            {
+                upgrade.IsOwned = true;
+                UpdateUpgradeState(upgrade);
+                if (upgrade.OptionalSignObjectToDestroyIfStartOwned != null)
+                {
+                    Destroy(upgrade.OptionalSignObjectToDestroyIfStartOwned);
+                }
+                upgrade.OnUnlockEvent?.Invoke();
+            }
+        }
     }
     
     public void RemoveWool(int colorIndex, int count)
