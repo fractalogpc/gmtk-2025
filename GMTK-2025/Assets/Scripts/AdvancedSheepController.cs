@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
+using FMODUnity;
 
 public class AdvancedSheepController : MonoBehaviour, IShearable
 {
@@ -63,6 +64,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     private Collider thisCollider;
 
     private SheepAnimation sheepAnimation;
+
+  public StudioEventEmitter woolPopSoundEmitter;
 
     [SerializeField] private float[] lodDistances = new float[] { 50f, 150f, 300f, 500f, 1000f };
     [SerializeField] private int[] lodModules = new int[] { 1, 4, 16, 64, 256 };
@@ -813,6 +816,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         woolInstance.GetComponentsInChildren<Pickuppable>()[0].woolColorIdx = woolColorIndex;
         Vector3 initialVelocity = new Vector3(UnityEngine.Random.Range(-.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f)).normalized * 5f;
         woolInstance.GetComponent<Rigidbody>().AddForce(initialVelocity, ForceMode.Impulse);
+        woolPopSoundEmitter.Play();
     }
 
     private bool isHeld = false;

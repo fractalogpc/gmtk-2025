@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6233327600960985687}
   - component: {fileID: 5249332492456856201}
+  - component: {fileID: 1468043040212022616}
+  - component: {fileID: 8753798443617057063}
   m_Layer: 0
   m_Name: Shears
   m_TagString: Untagged
@@ -50,6 +52,69 @@ MonoBehaviour:
   sheepLayer:
     serializedVersion: 2
     m_Bits: 512
+  shearSoundEmitter: {fileID: 1468043040212022616}
+--- !u!114 &1468043040212022616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010094296393405520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1341905129
+      Data2: 1255985657
+      Data3: -2067989330
+      Data4: 1117832869
+    Path: event:/Items/Shears/Shear
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &8753798443617057063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010094296393405520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1316067560
+      Data2: 1210538101
+      Data3: -135474511
+      Data4: 1153379081
+    Path: event:/Items/Shears/ShearEquip
+  Event: 
+  EventPlayTrigger: 11
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &2678556807441648671
 PrefabInstance:
   m_ObjectHideFlags: 0

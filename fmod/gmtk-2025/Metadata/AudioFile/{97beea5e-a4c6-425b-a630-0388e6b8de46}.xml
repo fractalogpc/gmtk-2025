@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{97beea5e-a4c6-425b-a630-0388e6b8de46}">
 		<property name="assetPath">
-			<value>snip-2.wav</value>
+			<value>Shear/snip-2.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

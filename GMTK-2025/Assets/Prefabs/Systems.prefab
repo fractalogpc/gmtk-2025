@@ -290,7 +290,7 @@ MonoBehaviour:
       Data2: 1281041756
       Data3: -599161199
       Data4: 1782022655
-    Path: event:/MusicNormal
+    Path: event:/Music/MusicNormal
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
