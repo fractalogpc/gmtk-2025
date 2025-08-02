@@ -15,6 +15,7 @@ public class PitManager : MonoBehaviour
     public GenericInteractable offerTrigger;
     public GameManager gameManager;
     public GameObject fallingObject;
+    public StudioEventEmitter crashSoundEmitter;
     public StudioEventEmitter eatSoundEmitter;
     public StudioEventEmitter shrineOfferSoundEmitter;
     public StudioEventEmitter shrineErrorSoundEmitter;
@@ -29,6 +30,10 @@ public class PitManager : MonoBehaviour
         private set;
     }
 
+    public void SetOfferable(bool value) {
+        IsOfferable = value;
+    }
+    
     private void Start() {
         gameManager = GameManager.Instance;
         offerTrigger.OnInteract.AddListener(HandleOffer);
@@ -55,7 +60,7 @@ public class PitManager : MonoBehaviour
         MakeFallingFall();
         yield return new WaitForSeconds(3f);
         EatEffects();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(8f);
         gameManager.AddToQuota(CountSheep());
         ClearPit();
         ResetFallingRocks();
@@ -83,6 +88,7 @@ public class PitManager : MonoBehaviour
 
     private void MakeFallingFall() {
         fallingObject.GetComponent<MakeChildrenRigidbodies>().MakeRigidbodies();
+        crashSoundEmitter.Play();
     }
 
     private void EatEffects() {
@@ -93,7 +99,7 @@ public class PitManager : MonoBehaviour
 
     private void ClearPit() {
        Collider[] colliders = GetCollidersInPit(new[] { "Sheep", "Falling", "Cart" });
-       for (int i = colliders.Length - 1; i > 0; i++) {
+       for (int i = colliders.Length - 1; i >= 0; i--) {
           Destroy(colliders[i].gameObject); 
        }
     }

@@ -11,6 +11,7 @@ TagManager:
   - Cart
   - Falling
   - PlayerStart
+  - PitManager
   layers:
   - Default
   - TransparentFX
