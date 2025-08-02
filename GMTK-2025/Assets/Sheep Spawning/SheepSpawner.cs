@@ -14,11 +14,22 @@ public class SheepSpawner : MonoBehaviour
     public LayerMask layer;
     public PlayerController playerController;
     public Transform sheepParent;
+    public List<Transform> rareSheepsPositions = new List<Transform>();
 
     private void Start()
     {
         SpawnSheepWave(_scale, _amount, jitter);
         SpawnRareSheep(3, .6f);
+    }
+
+    public Vector2[] GetRareSheepPositions()
+    {
+        Vector2[] positions = new Vector2[rareSheepsPositions.Count()];
+        for (int i = 0; i < rareSheepsPositions.Count(); i++)
+        {
+            positions[i] = new Vector2(rareSheepsPositions[i].transform.position.x, rareSheepsPositions[i].transform.position.z);
+        }
+        return positions;
     }
 
     public void SpawnSheepWave(Vector2 scale, Vector2 amount, float jitter)
@@ -104,7 +115,7 @@ public class SheepSpawner : MonoBehaviour
 
                 foreach (var rend in sheep.GetComponent<AdvancedSheepController>().woolObjects)
                 {
-                    rend.GetComponent<Renderer>().material = spawning[i].color;   
+                    rend.GetComponent<Renderer>().material = spawning[i].color;
                 }
             }
         }
@@ -129,6 +140,7 @@ public class SheepSpawner : MonoBehaviour
                     GameObject sheep = Instantiate(rareSheeps[randomSheep].sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
                     sheep.name = "RareSheep_" + i;
                     sheep.transform.SetParent(sheepParent);
+                    rareSheepsPositions.Add(sheep.transform);
 
                     sheep.GetComponent<AdvancedSheepController>().PlayerTransform = playerController.transform;
 
