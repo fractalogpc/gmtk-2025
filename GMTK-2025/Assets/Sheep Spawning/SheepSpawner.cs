@@ -6,8 +6,11 @@ using UnityEngine;
 
 public class SheepSpawner : MonoBehaviour
 {
-    public SheepObject[] sheeps;
-    public SheepObject[] rareSheeps;
+
+    public static SheepSpawner Instance;
+
+    private SheepObject[] sheeps;
+    public int[] rareSheepIndices;
     public Transform[] rareSheepSpawnpoint;
     public Vector2 _scale, _amount;
     public float jitter;
@@ -18,8 +21,22 @@ public class SheepSpawner : MonoBehaviour
 
     private List<AdvancedSheepController> sheepControllers = new List<AdvancedSheepController>();
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
+        sheeps = SheepDataHolder.Instance.sheeps;
+
         SpawnSheepWave(_scale, _amount, jitter);
         SpawnRareSheep(3, .6f);
     }
@@ -52,7 +69,7 @@ public class SheepSpawner : MonoBehaviour
         for (int i = 0; i < points.Count; i++)
         {
             // Debug.Log(Mathf.RoundToInt(points[i].x));
-            for (int j = 0; j < sheeps.Count(); j++)
+            for (int j = 0; j < 3; j++) // Here we assume there are 3 default sheep types to check against
             {
                 if (sheeps[j].heatmap.GetPixel(Mathf.RoundToInt((points[i].x / scale.x) * sheeps[j].heatmap.width), Mathf.RoundToInt((points[i].y / scale.y) * sheeps[j].heatmap.height)).r > .2f)
                 {
@@ -101,26 +118,30 @@ public class SheepSpawner : MonoBehaviour
 
             if (Physics.Raycast(rayOrigin, Vector3.down, out hit, 100f, layer))
             {
-                GameObject sheep = Instantiate(spawning[i].sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
+                SheepObject randomSheepobject = spawning[i];
+
+                GameObject sheep = Instantiate(randomSheepobject.sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
                 sheep.name = "Sheep_" + i;
                 sheep.transform.SetParent(sheepParent);
 
-                sheep.GetComponent<AdvancedSheepController>().PlayerTransform = playerController.transform;
+                AdvancedSheepController controller = sheep.GetComponent<AdvancedSheepController>();
 
-                int sheepSize = Random.Range(spawning[i].minSize, spawning[i].maxSize + 1);
+                controller.PlayerTransform = playerController.transform;
+
+                int sheepSize = Random.Range(randomSheepobject.minSize, randomSheepobject.maxSize + 1);
                 float myScale = sheepSize / 10f;
                 myScale += 1;
                 sheep.transform.localScale *= myScale;
 
-                sheep.GetComponent<AdvancedSheepController>().woolSize = sheepSize;
-                sheep.GetComponent<AdvancedSheepController>().woolColorIndex = spawning[i].colorIndex;
+                controller.woolSize = sheepSize;
+                controller.woolColorIndex = spawning[i].colorIndex;
 
-                foreach (var rend in sheep.GetComponent<AdvancedSheepController>().woolObjects)
+                foreach (var obj in controller.woolObjects)
                 {
-                    rend.GetComponent<Renderer>().material = spawning[i].color;
+                    obj.GetComponent<Renderer>().material = randomSheepobject.color;
                 }
 
-                sheepControllers.Add(sheep.GetComponent<AdvancedSheepController>());
+                sheepControllers.Add(controller);
             }
         }
 
@@ -134,39 +155,40 @@ public class SheepSpawner : MonoBehaviour
             if (Random.Range(0f, 1f) > probability)
             {
                 Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
-                int randomSheep = Random.Range(0, rareSheeps.Count());
+                int randomSheep = rareSheepIndices[Random.Range(0, rareSheepIndices.Length)];
                 Vector3 jit = Random.insideUnitSphere * jitter;
                 jit.y = 0;
                 RaycastHit hit;
 
                 if (Physics.Raycast(rareSheepSpawnpoint[i].position + jit, Vector3.down, out hit, 100f, layer))
                 {
-                    GameObject sheep = Instantiate(rareSheeps[randomSheep].sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
+                    SheepObject randomSheepObject = sheeps[randomSheep];
+
+                    GameObject sheep = Instantiate(randomSheepObject.sheep, hit.point + new Vector3(0, 0.5f, 0), randomRotation);
                     sheep.name = "RareSheep_" + i;
                     sheep.transform.SetParent(sheepParent);
                     rareSheepsPositions.Add(sheep.transform);
 
-                    sheep.GetComponent<AdvancedSheepController>().PlayerTransform = playerController.transform;
+                    AdvancedSheepController controller = sheep.GetComponent<AdvancedSheepController>();
 
-                    int sheepSize = Random.Range(rareSheeps[randomSheep].minSize, rareSheeps[randomSheep].maxSize + 1);
+                    controller.PlayerTransform = playerController.transform;
+
+                    int sheepSize = Random.Range(randomSheepObject.minSize, randomSheepObject.maxSize + 1);
                     float myScale = sheepSize / 10f;
                     myScale += 1;
                     sheep.transform.localScale *= myScale;
 
-                    sheep.GetComponent<AdvancedSheepController>().woolSize = sheepSize;
-                    sheep.GetComponent<AdvancedSheepController>().woolColorIndex = rareSheeps[randomSheep].colorIndex;
+                    controller.woolSize = sheepSize;
+                    controller.woolColorIndex = randomSheepObject.colorIndex;
 
-                    foreach (var rend in sheep.GetComponentsInChildren<Renderer>(true))
+                    foreach (var obj in controller.woolObjects)
                     {
-                        if (rend.gameObject.name == "sheep-colorable")
-                        {
-                            rend.material = rareSheeps[randomSheep].color;
-                            break;
-                        }
+                        obj.GetComponent<Renderer>().material = randomSheepObject.color;
+                        break;
                     }
                     count++;
 
-                    sheepControllers.Add(sheep.GetComponent<AdvancedSheepController>());
+                    sheepControllers.Add(controller);
                 }
             }
 
@@ -175,14 +197,31 @@ public class SheepSpawner : MonoBehaviour
         }
     }
 
-  private void Update()
-  {
-    foreach (var sheep in sheepControllers)
+    private void Update()
     {
-      if (sheep != null)
-      {
-        sheep.ManualUpdate();
-      }
+        foreach (var sheep in sheepControllers)
+        {
+            if (sheep != null)
+            {
+                sheep.ManualUpdate();
+            }
+        }
     }
-  }
+
+    public void RemoveSheep(AdvancedSheepController sheep)
+    {
+        if (sheepControllers.Contains(sheep))
+        {
+            sheepControllers.Remove(sheep);
+            Destroy(sheep.gameObject);
+        }
+    }
+    
+    public void AddSheep(AdvancedSheepController sheep)
+    {
+        if (!sheepControllers.Contains(sheep))
+        {
+            sheepControllers.Add(sheep);
+        }
+    }
 }

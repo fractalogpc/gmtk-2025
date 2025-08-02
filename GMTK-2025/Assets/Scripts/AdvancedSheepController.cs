@@ -126,6 +126,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             rend.GetComponent<Renderer>().material = woolMaterial;
         }
 
+        SheepSpawner.Instance.AddSheep(this);
+
         isActivated = true;
     }
 
@@ -921,6 +923,10 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         if (InventoryController.Instance.GetNextAvailableSlot(out int index))
         {
+            // Sheep is picked up
+
+            SheepSpawner.Instance.RemoveSheep(this);
+
             StopAllCoroutines();
             InventoryController.Instance.TryAddItem(InventoryController.ItemType.Sheep, index, sheep: this);
 
