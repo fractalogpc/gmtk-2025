@@ -45,7 +45,7 @@ public class DisplayGameState : MonoBehaviour
 			clockManager.UpdateClock(gameManager.timeLeftInDay, gameManager.dayLengthMinutes, true);
 			countdownText.text = "";
 			dayText.text = $"Day {gameManager.currentDay.ToString()}";
-			quotaText.text = $"{currentSheepCount} / {gameManager.numSheepOffered.ToString()} / {gameManager.sheepQuota.ToString()} sheep";
+			quotaText.text = $"{currentSheepCount} / {gameManager.sheepQuota.ToString()} sheep";
 		}
 	}
 }

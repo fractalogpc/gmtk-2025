@@ -43,6 +43,8 @@ public class GameManager : InputHandlerBase
   }
   [SerializeField] private FadeElementInOut fadeToBlack;
   [SerializeField] private FadeElementInOut topLevelFadeToBlack;
+  [SerializeField] private GameObject loseScreen;
+  [SerializeField] private FadeElementInOut loseScreenFade;
   [Header("Settings")]
   public float dayLengthMinutes;
   [SerializeField] private int startQuota;
@@ -201,6 +203,11 @@ public class GameManager : InputHandlerBase
     pitManager.SetOfferable(false);
   }
 
+  public void ResetGame()
+  {
+    SceneManager.LoadScene("RealEnvironment");
+  }
+
   private void ResetPlayerToStart()
   {
     playerObject.GetComponent<PlayerController>().SetPosition(playerStart.position);
@@ -256,6 +263,7 @@ public class GameManager : InputHandlerBase
     pitManager.EatPlayer();
     StopGameMusicAndAmbient();
     StartCoroutine(LoseCoroutine());
+    SetPlayerInput(false);
   }
 
   private IEnumerator LoseCoroutine()
@@ -264,6 +272,12 @@ public class GameManager : InputHandlerBase
     SetPlayerVision(false);
     yield return new WaitForSeconds(1f);
     lostMusicEmitter.Play();
+    yield return new WaitForSeconds(1f);
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+    loseScreenFade.Hide();
+    loseScreen.SetActive(true);
+    loseScreenFade.FadeIn(true);
   }
   
   private bool isWinCutsceneActive = false;
