@@ -1130,7 +1130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &806001385443795735
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1147,9 +1147,9 @@ RectTransform:
   - {fileID: 6045053052066774953}
   m_Father: {fileID: 7332833245344846685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -35}
   m_SizeDelta: {x: 100, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &832863387916240064
@@ -4946,31 +4946,31 @@ MonoBehaviour:
   - ColorIndex: 0
     Icon: {fileID: 21300000, guid: a70f0ffd7a116a640b2a6a2844fa0e63, type: 3}
     ColorName: White Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 1
     Icon: {fileID: 21300000, guid: 344b67abddb49a14e9d2cac42567ae47, type: 3}
     ColorName: Gray Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 2
     Icon: {fileID: 21300000, guid: 9710d5c3e80a04642a0dfe673dfd242b, type: 3}
     ColorName: Brown Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 3
     Icon: {fileID: 21300000, guid: b757dacdb5c2fc243b1ff88ab8e98f04, type: 3}
     ColorName: Pink Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 4
     Icon: {fileID: 21300000, guid: 9ff5496e949196749b0e91ffce1ab568, type: 3}
     ColorName: Gold Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 5
     Icon: {fileID: 21300000, guid: dec717c0d41d8ba4cbd50adc6107eed7, type: 3}
     ColorName: Ghost Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 6
     Icon: {fileID: 21300000, guid: 681ac5b3984c63e4791dbd754434c0cc, type: 3}
     ColorName: Rainbow Wool
-    Count: 0
+    Count: 999
   woolCounters:
   - {fileID: 0}
   - {fileID: 0}
@@ -7085,7 +7085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8436636408965152830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7102,9 +7102,9 @@ RectTransform:
   - {fileID: 2463380388683674697}
   m_Father: {fileID: 7332833245344846685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -105}
   m_SizeDelta: {x: 100, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5283805958026796491
