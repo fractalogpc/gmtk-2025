@@ -18,6 +18,7 @@ public class EndingCutscene : MonoBehaviour
     [SerializeField] private FadeElementInOut fadeToBlack;
     [SerializeField] private GameObject[] canvasesToDisable;
     [SerializeField] private CameraShake cameraShake;
+    [SerializeField] private Transform[] points;
 
     private bool canTriggerCutscene = false;
 
@@ -70,6 +71,10 @@ public class EndingCutscene : MonoBehaviour
         yield return new WaitForSeconds(doorAnimations[0].clip.length);
 
         // Make sheep go into the rocket
+        SheepReception.Instance.ReleaseAllSheep(System.Array.ConvertAll(points, p => p.position));
+
+        // Wait for sheep to reach the rocket
+        yield return new WaitForSeconds(15f);
 
         // Start engines
         foreach (var thruster in rocketThrusters)

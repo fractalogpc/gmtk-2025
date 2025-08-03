@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using TMPro;
-using NUnit.Framework;
+using System.Collections;
 
 public class SheepReception : MonoBehaviour, IInteractable
 {
@@ -15,6 +15,8 @@ public class SheepReception : MonoBehaviour, IInteractable
     public LassoController LassoController;
 
     public Transform[] pathingPoints;
+
+    private List<AdvancedSheepController> heldSheep = new List<AdvancedSheepController>();
 
     private void Awake()
     {
@@ -49,7 +51,8 @@ public class SheepReception : MonoBehaviour, IInteractable
             foreach (var subPen in subPens)
             {
                 Debug.Log($"Filling subPen: {subPen.mesh.name} with {subPen.CurrentSheep}/{subPen.MaximumSheep}");
-                LassoController.ReleaseSheep(1, subPen);
+                List<AdvancedSheepController> sheepToRelease = LassoController.ReleaseSheep(1, subPen);
+                heldSheep.AddRange(sheepToRelease);
             }
 
             currentSheepCount = resultingSheepCount;
@@ -87,6 +90,15 @@ public class SheepReception : MonoBehaviour, IInteractable
         return false;
     }
 
+    public void ReleaseAllSheep(Vector3[] positions)
+    {
+        foreach (var sheep in heldSheep)
+        {
+            sheep.StopAllCoroutines();
+            sheep.StartCoroutine(sheep.FollowPoints(new List<Vector3>(positions), 8f)); // Move sheep to the specified position
+        }
+    }
+
     public GameObject errorText;
 
     private Pen pen1;
@@ -105,7 +117,7 @@ public class SheepReception : MonoBehaviour, IInteractable
 
         Pen.SubPen subPen1A = new Pen.SubPen
         {
-            MaximumSheep = 1,
+            MaximumSheep = 10,
             mesh = pen1AMesh,
             pathingIndices = pen1APathing
         };
@@ -121,7 +133,7 @@ public class SheepReception : MonoBehaviour, IInteractable
     public void UpgradePen1()
     {
         Pen.SubPen subPen1A = pen1.subPens[0];
-        subPen1A.MaximumSheep = 1;
+        subPen1A.MaximumSheep = 20;
         subPen1A.mesh = pen1BMesh;
 
         pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep()}/{pen1.MaximumSheep()}");

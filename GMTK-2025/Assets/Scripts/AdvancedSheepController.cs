@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 using FMODUnity;
+using System.Collections.Generic;
 
 public class AdvancedSheepController : MonoBehaviour, IShearable
 {
@@ -717,6 +718,21 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         inPen = true;
         StartCoroutine(InPen(pen));
+    }
+
+    public IEnumerator FollowPoints(List<Vector3> points, float speed)
+    {
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 4.0f)); // Ensure the coroutine starts after the frame ends
+        transform.position = points[0];
+        while (points.Count > 0)
+        {
+            Vector3 targetPoint = points[0];
+            yield return StartCoroutine(RunToPoint(speed, targetPoint));
+
+            points.RemoveAt(0);
+        }
+
+        Destroy(gameObject); // Destroy the sheep after following all points
     }
 
     public IEnumerator RunToPoint(float speed, Vector3 point)

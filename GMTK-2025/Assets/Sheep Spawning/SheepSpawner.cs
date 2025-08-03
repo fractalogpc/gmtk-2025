@@ -129,9 +129,21 @@ public class SheepSpawner : MonoBehaviour
                 controller.PlayerTransform = playerController.transform;
 
                 int sheepSize = GetRandomSize(false);
-                float myScale = sheepSize / 10f;
-                myScale += 1;
-                sheep.transform.localScale *= myScale;
+                float myScale = 0f;
+                switch (sheepSize)
+                {
+                    case 1:
+                        myScale = 0.75f;
+                        break;
+                    case 2:
+                        myScale = 1.15f;
+                        break;
+                        case 3:
+                        myScale = 1.3f;
+                        break;
+                }
+
+                sheep.transform.localScale = Vector3.one * myScale;
 
                 controller.woolSize = sheepSize;
                 controller.woolColorIndex = spawning[i].colorIndex;
