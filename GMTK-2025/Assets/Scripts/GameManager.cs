@@ -3,8 +3,9 @@ using System.Collections;
 using FMODUnity;
 using Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : InputHandlerBase
 {
   public static GameManager Instance;
 
@@ -15,12 +16,14 @@ public class GameManager : MonoBehaviour
   }
 
   [Header("References")]
-  [SerializeField] private GameObject playerObject;
+  public GameObject playerObject;
   [SerializeField] private PitManager pitManager;
   [SerializeField] private Transform playerStart;
   [SerializeField] private StudioEventEmitter normalMusicEmitter;
   [SerializeField] private StudioEventEmitter ambientSoundEmitter;
   [SerializeField] private StudioEventEmitter scaryMusicEmitter;
+  [SerializeField] private StudioEventEmitter lostMusicEmitter;
+
   public int sheepQuota
   {
     get;
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
     private set;
   }
   [SerializeField] private FadeElementInOut fadeToBlack;
+  [SerializeField] private FadeElementInOut topLevelFadeToBlack;
   [Header("Settings")]
   public float dayLengthMinutes;
   [SerializeField] private int startQuota;
@@ -64,8 +68,9 @@ public class GameManager : MonoBehaviour
     }
   }
 
-  void Start()
+  public override void Start()
   {
+    base.Start();
     playerObject = GameObject.Find("Player");
     playerStart = GameObject.FindWithTag("PlayerStart").transform;
     pitManager = GameObject.FindWithTag("PitManager").GetComponent<PitManager>();
@@ -106,9 +111,16 @@ public class GameManager : MonoBehaviour
       StartDay(currentDay);
       normalMusicEmitter.Play();
       yield return new WaitForSeconds(SetPlayerVision(true));
+      // Disabled after offer, need to re-enable
+      if (!_inputActions.Player.Move.enabled)
+      {
+        _inputActions.Player.Move.Enable();
+      }
       while (timeLeftInDay > 0)
       {
         timeLeftInDay -= Time.deltaTime;
+        ambientSoundEmitter.SetParameter("Nighttime", timeLeftInDay / (dayLengthMinutes * 60));
+        ambientSoundEmitter.SetParameter("Creepiness", Mathf.Clamp01(Vector3.Distance(playerObject.transform.position, pitManager.transform.position) / 300f));
         yield return null;
       }
       normalMusicEmitter.Stop();
@@ -116,16 +128,18 @@ public class GameManager : MonoBehaviour
       ResetPlayerToStart();
       gameState = GameState.OfferSheep;
       yield return new WaitForSeconds(SetPlayerVision(true));
+      scaryMusicEmitter.Play();
       pitManager.SetOfferable(true);
       while (!hasOfferedThisDay)
       {
         yield return null;
       }
-      // if (numSheepOffered < sheepQuota)
-      // {
-      //   Lose();
-      //   break;
-      // }
+      if (numSheepOffered < sheepQuota)
+      {
+        Lose();
+        break;
+      }
+      scaryMusicEmitter.Stop();
       yield return new WaitForSeconds(SetPlayerVision(false));
       currentDay++;
     }
@@ -147,7 +161,7 @@ public class GameManager : MonoBehaviour
     playerObject.GetComponent<PlayerController>().SetRotation(playerStart.rotation);
   }
 
-  private float SetPlayerVision(bool setTrue)
+  public float SetPlayerVision(bool setTrue)
   {
     if (setTrue)
     {
@@ -165,15 +179,72 @@ public class GameManager : MonoBehaviour
     hasOfferedThisDay = true;
   }
 
-  public void StopGame()
+  public void StopGameMusicAndAmbient()
   {
     normalMusicEmitter.Stop();
     ambientSoundEmitter.Stop();
+    scaryMusicEmitter.Stop();
+    lostMusicEmitter.Stop();
     // scaryMusicEmitter.Stop();
+  }
+  
+  public void ExitToMenu()
+  {
+    StartCoroutine(ExitToMenuCoroutine());
+  }
+
+  private IEnumerator ExitToMenuCoroutine()
+  {
+	  Debug.Log("Quitting to menu...");
+    Time.timeScale = 1f; // Reset time scale so WaitForSeconds works correctly
+    _inputActions.Player.Disable();
+    topLevelFadeToBlack.FadeIn();
+    StopGameMusicAndAmbient();
+    yield return new WaitForSeconds(topLevelFadeToBlack.FadeInTime);
+    SceneManager.LoadScene("MainMenu");
   }
 
   private void Lose()
   {
+    Debug.Log("You lost! Not enough sheep offered.");
+    pitManager.EatPlayer();
+    StopGameMusicAndAmbient();
+    StartCoroutine(LoseCoroutine());
+  }
 
+  private IEnumerator LoseCoroutine()
+  {
+    yield return new WaitForSeconds(3f);
+    SetPlayerVision(false);
+    yield return new WaitForSeconds(1f);
+    lostMusicEmitter.Play();
+  }
+  
+  public void SetPlayerInput(bool enabled)
+  {
+    if (enabled)
+    {
+      _inputActions.Player.Enable();
+    }
+    else
+    {
+      _inputActions.Player.Disable();
+    }
+  }
+  
+  public void SetPlayerMovement(bool enabled)
+  {
+    if (enabled)
+    {
+      _inputActions.Player.Move.Enable();
+    }
+    else
+    {
+      _inputActions.Player.Move.Disable();
+    }
+  }
+
+  protected override void InitializeActionMap()
+  {
   }
 }

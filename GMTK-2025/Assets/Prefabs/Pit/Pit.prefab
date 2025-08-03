@@ -1438,7 +1438,7 @@ MonoBehaviour:
       Data2: 1327786425
       Data3: 22896024
       Data4: 1216548895
-    Path: event:/Cuthulu/Roar
+    Path: event:/Cthulu/Roar
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -1673,7 +1673,7 @@ MonoBehaviour:
       Data2: 1221167984
       Data3: 1343254438
       Data4: -1987555106
-    Path: event:/Cuthulu/Crash
+    Path: event:/Cthulu/Crash
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -1918,6 +1918,8 @@ MonoBehaviour:
   offerTrigger: {fileID: 1921331166738658856}
   gameManager: {fileID: 0}
   fallingObject: {fileID: 4822673915579436930}
+  rimObject: {fileID: 7423335644364727491}
+  playerEatenSoundEmitter: {fileID: 0}
   crashSoundEmitter: {fileID: 1705957632559025152}
   eatSoundEmitter: {fileID: 7387585176567344310}
   shrineOfferSoundEmitter: {fileID: 6067696755020087921}
@@ -2085,7 +2087,7 @@ MonoBehaviour:
       Data2: 1305729203
       Data3: -1685968225
       Data4: -464448969
-    Path: event:/Cuthulu/ShrineError
+    Path: event:/Cthulu/ShrineError
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -14368,6 +14370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9214421538115000562}
+  - component: {fileID: 8051323553484587359}
   m_Layer: 0
   m_Name: Rim
   m_TagString: Untagged
@@ -14407,6 +14410,18 @@ Transform:
   - {fileID: 7265026981914263680}
   m_Father: {fileID: 4405642498032390579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8051323553484587359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423335644364727491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c485ef9984441124d80130e1d6ca37ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7525944807022907491
 GameObject:
   m_ObjectHideFlags: 0
@@ -15882,7 +15897,7 @@ MonoBehaviour:
       Data2: 1286889865
       Data3: -696639064
       Data4: -1403817757
-    Path: event:/Cuthulu/ShrineOffer
+    Path: event:/Cthulu/ShrineOffer
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0

@@ -15,6 +15,9 @@ public class PitManager : MonoBehaviour
     public GenericInteractable offerTrigger;
     public GameManager gameManager;
     public GameObject fallingObject;
+    public GameObject rimObject;
+
+    public StudioEventEmitter playerEatenSoundEmitter;
     public StudioEventEmitter crashSoundEmitter;
     public StudioEventEmitter eatSoundEmitter;
     public StudioEventEmitter shrineOfferSoundEmitter;
@@ -38,6 +41,7 @@ public class PitManager : MonoBehaviour
         gameManager = GameManager.Instance;
         offerTrigger.OnInteract.AddListener(HandleOffer);
         ResetFallingRocks();
+        playerEatenSoundEmitter = gameManager.playerObject.GetComponentInChildren<StudioEventEmitter>();
     }
 
     private void OnDestroy() {
@@ -55,14 +59,17 @@ public class PitManager : MonoBehaviour
             return;
         }
         handleOfferCoroutine = StartCoroutine(HandleOfferCoroutine());
+        gameManager.SetPlayerMovement(false);
     }
     private IEnumerator HandleOfferCoroutine() {
         MakeFallingFall();
         yield return new WaitForSeconds(3f);
-        EatEffects();
-        yield return new WaitForSeconds(8f);
+        int sheepCount = CountSheep();
+        EatEffects(sheepCount);
+        yield return new WaitForSeconds(5f);
         gameManager.AddToQuota(CountSheep());
         ClearPit();
+        yield return new WaitForSeconds(6f);
         ResetFallingRocks();
         handleOfferCoroutine = null;
     }
@@ -91,8 +98,8 @@ public class PitManager : MonoBehaviour
         crashSoundEmitter.Play();
     }
 
-    private void EatEffects() {
-        if (woolExplosion != null) woolExplosion.Play();
+    private void EatEffects(int sheepCount = 0) {
+        if (woolExplosion != null && sheepCount > 0) woolExplosion.Play();
         if (eatSoundEmitter != null) eatSoundEmitter.Play();
         // camera shake for duration of eatSound
     }
@@ -104,7 +111,21 @@ public class PitManager : MonoBehaviour
        }
     }
 
-    private void OnDrawGizmos() {
+    public void EatPlayer()
+    {
+        StartCoroutine(EatPlayerCoroutine());
+    }
+
+    private IEnumerator EatPlayerCoroutine()
+    {
+        rimObject.GetComponent<MakeChildrenRigidbodies>().MakeRigidbodies();
+        gameManager.SetPlayerMovement(false);
+        yield return new WaitForSeconds(1f);
+        playerEatenSoundEmitter.Play();
+    }
+    
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position + pitCenter, 0.1f);
         Gizmos.DrawCube(transform.position + pitCenter, pitSize);
