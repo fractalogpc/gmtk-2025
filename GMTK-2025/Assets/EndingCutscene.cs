@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
+using MoreMountains.Feedbacks;
 
 public class EndingCutscene : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class EndingCutscene : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private FadeElementInOut fadeToBlack;
     [SerializeField] private GameObject[] canvasesToDisable;
+    [SerializeField] private CameraShake cameraShake;
 
     private bool canTriggerCutscene = false;
 
@@ -46,6 +49,7 @@ public class EndingCutscene : MonoBehaviour
 
         cutsceneCamera.SetActive(true);
         player.SetActive(false); // Hide player during cutscene
+        cameraShake.SetIntensity(0f);
         foreach (var canvas in canvasesToDisable)
         {
             canvas.SetActive(false); // Disable any UI elements that should not be visible during the cutscene
@@ -81,6 +85,7 @@ public class EndingCutscene : MonoBehaviour
             float t = elapsed / rocketLaunchDuration;
             float height = rocketLaunchCurve.Evaluate(t) * rocketLaunchHeight;
             rocketTransform.position = initialRocketPosition + new Vector3(0, height, 0);
+            cameraShake.SetIntensity(1f - rocketLaunchCurve.Evaluate(t));
             elapsed += Time.deltaTime;
             if (t >= 0.8f && !faded)
             {
