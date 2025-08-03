@@ -120,7 +120,8 @@ public class GameManager : InputHandlerBase
       {
         if (isWinCutsceneActive)
         {
-          break;
+          yield return null;
+          continue;
         }
         timeLeftInDay -= Time.deltaTime;
         ambientSoundEmitter.SetParameter("Nighttime", timeLeftInDay / (dayLengthMinutes * 60));
