@@ -50,6 +50,7 @@ public class GameManager : InputHandlerBase
   [SerializeField] private Material skyboxMaterial;
   [SerializeField] private Color dayFogColor;
   [SerializeField] private Color nightFogColor;
+  [SerializeField] private GameObject lightning;
 
   public GameState gameState;
 
@@ -112,7 +113,7 @@ public class GameManager : InputHandlerBase
     {
       // Spawn sheep
       SheepSpawner.Instance.GenerateSheep();
-      
+
       gameState = GameState.CollectSheep;
       ResetPlayerToStart();
       StartDay(currentDay);
@@ -121,6 +122,7 @@ public class GameManager : InputHandlerBase
       skyboxMaterial.SetFloat("_CubemapTransition", 1f);
       RenderSettings.fogColor = dayFogColor;
       sunLight.enabled = true;
+      lightning.SetActive(false);
 
       normalMusicEmitter.Play();
       yield return new WaitForSeconds(SetPlayerVision(true));
@@ -152,6 +154,7 @@ public class GameManager : InputHandlerBase
       skyboxMaterial.SetFloat("_CubemapTransition", 0f);
       RenderSettings.fogColor = nightFogColor;
       sunLight.enabled = false;
+      lightning.SetActive(true);
 
       // Remove wild sheep
       SheepSpawner.Instance.ClearWildSheep();

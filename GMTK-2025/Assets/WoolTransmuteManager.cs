@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections;
 using System.Linq;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class WoolTransmuteManager : MonoBehaviour
 {
@@ -22,7 +23,8 @@ public class WoolTransmuteManager : MonoBehaviour
         public WoolCount[] outputs;
         public float transmuteTime;
     }
-
+    
+    [SerializeField] private StudioEventEmitter transmuteSoundEmitter;
     [SerializeField] private Recipe[] recipes;
     [SerializeField] private Sprite[] woolIcons;
     [SerializeField] private GameObject transmutingUI;
@@ -141,21 +143,20 @@ public class WoolTransmuteManager : MonoBehaviour
             if (UpgradeManager.Instance.OwnsUpgrade("Nuclear Reactor") && new[] { 0, 1, 2 }.Contains(input.colorIndex))
             {
                 // If the player owns the reactor, remove from the combined pool
-                if (UpgradeManager.Instance.GetWoolCount(0) >= input.amount)
+                int remainingCost = input.amount;
+                for (int i = 0; i < 3; i++)
                 {
-                    UpgradeManager.Instance.RemoveWool(0, input.amount);
-                }
-                else if (UpgradeManager.Instance.GetWoolCount(1) >= input.amount)
-                {
-                    UpgradeManager.Instance.RemoveWool(1, input.amount);
-                }
-                else if (UpgradeManager.Instance.GetWoolCount(2) >= input.amount)
-                {
-                    UpgradeManager.Instance.RemoveWool(2, input.amount);
-                }
-                else
-                {
-                    Debug.LogError("Not enough wool in combined pool for transmute. Why was this allowed?");
+                    int availableAmount = UpgradeManager.Instance.GetWoolCount(i);
+                    if (availableAmount >= remainingCost)
+                    {
+                        UpgradeManager.Instance.RemoveWool(i, remainingCost);
+                        break;
+                    }
+                    else
+                    {
+                        UpgradeManager.Instance.RemoveWool(i, availableAmount);
+                        remainingCost -= availableAmount;
+                    }
                 }
             }
             else
@@ -164,6 +165,7 @@ public class WoolTransmuteManager : MonoBehaviour
             }
         }
 
+        transmuteSoundEmitter.Play();
         // Wait for the transmute time
         yield return StartCoroutine(AnimateTransmutation(recipes[selectedRecipeIndex].transmuteTime));
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using System.Linq;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -123,9 +124,30 @@ public class UpgradeManager : MonoBehaviour
         Upgrade upgrade = System.Array.Find(upgrades, u => u.Name == upgradeName);
         if (upgrade != null && !upgrade.IsOwned)
         {
+
+            int combinedWBGCount = 0;
+            if (OwnsUpgrade("Nuclear Reactor"))
+            {
+                combinedWBGCount += woolColorCounts[0].Count;
+                combinedWBGCount += woolColorCounts[1].Count;
+                combinedWBGCount += woolColorCounts[2].Count;
+            }
+
             bool canAfford = true;
             foreach (var cost in upgrade.WoolCosts)
             {
+                if (combinedWBGCount > 0 && new[] { 0, 1, 2 }.Contains(cost.ColorIndex))
+                {
+                    // If the player has the reactor, check their white + gray + brown wool count as one pool
+                    if (cost.Count > combinedWBGCount)
+                    {
+                        canAfford = false;
+                        break;
+                    }
+                    combinedWBGCount -= cost.Count;
+                    continue;
+                }
+
                 if (cost.ColorIndex < 0 || cost.ColorIndex >= woolColorCounts.Length || woolColorCounts[cost.ColorIndex].Count < cost.Count)
                 {
                     canAfford = false;
@@ -137,7 +159,29 @@ public class UpgradeManager : MonoBehaviour
                 // Deduct the wool costs
                 foreach (var cost in upgrade.WoolCosts)
                 {
-                    woolColorCounts[cost.ColorIndex].Count -= cost.Count;
+                    if (OwnsUpgrade("Nuclear Reactor") && new[] { 0, 1, 2 }.Contains(cost.ColorIndex))
+                    {
+                        // If the player owns the reactor, remove from the combined pool
+                        // Figure out which color to remove from
+                        int remainingCost = cost.Count;
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (woolColorCounts[i].Count >= remainingCost)
+                            {
+                                woolColorCounts[i].Count -= remainingCost;
+                                break;
+                            }
+                            else
+                            {
+                                remainingCost -= woolColorCounts[i].Count;
+                                woolColorCounts[i].Count = 0;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        woolColorCounts[cost.ColorIndex].Count -= cost.Count;
+                    }
                 }
 
                 upgrade.IsOwned = true;

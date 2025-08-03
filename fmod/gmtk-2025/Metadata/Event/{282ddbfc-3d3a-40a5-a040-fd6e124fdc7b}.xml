@@ -5,7 +5,7 @@
 			<value>Chute</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{2d20911f-0242-4b93-a3f0-f56392d0643e}</destination>
@@ -309,6 +309,7 @@
 	<object class="MixerBusEffectChain" id="{83a7b4d7-b1f5-4f0e-a041-6fdcc56f0490}">
 		<relationship name="effects">
 			<destination>{ca9abb18-4a73-4245-8834-df5670cbf309}</destination>
+			<destination>{f554b5ae-9a74-44f2-9d04-205971dbd1c3}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f7e597af-7e38-4d97-81a7-b897c63158a1}" />
@@ -401,6 +402,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{0fb2e2dd-6408-482e-9f0c-cce1da318236}" />
 	<object class="MixerBusFader" id="{ca9abb18-4a73-4245-8834-df5670cbf309}" />
+	<object class="SpatialiserEffect" id="{f554b5ae-9a74-44f2-9d04-205971dbd1c3}" />
 	<object class="AutomationCurve" id="{c375cbf1-263d-4982-8155-e1652ab3c3ba}">
 		<relationship name="parameter">
 			<destination>{40122f40-dc71-4ebe-87cf-ff46d14f12e0}</destination>
