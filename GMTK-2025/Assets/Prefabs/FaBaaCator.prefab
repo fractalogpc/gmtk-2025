@@ -3130,7 +3130,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
-  interactionName: Interact
+  interactionName: Replace
 --- !u!4 &5714707937486803455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6419624783478950267, guid: f39503f9091bfc64ca79e3333878c934, type: 3}
@@ -4743,8 +4743,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
+  outlineColor: {r: 0.7411765, g: 0.9019608, b: 1, a: 0}
+  outlineWidth: 5
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 4272686519983021677, guid: ba2d3cf8bba820e448db15ea174d721a, type: 3}
