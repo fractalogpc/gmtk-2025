@@ -25,6 +25,9 @@ public class GameManager : InputHandlerBase
   [SerializeField] private StudioEventEmitter scaryMusicEmitter;
   [SerializeField] private StudioEventEmitter lostMusicEmitter;
 
+  [SerializeField] private int[] dailyQuotas;
+  [SerializeField] private int dailyQuotaIncreasesAfterDay5;
+
   public int sheepQuota
   {
     get;
@@ -48,7 +51,6 @@ public class GameManager : InputHandlerBase
   [Header("Settings")]
   public float dayLengthMinutes;
   [SerializeField] private int startQuota;
-  [SerializeField] private int dailyQuotaIncrease;
   [SerializeField] private Light sunLight;
   [SerializeField] private Material skyboxMaterial;
   [SerializeField] private Color dayFogColor;
@@ -202,7 +204,7 @@ public class GameManager : InputHandlerBase
   private void StartDay(int numDays)
   {
     timeLeftInDay = dayLengthMinutes * 60;
-    sheepQuota = numDays * dailyQuotaIncrease;
+    sheepQuota = (numDays <= 5) ? dailyQuotas[numDays - 1] : dailyQuotas[4] + (numDays - 5) * dailyQuotaIncreasesAfterDay5;
     numSheepOffered = 0;
     hasOfferedThisDay = false;
     gameState = GameState.CollectSheep;

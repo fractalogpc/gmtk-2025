@@ -57,7 +57,7 @@ public class CartController : MonoBehaviour
 
     void Start()
     {
-        SheepInCart = 0;
+        SheepInCart = 100;
 
         initialPosition = transform.position;
         initialRotation = transform.rotation;
