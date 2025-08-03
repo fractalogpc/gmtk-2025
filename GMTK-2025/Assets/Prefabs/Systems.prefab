@@ -4345,7 +4345,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3354221326086858010}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -4615,6 +4615,7 @@ GameObject:
   - component: {fileID: 7400841310545670767}
   - component: {fileID: 4744470390760964875}
   - component: {fileID: 4826187522479974098}
+  - component: {fileID: 1017625968665222254}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -4668,6 +4669,12 @@ MonoBehaviour:
   dayFogColor: {r: 0.50980395, g: 0.67058825, b: 0.6627451, a: 1}
   nightFogColor: {r: 0.47058824, g: 0.2901961, b: 0.49019608, a: 1}
   lightning: {fileID: 0}
+  onDayStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onNightStart:
+    m_PersistentCalls:
+      m_Calls: []
   gameState: 0
   numSheepOffered: 0
   startDelay: 100
@@ -5271,6 +5278,24 @@ MonoBehaviour:
   - {fileID: 2100000, guid: e4e4c1fec3a35084ab562de8ffc4d4c4, type: 2}
   - {fileID: 2100000, guid: 65707b338ba6a9d4691bae7b67ea4198, type: 2}
 --- !u!114 &4826187522479974098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3579504265299608075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2169c5e8a3f8224c9e2796568ddac2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strobingMaterials:
+  - {fileID: 2100000, guid: 598adecafaa76ac40964df3a09e3b5b4, type: 2}
+  - {fileID: 2100000, guid: 2b59b664b33c4f64fbd837651ac9a630, type: 2}
+  - {fileID: 2100000, guid: 447c6cecbb00f494685f61fa781626b6, type: 2}
+  - {fileID: 2100000, guid: e4e4c1fec3a35084ab562de8ffc4d4c4, type: 2}
+  - {fileID: 2100000, guid: 65707b338ba6a9d4691bae7b67ea4198, type: 2}
+--- !u!114 &1017625968665222254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
