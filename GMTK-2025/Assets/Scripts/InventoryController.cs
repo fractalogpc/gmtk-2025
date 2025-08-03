@@ -31,6 +31,8 @@ public class InventoryController : InputHandlerBase
 
     public InventorySlot[] inventorySlots;
 
+    private bool canSelect = true;
+
     public int SelectedSlot => selectedSlot;
     public int SelectedWoolColorIndex => inventory[selectedSlot] == ItemType.Wool ? heldWool[selectedSlot].ColorIndex : -1;
     public int SelectedWoolSize => inventory[selectedSlot] == ItemType.Wool ? heldWool[selectedSlot].Size : -1;
@@ -53,6 +55,16 @@ public class InventoryController : InputHandlerBase
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void SetSelectingOnOff(bool selecting)
+    {
+        canSelect = selecting;
+        if (!canSelect)
+        {
+            ToolController.Instance.SetTool(ToolController.ToolType.None);
+            selectedSlot = -1;
         }
     }
 
@@ -139,26 +151,42 @@ public class InventoryController : InputHandlerBase
         RegisterAction(_inputActions.Player.Scroll, ctx => HandleScroll(ctx));
     }
 
-    private void SelectItem(int slot)
+    public void SelectItem(int slot)
     {
-        switch (inventory[slot])
+        if (!canSelect)
         {
-            case ItemType.Lasso:
-                ToolController.Instance.SetTool(ToolController.ToolType.Lasso);
-                break;
-            case ItemType.Shears:
-                ToolController.Instance.SetTool(ToolController.ToolType.Shears);
-                break;
-            case ItemType.Wool:
-                ToolController.Instance.SetTool(ToolController.ToolType.Wool, wool: heldWool[slot]);
-                break;
-            case ItemType.Sheep:
-                ToolController.Instance.SetTool(ToolController.ToolType.Sheep, sheep: heldSheep[slot]);
-                break;
-            case ItemType.None:
-                ToolController.Instance.SetTool(ToolController.ToolType.None);
-                break;
+            return; // Prevent selection if not allowed
         }
+
+        if (slot == selectedSlot)
+        {
+            ToolController.Instance.SetTool(ToolController.ToolType.None);
+            for (int i = 0; i < inventorySlots.Length; i++)
+            {
+                inventorySlots[i].Select(false);
+            }
+            selectedSlot = -1;
+            return;
+        }
+
+        switch (inventory[slot])
+            {
+                case ItemType.Lasso:
+                    ToolController.Instance.SetTool(ToolController.ToolType.Lasso);
+                    break;
+                case ItemType.Shears:
+                    ToolController.Instance.SetTool(ToolController.ToolType.Shears);
+                    break;
+                case ItemType.Wool:
+                    ToolController.Instance.SetTool(ToolController.ToolType.Wool, wool: heldWool[slot]);
+                    break;
+                case ItemType.Sheep:
+                    ToolController.Instance.SetTool(ToolController.ToolType.Sheep, sheep: heldSheep[slot]);
+                    break;
+                case ItemType.None:
+                    ToolController.Instance.SetTool(ToolController.ToolType.None);
+                    break;
+            }
 
         for (int i = 0; i < inventorySlots.Length; i++)
         {
