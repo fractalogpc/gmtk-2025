@@ -136,6 +136,8 @@ public class ShearsController : InputHandlerBase
 
         upgrade3 = true;
         raycastDistance = 6f;
+
+        shearSoundEmitter.SetParameter("Volume", 0.4f);
     }
 
 }
