@@ -734,6 +734,8 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
 
         // Make sheep interactable now that it's in the pen
         EnableInteraction();
+        // Disable the colliders to prevent issues with player
+        transform.GetChild(0).GetComponent<Collider>().enabled = false;
 
         StartCoroutine(InPen(pen));
     }
@@ -1101,6 +1103,8 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
                 // If not in a pen, just drop the sheep at the held position
                 transform.rotation = Quaternion.identity;
                 inPen = false;
+                currentPen = null;
+                transform.GetChild(0).GetComponent<Collider>().enabled = true; // Enable the collider again
                 StartCoroutine(RandomMoveSheep(true));
             }
 

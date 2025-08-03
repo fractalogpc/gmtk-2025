@@ -62,6 +62,7 @@ public class ToolPointManager : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        Debug.Log("Interacting with ToolPointManager");
         if (isPlaced)
         {
             // Try to add to player's inventory
@@ -70,6 +71,8 @@ public class ToolPointManager : MonoBehaviour, IInteractable
                 Debug.Log("No available inventory slots!");
                 return;
             }
+
+            Debug.Log("Adding tool");
 
             // Add tool to inventory
             InventoryController.Instance.TryAddItem(toolType, slot, level: toolLevel);
@@ -92,6 +95,8 @@ public class ToolPointManager : MonoBehaviour, IInteractable
             {
                 return;
             }
+
+            Debug.Log("Removing tool");
 
             // Remove from player's inventory
             InventoryController.Instance.TryRemoveItem(InventoryController.Instance.SelectedSlot);
