@@ -122,6 +122,7 @@ public class EndingCutscene : MonoBehaviour
         winMusic.Stop();
 
         // Exit to menu
+        gameManager.ExitToMenu();
     }
     
 }
