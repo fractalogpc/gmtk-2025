@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Player;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ public class LassoLoopController : MonoBehaviour
 
     private Transform playerTransform;
 
-    private Transform[] lassoedSheep = null;
+    private List<Transform> lassoedSheep = new List<Transform>();
     public float tightenSpeed = 5f;
     public float sheepWidth = 0.5f;
 
@@ -143,7 +144,7 @@ public class LassoLoopController : MonoBehaviour
                 jointRadii[i] = Mathf.MoveTowards(jointRadii[i], targetDistance, tightenSpeed * Time.deltaTime);
                 joints[i].position = centerPos + dir * jointRadii[i];
 
-                if (lassoedSheep.Length > 0)
+                if (lassoedSheep.Count > 0)
                 {
                     // If there are sheep, move the rope up
                     joints[i].position += Vector3.up * 1f;
@@ -165,10 +166,21 @@ public class LassoLoopController : MonoBehaviour
             jointRadii[i] = radius;
         }
 
-        lassoedSheep = new Transform[sheep.Length];
+        lassoedSheep.Clear();
         for (int i = 0; i < sheep.Length; i++)
         {
-            lassoedSheep[i] = sheep[i].transform;
+            lassoedSheep.Add(sheep[i].transform);
+        }
+    }
+
+    public void ReleasePoints(Transform[] sheepToRemove)
+    {
+        foreach (var sheep in sheepToRemove)
+        {
+            if (lassoedSheep.Contains(sheep))
+            {
+                lassoedSheep.Remove(sheep);
+            }
         }
     }
 }

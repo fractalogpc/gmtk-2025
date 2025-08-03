@@ -685,7 +685,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             //     lasso.RemoveSheep(this);
             //     Reset();
             // }
-            if (distanceToPosition > 4f)
+            if (distanceToPosition > 2f)
             {
                 float speed = Mathf.Clamp(Mathf.Pow(distanceToPosition, 2), 0f, 10f); // Speed increases with distance
                 transform.position = Vector3.MoveTowards(transform.position, position.position, speed * Time.deltaTime);
