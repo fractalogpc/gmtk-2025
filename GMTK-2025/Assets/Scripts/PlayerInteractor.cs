@@ -6,7 +6,7 @@ public class PlayerInteractor : InputHandlerBase
   public Camera raycastCamera;
   public float raycastDistance = 5f;
   public LayerMask interactableLayer;
-
+  [SerializeField] private GameObject interactablePrompt;
 
   private bool isInteracting = false;
   private GameObject currentInteractableObject;
@@ -39,6 +39,14 @@ public class PlayerInteractor : InputHandlerBase
   private void UpdateHoverState()
   {
     IInteractable hitInteractable = RaycastForInteractable();
+    if (hitInteractable != null)
+    {
+      interactablePrompt.SetActive(true);
+    }
+    else
+    {
+      interactablePrompt.SetActive(false);
+    }
 
     if (hitInteractable != previousInteractable)
     {

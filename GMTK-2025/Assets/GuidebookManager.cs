@@ -14,9 +14,12 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private float distanceToBringUp = 0.5f;
     [SerializeField] private float zoomInAmount = 0.1f;
     [SerializeField] private StudioEventEmitter guidebookOpenSound;
+    [SerializeField] private GameObject openPrompt;
+
+    private bool hasOpenedGuidebook = false;
 
     private int currentPageIndex = 0;
-    private bool guidebookUp = true;
+    private bool guidebookUp = false;
     private Vector3 initialPosition;
     private bool isAnimating = false;
     private int selectedHotbarSlot = 0;
@@ -25,7 +28,7 @@ public class GuidebookManager : MonoBehaviour
     {
         UpdatePageImages();
         initialPosition = transform.localPosition;
-        StartCoroutine(AnimateGuidebook(true)); // Start with the guidebook up
+        // StartCoroutine(AnimateGuidebook(true)); // Start with the guidebook up
     }
 
     private void UpdatePageImages()
@@ -71,6 +74,12 @@ public class GuidebookManager : MonoBehaviour
                 selectedHotbarSlot = InventoryController.Instance.SelectedSlot;
                 InventoryController.Instance.SelectItem(selectedHotbarSlot);
                 InventoryController.Instance.SetSelectingOnOff(false);
+
+                if (openPrompt != null && !hasOpenedGuidebook)
+                {
+                    hasOpenedGuidebook = true;
+                    openPrompt.SetActive(false);
+                }
             }
             else
             {
