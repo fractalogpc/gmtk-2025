@@ -167,6 +167,8 @@ public class InventoryController : InputHandlerBase
         {
             ToolController.Instance.SetTool(ToolController.ToolType.None);
         }
+        clickPrompt.SetActive(false);
+        dropPrompt.SetActive(false);
         return true;
     }
 
