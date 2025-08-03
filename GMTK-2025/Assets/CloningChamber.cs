@@ -63,6 +63,8 @@ public class CloningChamber : MonoBehaviour
         cloneController.woolSize = sheep.size;
         cloneController.woolColorIndex = sheep.colorIndex;
 
+        cloneController.lockMovement = true;
+
         clone.transform.localScale = Vector3.zero; // Start with zero scale
         float elapsed = 0f;
 

@@ -50,7 +50,7 @@ public class ShearsController : InputHandlerBase
         {
             // Debug.Log("Shearable object hit: " + hit.collider.name);
             IShearable shearable = hit.collider.GetComponentInParent<IShearable>();
-            if (shearable != null)
+            if (shearable != null && shearable.CanBeSheared())
             {
 
                 bool doubleShear = false;

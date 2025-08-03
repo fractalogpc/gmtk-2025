@@ -332,7 +332,7 @@ public class LassoController : InputHandlerBase
         foreach (var hit in nearbyHits)
         {
             var sheep = hit.GetComponent<AdvancedSheepController>();
-            if (sheep != null)
+            if (sheep != null && sheep.isActivated)
             {
                 sheep.GetLassoed(transform, playerController.transform, this);
                 lassoedSheep.Add(sheep);
