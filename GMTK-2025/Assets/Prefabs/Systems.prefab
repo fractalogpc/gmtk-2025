@@ -2462,7 +2462,7 @@ MonoBehaviour:
   lostMusicEmitter: {fileID: 6420629987912745444}
   fadeToBlack: {fileID: 2359082463679124788}
   topLevelFadeToBlack: {fileID: 3652769835273226932}
-  dayLengthMinutes: 0.1
+  dayLengthMinutes: 5
   startQuota: 3
   dailyQuotaIncrease: 2
   gameState: 0
@@ -4262,7 +4262,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Quit To Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c686bce2958a7964296e9e9527112cb8, type: 2}
   m_sharedMaterial: {fileID: 6521421249147721887, guid: c686bce2958a7964296e9e9527112cb8, type: 2}
