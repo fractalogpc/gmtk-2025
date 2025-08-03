@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   woolOrigin: {fileID: 0}
+  woolPrefab: {fileID: 2867281913176661523, guid: 46467d343af2ee14190c15663bb4f007, type: 3}
 --- !u!114 &7193388242384313833
 MonoBehaviour:
   m_ObjectHideFlags: 0
