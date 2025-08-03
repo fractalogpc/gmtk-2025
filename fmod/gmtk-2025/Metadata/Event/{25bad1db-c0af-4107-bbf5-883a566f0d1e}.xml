@@ -325,7 +325,7 @@
 			<value>1</value>
 		</property>
 		<property name="soundSize">
-			<value>4.4000001</value>
+			<value>0.900000036</value>
 		</property>
 	</object>
 	<object class="SFXReverbEffect" id="{4a9fa93b-aa40-4f71-8388-2bbf29eed832}">
