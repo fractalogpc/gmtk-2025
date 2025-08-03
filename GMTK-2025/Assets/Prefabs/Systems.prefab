@@ -4392,10 +4392,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1524388336202901445, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3761460873191963612, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4420,50 +4416,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5544795072664463791, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: lassoSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cc0a8b85e7a62af4c8d2c6d7e1e55713, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: shearsSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0434963cc3d57fd499e43892be75317d, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: woolSprites.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: 'woolSprites.Array.data[0]'
-      value: 
-      objectReference: {fileID: 21300000, guid: a70f0ffd7a116a640b2a6a2844fa0e63, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: 'woolSprites.Array.data[1]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 344b67abddb49a14e9d2cac42567ae47, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: 'woolSprites.Array.data[2]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 9710d5c3e80a04642a0dfe673dfd242b, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: 'woolSprites.Array.data[3]'
-      value: 
-      objectReference: {fileID: 21300000, guid: b757dacdb5c2fc243b1ff88ab8e98f04, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: 'woolSprites.Array.data[4]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 9ff5496e949196749b0e91ffce1ab568, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: 'woolSprites.Array.data[5]'
-      value: 
-      objectReference: {fileID: 21300000, guid: dec717c0d41d8ba4cbd50adc6107eed7, type: 3}
-    - target: {fileID: 7390535396310958146, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: 'woolSprites.Array.data[6]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 681ac5b3984c63e4791dbd754434c0cc, type: 3}
     - target: {fileID: 7919511899073164726, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4491,10 +4443,6 @@ PrefabInstance:
     - target: {fileID: 8700287680860149138, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
       propertyPath: m_Name
       value: Inventory
-      objectReference: {fileID: 0}
-    - target: {fileID: 9140177506753318473, guid: aa534953f757dbc45ae7b6001a449a0b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
