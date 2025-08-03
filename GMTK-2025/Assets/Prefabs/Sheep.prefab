@@ -339,6 +339,7 @@ MonoBehaviour:
   moveTimer: 0
   isQueen: 0
   currentQueen: {fileID: 0}
+  interactableObject: {fileID: 4830812454309032838}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -584,7 +585,7 @@ GameObject:
   - component: {fileID: 6025680872673574210}
   - component: {fileID: 180667820568113718}
   - component: {fileID: 1767768416620962587}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Interactable
   m_TagString: Untagged
   m_Icon: {fileID: 0}

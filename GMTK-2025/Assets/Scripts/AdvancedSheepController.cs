@@ -15,6 +15,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public float moveTimer = 0f;
     public bool isQueen = false;
     public AdvancedSheepController currentQueen = null;
+    [SerializeField] private GameObject interactableObject;
 
     private SheepAudio sheepAudio;
 
@@ -717,6 +718,10 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 2.0f));
 
         inPen = true;
+
+        // Make sheep interactable now that it's in the pen
+        interactableObject.layer = LayerMask.NameToLayer("Interactable");
+
         StartCoroutine(InPen(pen));
     }
 
