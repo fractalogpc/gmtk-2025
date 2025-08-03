@@ -75,7 +75,10 @@ public class GameManager : InputHandlerBase
     }
     else
     {
-      Destroy(gameObject);
+      // If an instance already exists, destroy the old one
+      Debug.LogWarning("Multiple GameManager instances found. Destroying the old one.");
+      Destroy(Instance.gameObject);
+      Instance = this;
     }
   }
 
