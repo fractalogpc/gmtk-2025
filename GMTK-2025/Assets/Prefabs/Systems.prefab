@@ -1033,6 +1033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5287589857700092270}
   - component: {fileID: 4745233779433477221}
+  - component: {fileID: 4521342373424690514}
   m_Layer: 0
   m_Name: Sound Music
   m_TagString: Untagged
@@ -1075,6 +1076,37 @@ MonoBehaviour:
       Data3: -599161199
       Data4: 1782022655
     Path: event:/Music/MusicNormal
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &4521342373424690514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2554111524704912672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 27828990
+      Data2: 1170808857
+      Data3: 469990071
+      Data4: -545402700
+    Path: event:/Music/MusicWin
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0

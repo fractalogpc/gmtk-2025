@@ -21,6 +21,7 @@ public class EndingCutscene : MonoBehaviour
     [SerializeField] private CameraShake cameraShake;
     [SerializeField] private Transform[] points;
     [SerializeField] private StudioEventEmitter rocketSound;
+    [SerializeField] private StudioEventEmitter winMusic;
 
     private bool canTriggerCutscene = false;
 
@@ -59,6 +60,7 @@ public class EndingCutscene : MonoBehaviour
         }
         doorOutline.enabled = false;
         yield return new WaitForSeconds(0.5f);
+        winMusic.Play();
         fadeToBlack.FadeOut();
         yield return new WaitForSeconds(1f);
 
@@ -105,6 +107,8 @@ public class EndingCutscene : MonoBehaviour
             }
             yield return null;
         }
+
+        winMusic.Stop();
     }
     
 }
