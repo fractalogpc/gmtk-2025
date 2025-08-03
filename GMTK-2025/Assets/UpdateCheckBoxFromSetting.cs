@@ -10,7 +10,7 @@ public class UpdateCheckBoxFromSetting : MonoBehaviour
     {
         if (toggle != null)
         {
-            int value = PlayerPrefs.GetInt(settingName, 1); // Default to 0 (unchecked) if not set
+            int value = PlayerPrefs.GetInt(settingName, 1);
             toggle.isOn = value == 1;
         }
     }

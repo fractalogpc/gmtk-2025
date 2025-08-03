@@ -4,6 +4,7 @@ using FMODUnity;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameManager : InputHandlerBase
 {
@@ -51,6 +52,9 @@ public class GameManager : InputHandlerBase
   [SerializeField] private Color dayFogColor;
   [SerializeField] private Color nightFogColor;
   [SerializeField] private GameObject lightning;
+
+  public UnityEvent onDayStart;
+  public UnityEvent onNightStart;
 
   public GameState gameState;
 
@@ -122,6 +126,8 @@ public class GameManager : InputHandlerBase
       ResetPlayerToStart();
       StartDay(currentDay);
 
+      onDayStart?.Invoke();
+
       // Set skybox to day
       skyboxMaterial.SetFloat("_CubemapTransition", 1f);
       RenderSettings.fogColor = dayFogColor;
@@ -153,6 +159,7 @@ public class GameManager : InputHandlerBase
       yield return new WaitForSeconds(SetPlayerVision(false));
       ResetPlayerToStart();
       gameState = GameState.OfferSheep;
+      onNightStart?.Invoke();
 
       // Environmental changes for night
       skyboxMaterial.SetFloat("_CubemapTransition", 0f);
