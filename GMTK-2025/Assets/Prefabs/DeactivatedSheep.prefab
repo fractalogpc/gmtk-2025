@@ -339,6 +339,7 @@ MonoBehaviour:
   moveTimer: 0
   isQueen: 0
   currentQueen: {fileID: 0}
+  interactableObject: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
