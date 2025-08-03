@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4181114789449166481}
   - component: {fileID: 7390535396310958146}
   - component: {fileID: 2420484683342080754}
+  - component: {fileID: 3453462907851361160}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -104,6 +105,9 @@ MonoBehaviour:
   - {fileID: 2163634155169772175}
   - {fileID: 3183406624052581737}
   - {fileID: 8500858574582881027}
+  clickPrompt: {fileID: 0}
+  clickPromptText: {fileID: 0}
+  dropPrompt: {fileID: 0}
 --- !u!114 &2420484683342080754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +139,18 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!225 &3453462907851361160
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700287680860149138}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &2641501742709645298
 PrefabInstance:
   m_ObjectHideFlags: 0

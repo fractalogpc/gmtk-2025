@@ -17,6 +17,10 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private GameObject openPrompt;
     [SerializeField] private GameObject secondaryOpenPrompt;
 
+    [SerializeField] private GameObject[] enableWhenOpen;
+    [SerializeField] private GameObject[] disableWhenOpen;
+    [SerializeField] private CanvasGroup inventoryGroup;
+
     private bool hasOpenedGuidebook = false;
 
     private int currentPageIndex = 0;
@@ -88,6 +92,17 @@ public class GuidebookManager : MonoBehaviour
                 InventoryController.Instance.SetSelectingOnOff(true);
                 InventoryController.Instance.SelectItem(selectedHotbarSlot);
             }
+
+            foreach (GameObject obj in enableWhenOpen)
+            {
+                obj.SetActive(guidebookUp);
+            }
+            foreach (GameObject obj in disableWhenOpen)
+            {
+                obj.SetActive(!guidebookUp);
+            }
+
+            inventoryGroup.alpha = guidebookUp ? 0f : 1f;
 
             // Animate guidebook going away/coming up
             StopAllCoroutines();
