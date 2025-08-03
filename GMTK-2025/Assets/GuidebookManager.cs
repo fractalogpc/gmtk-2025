@@ -16,7 +16,7 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private StudioEventEmitter guidebookOpenSound;
 
     private int currentPageIndex = 0;
-    private bool guidebookUp = true;
+    private bool guidebookUp = false;
     private Vector3 initialPosition;
     private bool isAnimating = false;
     private int selectedHotbarSlot = 0;
@@ -25,7 +25,7 @@ public class GuidebookManager : MonoBehaviour
     {
         UpdatePageImages();
         initialPosition = transform.localPosition;
-        StartCoroutine(AnimateGuidebook(true)); // Start with the guidebook up
+        // StartCoroutine(AnimateGuidebook(true)); // Start with the guidebook up
     }
 
     private void UpdatePageImages()
