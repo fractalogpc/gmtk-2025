@@ -1214,6 +1214,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
+  interactablePrompt: {fileID: 0}
 --- !u!114 &8807025442246424324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,6 +1292,8 @@ GameObject:
   - component: {fileID: 3263315094103127927}
   - component: {fileID: 62451455796263791}
   - component: {fileID: 5163183181549177971}
+  - component: {fileID: 6439244331900811099}
+  - component: {fileID: 6048977301224365423}
   m_Layer: 3
   m_Name: Guidebook
   m_TagString: Untagged
@@ -1371,7 +1374,15 @@ MonoBehaviour:
     m_RotationOrder: 4
   distanceToBringUp: 1
   zoomInAmount: 0.25
-  guidebookOpenSound: {fileID: 5163183181549177971}
+  guidebookOpenSound: {fileID: 6048977301224365423}
+  guidebookCloseSound: {fileID: 6439244331900811099}
+  guidebookPageSound: {fileID: 5163183181549177971}
+  openPrompt: {fileID: 0}
+  secondaryOpenPrompt: {fileID: 0}
+  enableWhenOpen:
+  - {fileID: 0}
+  disableWhenOpen: []
+  inventoryGroup: {fileID: 0}
 --- !u!114 &5163183181549177971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1403,6 +1414,68 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &6439244331900811099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365248823508340302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 213164208
+      Data2: 1186642726
+      Data3: -1864145527
+      Data4: -764052388
+    Path: event:/CloseBook
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
+--- !u!114 &6048977301224365423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365248823508340302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1644382396
+      Data2: 1133895596
+      Data3: -180238410
+      Data4: 860178336
+    Path: event:/OpenBook
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &8591095115637763902
 GameObject:
   m_ObjectHideFlags: 0
