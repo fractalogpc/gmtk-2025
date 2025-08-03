@@ -9,6 +9,8 @@ public class ShearsController : InputHandlerBase
     public LayerMask sheepLayer;
     public StudioEventEmitter shearSoundEmitter;
 
+    public Renderer[] renderers;
+
     public void LateUpdate()
     {
         Vector3 targetPosition = Vector3.Lerp(transform.position, shearsOrigin.position, 0.6f);
@@ -42,6 +44,30 @@ public class ShearsController : InputHandlerBase
         else
         {
             // Debug.Log("No shearable object in range.");
+        }
+    }
+
+    public void Upgrade1()
+    {
+        foreach (var renderer in renderers)
+        {
+            renderer.material = UpgradeManager.Instance.upgrade1Material;
+        }
+    }
+
+    public void Upgrade2()
+    {
+        foreach (var renderer in renderers)
+        {
+            renderer.material = UpgradeManager.Instance.upgrade2Material;
+        }
+    }
+
+    public void Upgrade3()
+    {
+        foreach (var renderer in renderers)
+        {
+            renderer.material = UpgradeManager.Instance.upgrade3Material;
         }
     }
 }
