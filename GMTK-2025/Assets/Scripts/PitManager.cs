@@ -91,7 +91,7 @@ public class PitManager : MonoBehaviour
     }
     
     private int CountSheep() {
-        return GetCollidersInPit(new[] { "Sheep" }).Length;
+        return CartController.Instance.SheepInCart;
     }
 
     private void MakeFallingFall() {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CartController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CartController : MonoBehaviour
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    private List<AdvancedSheepController> sheepInCartList = new List<AdvancedSheepController>();
 
     [SerializeField] private Rigidbody rigidbody;
 
@@ -89,6 +91,12 @@ public class CartController : MonoBehaviour
         transform.rotation = initialRotation;
         rigidbody.isKinematic = true;
         isCartActive = false;
+        foreach (var sheep in sheepInCartList)
+        {
+            Destroy(sheep.gameObject);
+        }
+        sheepInCartList.Clear();
+        sheepInCart = 0;
     }
 
     void Update()
@@ -151,6 +159,7 @@ public class CartController : MonoBehaviour
 
             sheep.Show();
             sheep.PutInCart(this);
+            sheepInCartList.Add(sheep);
             ObjectiveSystem.Instance.CompleteObjectiveByName("PutCart");
 
             SheepInCart++;
