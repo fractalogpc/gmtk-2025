@@ -452,7 +452,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   heldLasso: {fileID: 4728018281474345059}
-  tableLassoRenderer: {fileID: 0}
+  tableLassoRenderer: {fileID: 5682774850098268507}
   visualController: {fileID: 2131917488127391299}
   lassoedSheep: []
 --- !u!54 &2089795282631770854
