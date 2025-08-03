@@ -243,6 +243,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Interact
 --- !u!1 &4490095774409676001
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,12 +469,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDeactivatedOnStart: 0
+  isActivated: 1
   looking: 0
   moving: 0
   running: 0
   moveTimer: 0
   isQueen: 0
   currentQueen: {fileID: 0}
+  interactableObject: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -487,14 +490,13 @@ MonoBehaviour:
   - {fileID: 6192510658296922133}
   tailObjects:
   - {fileID: 5485281723178144072}
-  - {fileID: 0}
-  - {fileID: 0}
   woolPrefab: {fileID: 2867281913176661523, guid: 46467d343af2ee14190c15663bb4f007, type: 3}
   woolColorIndex: 0
   woolSize: 1
   colliders:
   - {fileID: 6665130538496210235}
   inCartCollider: {fileID: 7440338151554163340}
+  lockMovement: 0
   woolPopSoundEmitter: {fileID: 5343427535143069835}
   lodDistances:
   - 20
@@ -511,6 +513,7 @@ MonoBehaviour:
   - {fileID: 5002900731343581045}
   - {fileID: 5963138365485691157}
   woolMaterial: {fileID: 0}
+  inCart: 0
 --- !u!114 &4796138577136139928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +776,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Interact
 --- !u!1 &8767632892685654676
 GameObject:
   m_ObjectHideFlags: 0

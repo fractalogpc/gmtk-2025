@@ -19,7 +19,7 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     [SerializeField] private StudioEventEmitter washSoundEmitter;
     [SerializeField] private Outline outlineScript;
 
-    public string InteractionName => "Deposit Wool";
+    public string InteractionName => InventoryController.Instance.IsHoldingObject(InventoryController.ItemType.Wool) ? "Deposit Wool" : "Wash";
 
     struct DepositedWool
     {

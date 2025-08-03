@@ -661,6 +661,7 @@ MonoBehaviour:
   - {fileID: 8633263220241153337}
   - {fileID: 2864835236590256972}
   - {fileID: 6590359441343456959}
+  genericInteractable: {fileID: 7463045719596389474}
   errorText: {fileID: 4821603405838908445}
   pen1Text: {fileID: 245019454719319225}
   pen1APathing: 0000000001000000020000000300000004000000
@@ -1479,12 +1480,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ObjectiveSystem, Assembly-CSharp
+        m_MethodName: CompleteObjectiveByName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SheepDeposit
+          m_BoolArgument: 0
+        m_CallState: 2
   OnHoldInteract:
     m_PersistentCalls:
       m_Calls: []
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Assign Sheep
 --- !u!1001 &1382063303139471350
 PrefabInstance:
   m_ObjectHideFlags: 0
