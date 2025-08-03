@@ -21,6 +21,8 @@ public class SheepReception : MonoBehaviour, IInteractable
     private List<AdvancedSheepController> heldSheep = new List<AdvancedSheepController>();
 
     public string InteractionName => "Assign Sheep";
+    
+    public GenericInteractable genericInteractable;
 
     private void Awake()
     {
@@ -72,6 +74,21 @@ public class SheepReception : MonoBehaviour, IInteractable
         {
             pen.penText.text = $"{pen.Name} - {pen.CurrentSheep()}/{pen.MaximumSheep()}";
         }
+    }
+
+    private bool CanAddSheep()
+    {
+        if (pens.Count == 0) return false;
+        foreach (Pen pen in pens)
+        {
+            if (!pen.IsFull) return true;
+        }
+        return false;
+    }
+
+    void Update()
+    {
+       genericInteractable.gameObject.layer = CanAddSheep() ? LayerMask.NameToLayer("Interactable") : LayerMask.NameToLayer("Default");
     }
 
     public void OnHoverEnter()
