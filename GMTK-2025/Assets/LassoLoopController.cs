@@ -14,6 +14,7 @@ public class LassoLoopController : MonoBehaviour
     public Transform[] joints;
 
     public AnimationCurve sizeCurve;
+    public float sizeCurveMult = 1f;
 
     public bool onGround = false;
     public bool isPulling = false;
@@ -29,7 +30,6 @@ public class LassoLoopController : MonoBehaviour
 
     private float globalRotation = 0f;
     public float rotationSpeed = 180f; // degrees per second
-
 
     void Start()
     {
@@ -100,7 +100,7 @@ public class LassoLoopController : MonoBehaviour
                 joints[i].position = position;
             }
 
-            radius = sizeCurve.Evaluate(timer);
+            radius = sizeCurve.Evaluate(timer) * sizeCurveMult;
         }
         else
         {
@@ -183,4 +183,20 @@ public class LassoLoopController : MonoBehaviour
             }
         }
     }
+
+    public void Upgrade1()
+    {
+        sizeCurveMult = 1.5f; // Increase the size curve multiplier for upgrade 1
+    }
+
+    public void Upgrade2()
+    {
+        sizeCurveMult = 2f; // Increase the size curve multiplier for upgrade 2
+    }
+
+    public void Upgrade3()
+    {
+        sizeCurveMult = 4f; // Increase the size curve multiplier for upgrade 3
+    }
+
 }

@@ -59,6 +59,13 @@ public class LassoVisualController : MonoBehaviour
         lassoLoopController.center = lassoGoal;
         lassoLoopController.CreatePrefabs();
 
+        if (upgrade1)
+            lassoLoopController.Upgrade1();
+        if (upgrade2)
+            lassoLoopController.Upgrade2();
+        if (upgrade3)
+            lassoLoopController.Upgrade3();
+
         isEnabled = true;
     }
 
@@ -83,5 +90,30 @@ public class LassoVisualController : MonoBehaviour
     public void StartPulling(bool isRetracting)
     {
         lassoLoopController.isPulling = isRetracting;
+    }
+
+    bool upgrade1 = false;
+    bool upgrade2 = false;
+    bool upgrade3 = false;
+
+    public void Upgrade1()
+    {
+        upgrade1 = true;
+        if (lassoLoopController != null)
+            lassoLoopController.Upgrade1();
+    }
+
+    public void Upgrade2()
+    {
+        upgrade2 = true;
+        if (lassoLoopController != null)
+            lassoLoopController.Upgrade1();
+    }
+
+    public void Upgrade3()
+    {
+        upgrade3 = true;
+        if (lassoLoopController != null)
+            lassoLoopController.Upgrade1();
     }
 }

@@ -397,17 +397,23 @@ public class LassoController : InputHandlerBase
     {
         heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade1Material;
         tableLassoRenderer.material = UpgradeManager.Instance.upgrade1Material;
+
+        visualController.Upgrade1();
     }
 
     public void Upgrade2()
     {
         heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade2Material;
         tableLassoRenderer.material = UpgradeManager.Instance.upgrade2Material;
+
+        visualController.Upgrade2();
     }
 
     public void Upgrade3()
     {
         heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade3Material;
         tableLassoRenderer.material = UpgradeManager.Instance.upgrade3Material;
+
+        visualController.Upgrade3();
     }
 }
