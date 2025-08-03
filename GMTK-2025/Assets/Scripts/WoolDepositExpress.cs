@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 
 public class WoolDepositExpress : MonoBehaviour, IInteractable
 {
@@ -8,6 +9,7 @@ public class WoolDepositExpress : MonoBehaviour, IInteractable
     [SerializeField] private Animation anim;
     [SerializeField] private ParticleSystem finishEffect;
     [SerializeField] private Outline outlineScript;
+    [SerializeField] private StudioEventEmitter depositSoundEmitter;
     private bool isDepositing = false;
 
     public void Interact()
@@ -34,6 +36,7 @@ public class WoolDepositExpress : MonoBehaviour, IInteractable
     private IEnumerator DepositWool()
     {
         isDepositing = true;
+        depositSoundEmitter.Play();
         anim.Play();
         yield return new WaitForSeconds(anim.clip.length);
         finishEffect.Play();
