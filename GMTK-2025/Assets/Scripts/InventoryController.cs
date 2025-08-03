@@ -121,30 +121,40 @@ public class InventoryController : InputHandlerBase
         return true;
     }
 
-    public bool TryRemoveItem(int slot)
+    public bool TryRemoveItem(int? slot = null)
     {
-        if (slot < 0 || slot >= inventory.Length)
+        int slotToSelect;
+        if (slot == null)
+        {
+            slotToSelect = selectedSlot;
+        }
+        else
+        {
+            slotToSelect = (int)slot;
+        }
+
+        if (slotToSelect < 0 || slotToSelect >= inventory.Length)
         {
             Debug.LogError("Invalid inventory slot index.");
             return false;
         }
-        if (inventory[slot] == ItemType.None)
+        if (inventory[slotToSelect] == ItemType.None)
         {
             Debug.LogWarning("Inventory slot is already empty.");
             return false;
         }
 
-        if (inventory[slot] == ItemType.Sheep && heldSheep != null)
+        if (inventory[slotToSelect] == ItemType.Sheep && heldSheep != null)
         {
             // heldSheep.Reset(); // Reset the sheep if it's being held
-            heldSheep[slot] = null;
+            heldSheep[slotToSelect] = null;
         }
 
-        inventory[slot] = ItemType.None;
+        inventory[slotToSelect] = ItemType.None;
 
-        inventorySlots[slot].SetImage(null);
+        inventorySlots[slotToSelect].SetImage(null);
 
-        if (selectedSlot == slot)
+        if (selectedSlot == slotToSelect)
         {
             ToolController.Instance.SetTool(ToolController.ToolType.None);
         }

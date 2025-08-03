@@ -28,7 +28,7 @@ TagManager:
   - Collision
   - IgnorePlayer
   - RopeCollider
-  - 
+  - CartCollider
   - 
   - 
   - 

@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class CartController : MonoBehaviour
 {
+    public static CartController Instance { get; private set; }
+
     public Transform player;
 
+    public Collider interactableCollider;
+
     public bool isCartActive = false;
+
+    public LayerMask cartLayer;
 
     public void Interact()
     {
@@ -17,6 +23,18 @@ public class CartController : MonoBehaviour
         {
             // Activate cart
             isCartActive = true;
+        }
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -66,7 +84,7 @@ public class CartController : MonoBehaviour
 
             // Raycast to find where to place the sheep
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity, cartLayer, QueryTriggerInteraction.Collide))
             {
                 sheep.transform.position = hit.point;
             }
@@ -81,5 +99,10 @@ public class CartController : MonoBehaviour
             sheep.Show();
             sheep.PutInCart(this);
         }
+    }
+
+    public void SetInteractableColliderActive(bool active)
+    {
+        interactableCollider.enabled = active;
     }
 }

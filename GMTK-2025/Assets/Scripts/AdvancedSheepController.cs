@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using FMODUnity;
 using System.Collections.Generic;
 
-public class AdvancedSheepController : MonoBehaviour, IShearable
+public class AdvancedSheepController : InputHandlerBase, IShearable
 {
     public bool isDeactivatedOnStart = false;
     private bool isActivated = true;
@@ -15,6 +15,9 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     public float moveTimer = 0f;
     public bool isQueen = false;
     public AdvancedSheepController currentQueen = null;
+
+    private Pen.SubPen currentPen = null;
+
     [SerializeField] private GameObject interactableObject;
 
     private SheepAudio sheepAudio;
@@ -93,8 +96,10 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         sheepAudio = GetComponentInChildren<SheepAudio>();
     }
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         if (isDeactivatedOnStart) return;
 
         myUpdateGroupCount = UnityEngine.Random.Range(0, MAX_UPDATE_GROUP_COUNT);
@@ -697,7 +702,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         moving = false;
     }
 
-    private IEnumerator RunToPen(Pen.SubPen pen, bool skipFirstPoint = false)
+    private IEnumerator RunToPen(Pen.SubPen pen, bool skipFirstPoint = false, bool onlyGoToLastPoint = false)
     {
         Vector3[] allPositions = System.Array.ConvertAll(SheepReception.Instance.pathingPoints, t => t.position);
         int[] indices = pen.pathingIndices;
@@ -710,13 +715,21 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         float speed = UnityEngine.Random.Range(5f, 9f);
 
-        for (int i = 0; i < selectedPositions.Length; i++)
+        if (onlyGoToLastPoint)
         {
-            yield return StartCoroutine(RunToPoint(speed, selectedPositions[i]));
+            yield return StartCoroutine(RunToPoint(speed, selectedPositions[selectedPositions.Length - 1]));
+        }
+        else
+        {
+            for (int i = 0; i < selectedPositions.Length; i++)
+            {
+                yield return StartCoroutine(RunToPoint(speed, selectedPositions[i]));
+            }
         }
 
         yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 2.0f));
 
+        currentPen = pen;
         inPen = true;
 
         // Make sheep interactable now that it's in the pen
@@ -950,9 +963,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     private Collider[] collidersToDeactivate;
     public void TryPickup()
     {
-        if (!inPen) return;
-
-        if (isSheared) return;
+        if (!inPen || isSheared || inCart) return;
 
         if (InventoryController.Instance.GetNextAvailableSlot(out int index))
         {
@@ -973,6 +984,8 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             heldPosition = ToolController.Instance.sheepHoldPosition;
             transform.localScale *= heldPosition.localScale.x; // Scale the sheep to match the held position
             woolPopSoundEmitter.Play();
+
+            currentPen.AddSheep(-1); // Remove the sheep from the pen count
         }
     }
 
@@ -1004,5 +1017,64 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         });
 
         inCart = true;
+    }
+
+    protected override void InitializeActionMap()
+    {
+        RegisterAction(_inputActions.Player.Drop, ctx => TryReleaseSheap());
+    }
+
+    public void TryReleaseSheap()
+    {
+        if (!isHeld) return;
+
+        if (InventoryController.Instance.IsHoldingObject(InventoryController.ItemType.Sheep) && InventoryController.Instance.GetHeldSheep() == this)
+        {
+            InventoryController.Instance.TryRemoveItem();
+
+            Show();
+
+            transform.SetParent(null, true);
+            transform.rotation = Quaternion.identity;
+            transform.position = GetGroundHeight(transform.position);
+
+            StopAllCoroutines();
+
+            woolPopSoundEmitter.Play();
+
+            // Reactivate colliders
+            if (collidersToDeactivate != null)
+            {
+                foreach (Collider col in collidersToDeactivate)
+                {
+                    col.enabled = true;
+                }
+                collidersToDeactivate = null;
+            }
+
+            sheepAnimation.enabled = false;
+
+            transform.localScale /= heldPosition.localScale.x; // Scale the sheep to match the held position
+
+            // Check if was in a pen
+            if (inPen)
+            {
+                if (!currentPen.IsFull)
+                {
+                    currentPen.AddSheep(1);
+
+                    StartCoroutine(RunToPen(currentPen, false, true));
+                }
+            }
+            else
+            {
+                // If not in a pen, just drop the sheep at the held position
+                transform.rotation = Quaternion.identity;
+                inPen = false;
+                StartCoroutine(RandomMoveSheep(true));
+            }
+
+            isHeld = false;
+        }
     }
 }

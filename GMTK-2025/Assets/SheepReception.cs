@@ -60,6 +60,14 @@ public class SheepReception : MonoBehaviour, IInteractable
 
             currentSheepCount = resultingSheepCount;
 
+            UpdateText();
+        }
+    }
+
+    public void UpdateText()
+    {
+        foreach (Pen pen in pens)
+        {
             pen.penText.text = $"{pen.Name} - {pen.CurrentSheep()}/{pen.MaximumSheep()}";
         }
     }
@@ -261,6 +269,16 @@ public class Pen
             CurrentSheep = count;
         }
 
+        public void AddSheep(int count)
+        {
+            CurrentSheep += count;
+            if (CurrentSheep > MaximumSheep)
+            {
+                CurrentSheep = MaximumSheep; // Clamp to maximum
+            }
+
+            SheepReception.Instance.UpdateText();
+        }
     }
 
     public string Name;
