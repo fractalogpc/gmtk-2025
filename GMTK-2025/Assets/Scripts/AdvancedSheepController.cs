@@ -733,7 +733,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         inPen = true;
 
         // Make sheep interactable now that it's in the pen
-        interactableObject.layer = LayerMask.NameToLayer("Interactable");
+        EnableInteraction();
 
         StartCoroutine(InPen(pen));
     }
@@ -1017,16 +1017,29 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         }
     }
 
-    private bool inCart = false;
+    public void EnableInteraction()
+    {
+        interactableObject.layer = LayerMask.NameToLayer("Interactable");
+    }
+
+    public void DisableInteraction()
+    {
+        interactableObject.layer = LayerMask.NameToLayer("Default");
+    }
+
+    
+    public bool inCart = false;
     public void PutInCart(CartController cartController)
     {
+        DisableInteraction();
+
         Debug.Log("Putting sheep in cart: " + gameObject.name);
         StopAllCoroutines();
-        inCartCollider.SetActive(true);
-        inCartCollider.GetComponentInParent<GenericInteractable>().OnInteract.AddListener(() =>
-        {
-            cartController.TryPlaceSheep();
-        });
+        // inCartCollider.SetActive(true);
+        // inCartCollider.GetComponentInParent<GenericInteractable>().OnInteract.AddListener(() =>
+        // {
+        //     cartController.TryPlaceSheep();
+        // });
 
         inCart = true;
     }
@@ -1068,6 +1081,8 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
 
             transform.localScale /= heldPosition.localScale.x; // Scale the sheep to match the held position
 
+            DisableInteraction();
+
             // Check if was in a pen
             if (inPen)
             {
@@ -1087,6 +1102,18 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
             }
 
             isHeld = false;
+        }
+    }
+
+    public void TryPlaceInCart() // This is when another sheep is trying to 
+    {
+        if (!inCart) return;
+
+        if (InventoryController.Instance.IsHoldingObject(InventoryController.ItemType.Sheep) && InventoryController.Instance.GetHeldSheep() != this)
+        {
+            // Place the sheep in the cart
+            CartController cartController = CartController.Instance;
+            cartController.TryPlaceSheep();
         }
     }
 }

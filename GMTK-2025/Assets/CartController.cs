@@ -11,6 +11,17 @@ public class CartController : MonoBehaviour
     public bool isCartActive = false;
 
     public LayerMask cartLayer;
+    private int sheepInCart = 0;
+
+    public int SheepInCart
+    {
+        get { return sheepInCart; }
+        set
+        {
+            DisplayGameState.Instance.currentSheepCount = value;
+            sheepInCart = value;
+        }
+    }
 
     public void Interact()
     {
@@ -36,6 +47,11 @@ public class CartController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void Start()
+    {
+        SheepInCart = 0;
     }
 
     void Update()
@@ -98,6 +114,8 @@ public class CartController : MonoBehaviour
 
             sheep.Show();
             sheep.PutInCart(this);
+
+            SheepInCart++;
         }
     }
 

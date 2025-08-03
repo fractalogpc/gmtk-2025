@@ -63,6 +63,17 @@ public class ToolController : MonoBehaviour
                 currentlyHeldSheep.Hide();
                 currentlyHeldSheep = null;
                 CartController.Instance.SetInteractableColliderActive(false);
+
+                // Enable interaction on all sheep in carts
+                AdvancedSheepController[] sheeps = SheepSpawner.Instance.SheepControllers;
+                foreach (var s in sheeps)
+                {
+                    if (s != null && s.inCart)
+                    {
+                        s.DisableInteraction();
+                    }
+                }
+
                 break;
             default:
                 break;
@@ -93,6 +104,16 @@ public class ToolController : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("No sheep provided to hold.");
+                }
+
+                // Enable interaction on all sheep in carts
+                AdvancedSheepController[] sheeps = SheepSpawner.Instance.SheepControllers;
+                foreach (var s in sheeps)
+                {
+                    if (s != null && s.inCart)
+                    {
+                        s.EnableInteraction();
+                    }
                 }
 
                 currentlyHeldSheep = sheep;
