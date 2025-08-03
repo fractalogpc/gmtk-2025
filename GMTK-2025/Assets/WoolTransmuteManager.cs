@@ -40,6 +40,9 @@ public class WoolTransmuteManager : MonoBehaviour
     [SerializeField] private Transform shakingPipeTransform;
     [SerializeField] private float shakingPipeMaxDisplacement = 0.1f;
     [SerializeField] private float shakingSpeed = 5f;
+    [SerializeField] private TextMeshProUGUI canTransmuteText;
+    [SerializeField] private Material canTransmuteMaterial;
+    [SerializeField] private Material cannotTransmuteMaterial;
 
     private int selectedRecipeIndex = 0;
     private bool isTransmuting = false;
@@ -79,7 +82,54 @@ public class WoolTransmuteManager : MonoBehaviour
             }
         }
 
+        // Check if the player can afford the recipe
+        bool canAfford = CanAffordRecipe(recipes[selectedRecipeIndex]);
+
+        if (canAfford)
+        {
+            canTransmuteText.text = "Sufficient wool to execute";
+            canTransmuteText.fontMaterial = canTransmuteMaterial;
+        }
+        else
+        {
+            canTransmuteText.text = "Insufficient wool to execute";
+            canTransmuteText.fontMaterial = cannotTransmuteMaterial;
+        }
+
         recipeTimeText.text = $"Transmuting will take {recipes[selectedRecipeIndex].transmuteTime} seconds";
+    }
+
+    private bool CanAffordRecipe(Recipe recipe)
+    {
+        int combinedWBGCount = 0;
+        if (UpgradeManager.Instance.OwnsUpgrade("Nuclear Reactor"))
+        {
+            combinedWBGCount += UpgradeManager.Instance.GetWoolCount(0);
+            combinedWBGCount += UpgradeManager.Instance.GetWoolCount(1);
+            combinedWBGCount += UpgradeManager.Instance.GetWoolCount(2);
+        }
+
+        foreach (var input in recipe.inputs)
+        {
+            if (combinedWBGCount > 0 && new[] { 0, 1, 2 }.Contains(input.colorIndex))
+            {
+                // If the player has the reactor, check their white + gray + brown wool count as one pool
+                if (input.amount > combinedWBGCount)
+                {
+                    return false;
+                }
+                combinedWBGCount -= input.amount;
+                continue;
+            }
+
+            int availableAmount = UpgradeManager.Instance.GetWoolCount(input.colorIndex);
+            if (availableAmount < input.amount)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void StartTransmute()
@@ -90,36 +140,7 @@ public class WoolTransmuteManager : MonoBehaviour
         }
 
         // Check if the player can afford the recipe
-        int combinedWBGCount = 0;
-        if (UpgradeManager.Instance.OwnsUpgrade("Nuclear Reactor"))
-        {
-            combinedWBGCount += UpgradeManager.Instance.GetWoolCount(0);
-            combinedWBGCount += UpgradeManager.Instance.GetWoolCount(1);
-            combinedWBGCount += UpgradeManager.Instance.GetWoolCount(2);
-        }
-
-        bool canAfford = true;
-        foreach (var input in recipes[selectedRecipeIndex].inputs)
-        {
-            if (combinedWBGCount > 0 && new[] { 0, 1, 2 }.Contains(input.colorIndex))
-            {
-                // If the player has the reactor, check their white + gray + brown wool count as one pool
-                if (input.amount > combinedWBGCount)
-                {
-                    canAfford = false;
-                    break;
-                }
-                combinedWBGCount -= input.amount;
-                continue;
-            }
-
-            int availableAmount = UpgradeManager.Instance.GetWoolCount(input.colorIndex);
-            if (availableAmount < input.amount)
-            {
-                canAfford = false;
-                break;
-            }
-        }
+        bool canAfford = CanAffordRecipe(recipes[selectedRecipeIndex]);
 
         if (!canAfford)
         {
