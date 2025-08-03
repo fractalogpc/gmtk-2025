@@ -15,6 +15,7 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private float zoomInAmount = 0.1f;
     [SerializeField] private StudioEventEmitter guidebookOpenSound;
     [SerializeField] private GameObject openPrompt;
+    [SerializeField] private GameObject secondaryOpenPrompt;
 
     private bool hasOpenedGuidebook = false;
 
@@ -79,6 +80,7 @@ public class GuidebookManager : MonoBehaviour
                 {
                     hasOpenedGuidebook = true;
                     openPrompt.SetActive(false);
+                    secondaryOpenPrompt.SetActive(true);
                 }
             }
             else
