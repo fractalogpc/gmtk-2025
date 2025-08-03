@@ -91,6 +91,7 @@ public class GameManager : InputHandlerBase
     Initialize();
     StartCoroutine(GameLogic());
     fadeToBlack.Show();
+    topLevelFadeToBlack.Hide();
     _inputActions.Player.Enable();
     _inputActions.GenericUI.Disable();
   }
@@ -223,10 +224,10 @@ public class GameManager : InputHandlerBase
     if (setTrue)
     {
       fadeToBlack.FadeOut();
-      return fadeToBlack.FadeInTime;
+      return fadeToBlack.FadeOutTime;
     }
     fadeToBlack.FadeIn();
-    return fadeToBlack.FadeOutTime;
+    return fadeToBlack.FadeInTime;
   }
 
   public void AddToQuota(int amount)

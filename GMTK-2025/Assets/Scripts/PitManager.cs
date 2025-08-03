@@ -23,6 +23,7 @@ public class PitManager : MonoBehaviour
     public StudioEventEmitter shrineOfferSoundEmitter;
     public StudioEventEmitter shrineErrorSoundEmitter;
     public ParticleSystem woolExplosion;
+    public GameObject fallStopObject;
 
     [Header("Settings")]
     public Vector3 pitCenter;
@@ -74,6 +75,7 @@ public class PitManager : MonoBehaviour
     }
 
     private void ResetFallingRocks() {
+        fallStopObject.SetActive(true);
         Vector3 pos = fallingObject.transform.position;
         Quaternion rot = fallingObject.transform.rotation;
         Destroy(fallingObject);
@@ -93,6 +95,7 @@ public class PitManager : MonoBehaviour
     }
 
     private void MakeFallingFall() {
+        fallStopObject.SetActive(false);
         fallingObject.GetComponent<MakeChildrenRigidbodies>().MakeRigidbodies();
         CartController.Instance.DropCart();
         crashSoundEmitter.Play();
