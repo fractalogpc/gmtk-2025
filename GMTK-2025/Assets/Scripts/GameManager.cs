@@ -110,13 +110,18 @@ public class GameManager : InputHandlerBase
     currentDay = 1;
     while (true)
     {
+      // Spawn sheep
+      SheepSpawner.Instance.GenerateSheep();
+      
       gameState = GameState.CollectSheep;
       ResetPlayerToStart();
       StartDay(currentDay);
+
       // Set skybox to day
       skyboxMaterial.SetFloat("_CubemapTransition", 1f);
       RenderSettings.fogColor = dayFogColor;
       sunLight.enabled = true;
+
       normalMusicEmitter.Play();
       yield return new WaitForSeconds(SetPlayerVision(true));
       // Disabled after offer, need to re-enable
@@ -136,17 +141,21 @@ public class GameManager : InputHandlerBase
         ambientSoundEmitter.SetParameter("Creepiness", Mathf.Clamp01(Vector3.Distance(playerObject.transform.position, pitManager.transform.position) / 300f));
         yield return null;
       }
-      // End of day, transition to offer state
-      // Set skybox to night
       ambientSoundEmitter.SetParameter("Nighttime", 1f);
       ambientSoundEmitter.SetParameter("Creepiness", 1f);
       normalMusicEmitter.Stop();
       yield return new WaitForSeconds(SetPlayerVision(false));
       ResetPlayerToStart();
       gameState = GameState.OfferSheep;
+
+      // Environmental changes for night
       skyboxMaterial.SetFloat("_CubemapTransition", 0f);
       RenderSettings.fogColor = nightFogColor;
       sunLight.enabled = false;
+
+      // Remove wild sheep
+      SheepSpawner.Instance.ClearWildSheep();
+
       yield return new WaitForSeconds(SetPlayerVision(true));
       scaryMusicEmitter.Play();
       pitManager.SetOfferable(true);

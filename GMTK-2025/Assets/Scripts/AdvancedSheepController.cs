@@ -753,6 +753,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
     }
 
     private bool inPen = false;
+    public bool InPenValue { get { return inPen; } }
     private IEnumerator InPen(Pen.SubPen pen)
     {
         Vector2 center = new Vector2(transform.position.x, transform.position.z);
