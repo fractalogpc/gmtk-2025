@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using TMPro;
-using System.Collections;
 
 public class SheepReception : MonoBehaviour, IInteractable
 {
@@ -96,6 +95,17 @@ public class SheepReception : MonoBehaviour, IInteractable
         {
             sheep.StopAllCoroutines();
             sheep.StartCoroutine(sheep.FollowPoints(new List<Vector3>(positions), 8f)); // Move sheep to the specified position
+        }
+    }
+
+    public void FreezeAllSheep()
+    {
+        foreach (var sheep in heldSheep)
+        {
+            if (sheep == null) continue;
+            sheep.StopAllCoroutines();
+
+            sheep.StartCoroutine(sheep.RandomMoveSheep(true));
         }
     }
 

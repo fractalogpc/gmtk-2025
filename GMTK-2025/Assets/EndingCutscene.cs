@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 using MoreMountains.Feedbacks;
+using FMODUnity;
 
 public class EndingCutscene : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class EndingCutscene : MonoBehaviour
     [SerializeField] private GameObject[] canvasesToDisable;
     [SerializeField] private CameraShake cameraShake;
     [SerializeField] private Transform[] points;
+    [SerializeField] private StudioEventEmitter rocketSound;
 
     private bool canTriggerCutscene = false;
 
@@ -68,19 +70,23 @@ public class EndingCutscene : MonoBehaviour
             animation.Play();
         }
 
-        yield return new WaitForSeconds(doorAnimations[0].clip.length);
-
-        // Make sheep go into the rocket
         SheepReception.Instance.ReleaseAllSheep(System.Array.ConvertAll(points, p => p.position));
+
+        yield return new WaitForSeconds(doorAnimations[0].clip.length);
+        // Make sheep go into the rocket
 
         // Wait for sheep to reach the rocket
         yield return new WaitForSeconds(15f);
+
+        SheepReception.Instance.FreezeAllSheep();
 
         // Start engines
         foreach (var thruster in rocketThrusters)
         {
             thruster.Play();
         }
+
+        rocketSound.Play();
 
         // Launch rocket
         float elapsed = 0f;
