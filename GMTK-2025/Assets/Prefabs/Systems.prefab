@@ -2462,7 +2462,7 @@ MonoBehaviour:
   lostMusicEmitter: {fileID: 6420629987912745444}
   fadeToBlack: {fileID: 2359082463679124788}
   topLevelFadeToBlack: {fileID: 3652769835273226932}
-  dayLengthMinutes: 3
+  dayLengthMinutes: 0.1
   startQuota: 3
   dailyQuotaIncrease: 2
   gameState: 0
@@ -2700,9 +2700,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
-          m_MethodName: 
-          m_Mode: 3
+          m_TargetAssemblyTypeName: LassoController, Assembly-CSharp
+          m_MethodName: Upgrade1
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2725,9 +2725,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
-          m_MethodName: 
-          m_Mode: 3
+          m_TargetAssemblyTypeName: LassoController, Assembly-CSharp
+          m_MethodName: Upgrade2
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2749,9 +2749,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: ToolPointManager, Assembly-CSharp
-          m_MethodName: 
-          m_Mode: 3
+          m_TargetAssemblyTypeName: LassoController, Assembly-CSharp
+          m_MethodName: Upgrade3
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3003,9 +3003,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  upgrade1Material: {fileID: 0}
-  upgrade2Material: {fileID: 0}
-  upgrade3Material: {fileID: 0}
+  upgrade1Material: {fileID: 2100000, guid: 39306c326f2d7e44797cca93ca8df000, type: 2}
+  upgrade2Material: {fileID: 2100000, guid: 46073798ccd851a4aae64b0e5314a281, type: 2}
+  upgrade3Material: {fileID: 2100000, guid: 46bff7783178a334abf28e788dc494b8, type: 2}
 --- !u!114 &6416329180705956229
 MonoBehaviour:
   m_ObjectHideFlags: 0

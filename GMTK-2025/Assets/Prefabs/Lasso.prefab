@@ -366,7 +366,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1544
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -445,10 +445,14 @@ MonoBehaviour:
   throwSoundEmitter: {fileID: 5681981633975263092}
   pullSoundEmitter: {fileID: 3454720066271721608}
   breakSoundEmitter: {fileID: 0}
+  sheepMask:
+    serializedVersion: 2
+    m_Bits: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   heldLasso: {fileID: 4728018281474345059}
+  tableLassoRenderer: {fileID: 5682774850098268507}
   visualController: {fileID: 2131917488127391299}
   lassoedSheep: []
 --- !u!54 &2089795282631770854

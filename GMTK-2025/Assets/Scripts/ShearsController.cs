@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FMODUnity;
 using UnityEngine;
 
@@ -9,8 +10,13 @@ public class ShearsController : InputHandlerBase
     public LayerMask sheepLayer;
     public StudioEventEmitter shearSoundEmitter;
 
-    public Renderer[] renderers;
+    [System.Serializable]
+    public class GameObjectGroup
+    {
+        public GameObject[] objects;
+    }
 
+    public GameObjectGroup[] objects;
     public void LateUpdate()
     {
         Vector3 targetPosition = Vector3.Lerp(transform.position, shearsOrigin.position, 0.6f);
@@ -49,25 +55,37 @@ public class ShearsController : InputHandlerBase
 
     public void Upgrade1()
     {
-        foreach (var renderer in renderers)
+        foreach (var obj in objects[0].objects)
         {
-            renderer.material = UpgradeManager.Instance.upgrade1Material;
+            obj.SetActive(false);
+        }
+        foreach (var obj in objects[1].objects)
+        {
+            obj.SetActive(true);
         }
     }
 
     public void Upgrade2()
     {
-        foreach (var renderer in renderers)
+        foreach (var obj in objects[1].objects)
         {
-            renderer.material = UpgradeManager.Instance.upgrade2Material;
+            obj.SetActive(false);
+        }
+        foreach (var obj in objects[2].objects)
+        {
+            obj.SetActive(true);
         }
     }
 
     public void Upgrade3()
     {
-        foreach (var renderer in renderers)
+        foreach (var obj in objects[2].objects)
         {
-            renderer.material = UpgradeManager.Instance.upgrade3Material;
+            obj.SetActive(false);
+        }
+        foreach (var obj in objects[3].objects)
+        {
+            obj.SetActive(true);
         }
     }
 }
