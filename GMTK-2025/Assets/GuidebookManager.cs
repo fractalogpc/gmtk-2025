@@ -21,6 +21,10 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private GameObject[] disableWhenOpen;
     [SerializeField] private CanvasGroup inventoryGroup;
 
+    [SerializeField] private RectTransform[] promptTransforms;
+    [SerializeField] private Vector2[] promptZoomOffsets;
+    private Vector2[] originalPromptPositions;
+
     private bool hasOpenedGuidebook = false;
 
     private int currentPageIndex = 0;
@@ -34,6 +38,11 @@ public class GuidebookManager : MonoBehaviour
         UpdatePageImages();
         initialPosition = transform.localPosition;
         // StartCoroutine(AnimateGuidebook(true)); // Start with the guidebook up
+        originalPromptPositions = new Vector2[promptTransforms.Length];
+        for (int i = 0; i < promptTransforms.Length; i++)
+        {
+            originalPromptPositions[i] = promptTransforms[i].anchoredPosition;
+        }
     }
 
     private void UpdatePageImages()
@@ -122,6 +131,12 @@ public class GuidebookManager : MonoBehaviour
                     initialPosition.z - zoomInAmount
                 );
                 transform.localPosition = Vector3.Lerp(transform.localPosition, zoomedPosition, Time.deltaTime * 5f);
+
+                for (int i = 0; i < promptTransforms.Length; i++)
+                {
+                    Vector2 zoomedPositionOffset = originalPromptPositions[i] + promptZoomOffsets[i];
+                    promptTransforms[i].anchoredPosition = Vector2.Lerp(promptTransforms[i].anchoredPosition, zoomedPositionOffset, Time.deltaTime * 5f);
+                }
             }
             else
             {
@@ -132,6 +147,11 @@ public class GuidebookManager : MonoBehaviour
                 );
                 // Reset position when not zooming
                 transform.localPosition = Vector3.Lerp(transform.localPosition, unZoomedPosition, Time.deltaTime * 5f);
+
+                for (int i = 0; i < promptTransforms.Length; i++)
+                {
+                    promptTransforms[i].anchoredPosition = Vector2.Lerp(promptTransforms[i].anchoredPosition, originalPromptPositions[i], Time.deltaTime * 5f);
+                }
             }
         }
 
