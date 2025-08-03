@@ -32,13 +32,19 @@ namespace Player
     {
       _actionMap = new Dictionary<InputAction, Action<InputAction.CallbackContext>>();
 
-      RegisterAction(_inputActions.Player.Look, ctx => _mouseInput = ctx.ReadValue<Vector2>() * sensitivity, () => _mouseInput = Vector2.zero);
+      RegisterAction(_inputActions.Player.Look, ctx => _mouseInput = ctx.ReadValue<Vector2>(), () => _mouseInput = Vector2.zero);
+    }
+
+    public void UpdateSensitivity()
+    {
+      sensitivity = PlayerPrefs.GetFloat("Sensitivity", 1f);
     }
 
     private void Awake()
     {
       // Fetch correct Y rotation from transform
       PlayerYLookQuaternion = Quaternion.Euler(0, _playerTransform.rotation.eulerAngles.y, 0);
+      UpdateSensitivity();
     }
 
     // private void Update()
@@ -68,15 +74,15 @@ namespace Player
     // This works, however it means that you can't rotate the PlayerController internally, instead you have to rotate it here.
     private void PlayerYLook()
     {
-      PlayerYLookQuaternion *= Quaternion.AngleAxis(_mouseInput.x, Vector3.up);
-      _aggregateYRotation += _mouseInput.x;
-      _countingYCutsceneRot += _mouseInput.x;
+      PlayerYLookQuaternion *= Quaternion.AngleAxis(_mouseInput.x * sensitivity, Vector3.up);
+      _aggregateYRotation += _mouseInput.x * sensitivity;
+      _countingYCutsceneRot += _mouseInput.x * sensitivity;
       _countingYCutsceneRot = Mathf.Clamp(_countingYCutsceneRot, _minYRotCutscene, _maxYRotCutscene);
     }
 
     private void CameraXLook()
     {
-      CameraXRotation -= _mouseInput.y;
+      CameraXRotation -= _mouseInput.y * sensitivity;
       if (CameraXRotation > 90) CameraXRotation = 90;
       if (CameraXRotation < -90) CameraXRotation = -90;
 
