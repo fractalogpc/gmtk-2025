@@ -26,6 +26,7 @@ public class LassoController : InputHandlerBase
     private Collider lassoCollider;
 
     public GameObject heldLasso;
+    public Renderer tableLassoRenderer;
 
     public LassoVisualController visualController;
 
@@ -382,5 +383,23 @@ public class LassoController : InputHandlerBase
         pullSoundEmitter.Stop();
         chargeSoundEmitter.Stop();
         GetComponent<LassoVisualController>().DisableVisual();
+    }
+
+    public void Upgrade1()
+    {
+        heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade1Material;
+        tableLassoRenderer.material = UpgradeManager.Instance.upgrade1Material;
+    }
+
+    public void Upgrade2()
+    {
+        heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade2Material;
+        tableLassoRenderer.material = UpgradeManager.Instance.upgrade2Material;
+    }
+
+    public void Upgrade3()
+    {
+        heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade3Material;
+        tableLassoRenderer.material = UpgradeManager.Instance.upgrade3Material;
     }
 }

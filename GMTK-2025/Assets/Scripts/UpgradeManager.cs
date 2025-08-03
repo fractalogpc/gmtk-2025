@@ -43,6 +43,10 @@ public class UpgradeManager : MonoBehaviour
 
     [SerializeField] private GameObject[] woolCounters;
 
+    public Material upgrade1Material;
+    public Material upgrade2Material;
+    public Material upgrade3Material;
+
     private void UpdateWoolCounters()
     {
         foreach (var woolColorCount in woolColorCounts)
