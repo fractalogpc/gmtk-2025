@@ -41,7 +41,6 @@ public class PitManager : MonoBehaviour
         gameManager = GameManager.Instance;
         offerTrigger.OnInteract.AddListener(HandleOffer);
         ResetFallingRocks();
-        playerEatenSoundEmitter = gameManager.playerObject.GetComponentInChildren<StudioEventEmitter>();
     }
 
     private void OnDestroy() {
