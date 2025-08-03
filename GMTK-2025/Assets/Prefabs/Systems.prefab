@@ -3407,6 +3407,7 @@ MonoBehaviour:
   dayText: {fileID: 6483498197538070065}
   quotaText: {fileID: 798223147958878615}
   clockManager: {fileID: 38217716777742458}
+  currentSheepCount: 0
 --- !u!1 &2683714264024062241
 GameObject:
   m_ObjectHideFlags: 0
@@ -5746,7 +5747,13 @@ MonoBehaviour:
     Writing Sound
     - rui_aires - freesound.org
 
-    Ambient Sound - Diboz - freesound.org'
+    Ambient Sound - Diboz - freesound.org
+
+    Arc
+    Welding Sound - kev_durr - freesound.org
+
+    Vacuum Cleaner Sound - Huminaatio
+    - freesound.org'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c686bce2958a7964296e9e9527112cb8, type: 2}
   m_sharedMaterial: {fileID: 6521421249147721887, guid: c686bce2958a7964296e9e9527112cb8, type: 2}
