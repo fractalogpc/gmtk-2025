@@ -240,7 +240,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         sheepAnimation.TestForAnimation();
 
         // Handle audio
-        sheepAudio.UpdateSound();
+        if (sheepAudio != null) sheepAudio.UpdateSound();
 
         // Check if current queen is still valid
         if (currentQueen != null && !currentQueen.isQueen)

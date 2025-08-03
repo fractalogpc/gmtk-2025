@@ -29,7 +29,7 @@ public class SheepReception : MonoBehaviour, IInteractable
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {

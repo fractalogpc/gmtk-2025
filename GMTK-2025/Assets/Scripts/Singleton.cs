@@ -19,7 +19,7 @@ public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour {
 
 public abstract class PersistentSingleton<T> : Singleton<T> where T : MonoBehaviour {
   protected override void Awake() {
-    DontDestroyOnLoad(gameObject);
+    // DontDestroyOnLoad(gameObject);
     base.Awake();
   }
 }

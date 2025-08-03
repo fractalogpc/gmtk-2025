@@ -36,7 +36,7 @@ namespace KinematicCharacterController
 
                 Settings = ScriptableObject.CreateInstance<KCCSettings>();
 
-                GameObject.DontDestroyOnLoad(systemGameObject);
+                // GameObject.DontDestroyOnLoad(systemGameObject);
             }
         }
 
