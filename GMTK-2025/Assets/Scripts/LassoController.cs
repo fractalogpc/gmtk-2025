@@ -288,8 +288,8 @@ public class LassoController : InputHandlerBase
             lassoInAir = false;
             isPullingTarget = true;
             StartPullingTarget();
-            throwSoundEmitter.Stop();
         }
+        throwSoundEmitter.Stop();
     }
 
     private void StartPullingTarget()
@@ -374,7 +374,9 @@ public class LassoController : InputHandlerBase
         }
 
         SheepReception.Instance.currentSheepCount = 0;
-
+        throwSoundEmitter.Stop();
+        pullSoundEmitter.Stop();
+        chargeSoundEmitter.Stop();
         GetComponent<LassoVisualController>().DisableVisual();
     }
 }

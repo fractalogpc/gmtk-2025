@@ -88,10 +88,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1dbce1805de1f439bfb6e3f8797dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lassoSprite: {fileID: 21300000, guid: 705951a04278cef48b15730f047a4c9c, type: 3}
-  shearsSprite: {fileID: 21300000, guid: 6dda1678729dc104b94982405d43f257, type: 3}
-  woolSprite: {fileID: 21300000, guid: fdcffa6c311e9c248817854a51f86751, type: 3}
-  sheepSprite: {fileID: 21300000, guid: 3e61a6fd2988e1241bc19ccf85d589a5, type: 3}
+  lassoSprite: {fileID: 21300000, guid: cc0a8b85e7a62af4c8d2c6d7e1e55713, type: 3}
+  shearsSprite: {fileID: 21300000, guid: 0434963cc3d57fd499e43892be75317d, type: 3}
+  woolSprites:
+  - {fileID: 21300000, guid: a70f0ffd7a116a640b2a6a2844fa0e63, type: 3}
+  - {fileID: 21300000, guid: 344b67abddb49a14e9d2cac42567ae47, type: 3}
+  - {fileID: 21300000, guid: 9710d5c3e80a04642a0dfe673dfd242b, type: 3}
+  - {fileID: 21300000, guid: b757dacdb5c2fc243b1ff88ab8e98f04, type: 3}
+  - {fileID: 21300000, guid: 9ff5496e949196749b0e91ffce1ab568, type: 3}
+  - {fileID: 21300000, guid: dec717c0d41d8ba4cbd50adc6107eed7, type: 3}
+  - {fileID: 21300000, guid: 681ac5b3984c63e4791dbd754434c0cc, type: 3}
+  sheepSprite: {fileID: 21300000, guid: 56a2c60969330d6489bd8cc4bbf36a4a, type: 3}
   inventory: 000000000000000000000000
   inventorySlots:
   - {fileID: 2163634155169772175}
