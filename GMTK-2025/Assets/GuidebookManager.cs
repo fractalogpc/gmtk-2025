@@ -14,6 +14,8 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private float distanceToBringUp = 0.5f;
     [SerializeField] private float zoomInAmount = 0.1f;
     [SerializeField] private StudioEventEmitter guidebookOpenSound;
+    [SerializeField] private StudioEventEmitter guidebookCloseSound;
+    [SerializeField] private StudioEventEmitter guidebookPageSound;
     [SerializeField] private GameObject openPrompt;
     [SerializeField] private GameObject secondaryOpenPrompt;
 
@@ -59,6 +61,20 @@ public class GuidebookManager : MonoBehaviour
     private IEnumerator AnimateGuidebook(bool up)
     {
         isAnimating = true;
+        if (up)
+        {
+            if (guidebookOpenSound != null)
+            {
+                guidebookOpenSound.Play();
+            }
+        }
+        else
+        {
+            if (guidebookCloseSound != null)
+            {
+                guidebookCloseSound.Play();
+            }
+        }
         float elapsedTime = 0f;
         Vector3 targetPosition = initialPosition + (up ? Vector3.up * distanceToBringUp : Vector3.zero);
         Vector3 startPosition = transform.localPosition;
@@ -164,9 +180,9 @@ public class GuidebookManager : MonoBehaviour
                     currentPageIndex = guidebookPages.Length % 2 == 0 ? guidebookPages.Length - 2 : guidebookPages.Length - 1;
                 }
                 UpdatePageImages();
-                if (guidebookOpenSound != null && originalIndex != currentPageIndex)
+                if (guidebookPageSound != null && originalIndex != currentPageIndex)
                 {
-                    guidebookOpenSound.Play();
+                    guidebookPageSound.Play();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.Q))
@@ -178,9 +194,9 @@ public class GuidebookManager : MonoBehaviour
                     currentPageIndex = 0;
                 }
                 UpdatePageImages();
-                if (guidebookOpenSound != null && originalIndex != currentPageIndex)
+                if (guidebookPageSound != null && originalIndex != currentPageIndex)
                 {
-                    guidebookOpenSound.Play();
+                    guidebookPageSound.Play();
                 }
             }
     }
