@@ -51,7 +51,7 @@ public class PitManager : MonoBehaviour
     private Coroutine handleOfferCoroutine;
     public void HandleOffer() {
         if (handleOfferCoroutine != null) return;
-        if (IsOfferable) {
+        if (IsOfferable && CartController.Instance.InZone()) {
             shrineOfferSoundEmitter.Play();
         }
         else {

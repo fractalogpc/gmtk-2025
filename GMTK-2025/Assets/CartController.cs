@@ -31,6 +31,15 @@ public class CartController : MonoBehaviour
         }
     }
 
+    public bool InZone()
+    {
+        if (transform.position.z <= 463.79f && transform.position.z >= 436.68f && transform.position.x <= 25.89f && transform.position.x >= -6.46f)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void Interact()
     {
         if (isCartActive)
