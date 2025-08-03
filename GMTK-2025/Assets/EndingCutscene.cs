@@ -22,6 +22,7 @@ public class EndingCutscene : MonoBehaviour
     [SerializeField] private Transform[] points;
     [SerializeField] private StudioEventEmitter rocketSound;
     [SerializeField] private StudioEventEmitter winMusic;
+    [SerializeField] private GameObject creditsScreen;
 
     private bool canTriggerCutscene = false;
 
@@ -108,7 +109,14 @@ public class EndingCutscene : MonoBehaviour
             yield return null;
         }
 
+        // Bring up credits screen
+        creditsScreen.SetActive(true);
+
+        yield return new WaitForSeconds(28f);
+
         winMusic.Stop();
+
+        // Exit to menu
     }
     
 }
