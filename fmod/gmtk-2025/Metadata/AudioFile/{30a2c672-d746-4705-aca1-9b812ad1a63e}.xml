@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{a7c62afb-bc67-4483-a3c4-e8d544de4e6e}">
+	<object class="AudioFile" id="{30a2c672-d746-4705-aca1-9b812ad1a63e}">
 		<property name="assetPath">
-			<value>Household Microwave Door Open 01.wav</value>
+			<value>Background/Weather/Thunder/ThunderCloseExplosive.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>1.0966875</value>
+			<value>5.5518333333333336</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{e8254108-0aaa-44b5-a648-09ae2c5829da}</destination>

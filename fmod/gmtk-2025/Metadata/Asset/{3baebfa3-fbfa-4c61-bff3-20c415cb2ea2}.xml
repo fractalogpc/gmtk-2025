@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EncodableAsset" id="{3baebfa3-fbfa-4c61-bff3-20c415cb2ea2}">
+		<property name="assetPath">
+			<value>Background/Weather/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8254108-0aaa-44b5-a648-09ae2c5829da}</destination>
+		</relationship>
+	</object>
+</objects>
