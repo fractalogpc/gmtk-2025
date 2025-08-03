@@ -44,12 +44,12 @@ public class CloningChamber : MonoBehaviour
             yield break; // Prevent multiple clones from being created simultaneously
         }
 
+        isCloning = true;
+
         float randomDelay = Random.Range(0f, cloneDelayRandomAdd);
         yield return new WaitForSeconds(cloneDelay + randomDelay);
-
         ClonableSheep sheep = sheepBeingCloned;
 
-        isCloning = true;
         GameObject clone = Instantiate(sheepPrefab, spawnPoint.position, Quaternion.identity);
         clone.transform.name = "ClonedSheep";
         clone.transform.SetParent(GameObject.FindWithTag("SheepSpawner").transform);

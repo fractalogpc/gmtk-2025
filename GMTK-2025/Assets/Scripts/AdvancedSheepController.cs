@@ -933,6 +933,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
             // SheepSpawner.Instance.RemoveSheep(this);
 
+            sheepAnimation.enabled = false;
             StopAllCoroutines();
             InventoryController.Instance.TryAddItem(InventoryController.ItemType.Sheep, index, sheep: this);
 
