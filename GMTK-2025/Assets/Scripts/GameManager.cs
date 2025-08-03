@@ -213,8 +213,7 @@ public class GameManager : InputHandlerBase
 
   private void ResetPlayerToStart()
   {
-    playerObject.GetComponent<PlayerController>().SetPosition(playerStart.position);
-    playerObject.GetComponent<PlayerController>().SetRotation(playerStart.rotation);
+    playerObject.GetComponent<PlayerController>().SetPositionAndRotation(playerStart);
   }
 
   public float SetPlayerVision(bool setTrue)

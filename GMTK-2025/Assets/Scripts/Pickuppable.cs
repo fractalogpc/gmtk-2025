@@ -8,6 +8,8 @@ public class Pickuppable : MonoBehaviour, IInteractable
     public int woolColorIdx;
     public int woolSize;
 
+    public string InteractionName => "Pick Up";
+
     public void HoldInteract(float holdTime)
     {
 

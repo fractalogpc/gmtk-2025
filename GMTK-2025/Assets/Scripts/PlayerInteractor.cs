@@ -7,6 +7,7 @@ public class PlayerInteractor : InputHandlerBase
   public float raycastDistance = 5f;
   public LayerMask interactableLayer;
   [SerializeField] private GameObject interactablePrompt;
+  [SerializeField] private TMPro.TextMeshProUGUI interactablePromptText;
   private bool isInteracting = false;
   private GameObject currentInteractableObject;
   private IInteractable currentInteractable;
@@ -41,6 +42,8 @@ public class PlayerInteractor : InputHandlerBase
     if (hitInteractable != null)
     {
       interactablePrompt.SetActive(true);
+      string interactionName = hitInteractable.InteractionName == "" ? "Interact" : hitInteractable.InteractionName;
+      interactablePromptText.text = interactionName;
     }
     else
     {
