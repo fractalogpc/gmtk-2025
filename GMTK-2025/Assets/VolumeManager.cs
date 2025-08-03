@@ -15,7 +15,7 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
 
-    void Start()
+    void Awake()
     {
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
@@ -26,6 +26,10 @@ public class VolumeManager : MonoBehaviour
 
         musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+
+        // Set initial volumes
+        SetMusicVolume(PlayerPrefs.GetFloat("MusicVol", defaultMusicVolume));
+        SetSFXVolume(PlayerPrefs.GetFloat("SFXVol", defaultSFXVolume));
     }
 
     private void OnDestroy()
