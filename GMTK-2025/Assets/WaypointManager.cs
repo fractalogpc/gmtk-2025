@@ -43,15 +43,19 @@ public class WaypointManager : MonoBehaviour
         {
             if (waypoints[i] == null) continue;
 
-            // Check if the waypoint is close to the player
-            if (Vector3.Distance(mainCamera.transform.position, waypoints[i].transform.position) < waypointDeactivateRadius) waypoints[i].SetActive(false);
-
             if (waypoints[i].activeSelf)
             {
                 waypointRenderObjects[i].SetActive(true);
 
+                // Check if the waypoint is close to the player
+                if (Vector3.Distance(mainCamera.transform.position, waypoints[i].transform.position) < waypointDeactivateRadius)
+                {
+                    waypointRenderObjects[i].SetActive(false);
+                    continue;
+                }
+
                 // Update position of renderer on canvas
-                Vector3 screenPos = mainCamera.WorldToScreenPoint(waypoints[i].transform.position);
+                    Vector3 screenPos = mainCamera.WorldToScreenPoint(waypoints[i].transform.position);
                 if (screenPos.z < 0) waypointRenderObjects[i].SetActive(false);
                 waypointRenderObjects[i].transform.position = screenPos;
             }
