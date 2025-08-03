@@ -4,6 +4,7 @@ using FMODUnity;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameManager : InputHandlerBase
 {
@@ -42,6 +43,8 @@ public class GameManager : InputHandlerBase
   }
   [SerializeField] private FadeElementInOut fadeToBlack;
   [SerializeField] private FadeElementInOut topLevelFadeToBlack;
+  [SerializeField] private GameObject loseScreen;
+  [SerializeField] private FadeElementInOut loseScreenFade;
   [Header("Settings")]
   public float dayLengthMinutes;
   [SerializeField] private int startQuota;
@@ -51,6 +54,9 @@ public class GameManager : InputHandlerBase
   [SerializeField] private Color dayFogColor;
   [SerializeField] private Color nightFogColor;
   [SerializeField] private GameObject lightning;
+
+  public UnityEvent onDayStart;
+  public UnityEvent onNightStart;
 
   public GameState gameState;
 
@@ -122,6 +128,8 @@ public class GameManager : InputHandlerBase
       ResetPlayerToStart();
       StartDay(currentDay);
 
+      onDayStart?.Invoke();
+
       // Set skybox to day
       skyboxMaterial.SetFloat("_CubemapTransition", 1f);
       RenderSettings.fogColor = dayFogColor;
@@ -153,6 +161,7 @@ public class GameManager : InputHandlerBase
       yield return new WaitForSeconds(SetPlayerVision(false));
       ResetPlayerToStart();
       gameState = GameState.OfferSheep;
+      onNightStart?.Invoke();
 
       // Environmental changes for night
       skyboxMaterial.SetFloat("_CubemapTransition", 0f);
@@ -192,6 +201,11 @@ public class GameManager : InputHandlerBase
     hasOfferedThisDay = false;
     gameState = GameState.CollectSheep;
     pitManager.SetOfferable(false);
+  }
+
+  public void ResetGame()
+  {
+    SceneManager.LoadScene("RealEnvironment");
   }
 
   private void ResetPlayerToStart()
@@ -248,6 +262,7 @@ public class GameManager : InputHandlerBase
     pitManager.EatPlayer();
     StopGameMusicAndAmbient();
     StartCoroutine(LoseCoroutine());
+    SetPlayerInput(false);
   }
 
   private IEnumerator LoseCoroutine()
@@ -256,6 +271,12 @@ public class GameManager : InputHandlerBase
     SetPlayerVision(false);
     yield return new WaitForSeconds(1f);
     lostMusicEmitter.Play();
+    yield return new WaitForSeconds(1f);
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+    loseScreenFade.Hide();
+    loseScreen.SetActive(true);
+    loseScreenFade.FadeIn(true);
   }
   
   private bool isWinCutsceneActive = false;
