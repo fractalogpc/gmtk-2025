@@ -94,6 +94,7 @@ public class PitManager : MonoBehaviour
 
     private void MakeFallingFall() {
         fallingObject.GetComponent<MakeChildrenRigidbodies>().MakeRigidbodies();
+        CartController.Instance.DropCart();
         crashSoundEmitter.Play();
     }
 

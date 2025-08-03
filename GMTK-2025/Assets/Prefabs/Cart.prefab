@@ -256,6 +256,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Place Sheep
 --- !u!1 &7117704997609475679
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +311,7 @@ MonoBehaviour:
   cartLayer:
     serializedVersion: 2
     m_Bits: 16384
+  rigidbody: {fileID: 0}
 --- !u!1 &7285678543025990737
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,11 +415,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 10, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6479288546118962184
 MonoBehaviour:
@@ -458,6 +460,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Pull
 --- !u!1001 &1455073153882568843
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CartController : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class CartController : MonoBehaviour
 
     public LayerMask cartLayer;
     private int sheepInCart = 0;
+
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
+    [SerializeField] private Rigidbody rigidbody;
 
     public int SheepInCart
     {
@@ -52,6 +58,37 @@ public class CartController : MonoBehaviour
     void Start()
     {
         SheepInCart = 0;
+
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
+    }
+
+    public void DropCart()
+    {
+        isCartActive = false;
+        rigidbody.transform.position = transform.position;
+        rigidbody.isKinematic = false;
+
+        StartCoroutine(FollowRigidbody());
+    }
+
+    private IEnumerator FollowRigidbody()
+    {
+        float elapsedTime = 0f;
+        float followDuration = 5f; // Duration to follow the rigidbody
+
+        while (elapsedTime < followDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.position = rigidbody.transform.position;
+            yield return null;
+        }
+
+        // After following, reset the cart
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+        rigidbody.isKinematic = true;
+        isCartActive = false;
     }
 
     void Update()
