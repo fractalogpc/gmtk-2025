@@ -157,7 +157,7 @@ public class SheepReception : MonoBehaviour, IInteractable
     public void UpgradePen1()
     {
         Pen.SubPen subPen1A = pen1.subPens[0];
-        subPen1A.MaximumSheep = 20;
+        subPen1A.MaximumSheep = 30;
         subPen1A.mesh = pen1BMesh;
 
         pen1Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen1.Name} - {pen1.CurrentSheep()}/{pen1.MaximumSheep()}");
@@ -169,7 +169,7 @@ public class SheepReception : MonoBehaviour, IInteractable
     {
         Pen.SubPen subPen1B = new Pen.SubPen
         {
-            MaximumSheep = 20,
+            MaximumSheep = 40,
             mesh = pen1CMesh,
             pathingIndices = pen1BPathing
         };
@@ -195,7 +195,7 @@ public class SheepReception : MonoBehaviour, IInteractable
 
         Pen.SubPen subPen2A = new Pen.SubPen
         {
-            MaximumSheep = 1,
+            MaximumSheep = 10,
             mesh = pen2AMesh,
             pathingIndices = pen2Pathing
         };
@@ -211,7 +211,7 @@ public class SheepReception : MonoBehaviour, IInteractable
     public void UpgradePen2()
     {
         Pen.SubPen subPen2A = pen2.subPens[0];
-        subPen2A.MaximumSheep = 1;
+        subPen2A.MaximumSheep = 30;
         subPen2A.mesh = pen2BMesh;
 
         pen2Text.GetComponentInChildren<TextMeshProUGUI>().text = ($"{pen2.Name} - {pen2.CurrentSheep()}/{pen2.MaximumSheep()}");
@@ -223,7 +223,7 @@ public class SheepReception : MonoBehaviour, IInteractable
     {
         Pen.SubPen subPen2B = new Pen.SubPen
         {
-            MaximumSheep = 20,
+            MaximumSheep = 40,
             mesh = pen2CMesh,
             pathingIndices = pen2BPathing
         };
