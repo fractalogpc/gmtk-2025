@@ -248,6 +248,7 @@ public class InventoryController : InputHandlerBase
 
     public bool IsHoldingObject(ItemType item)
     {
+        if (selectedSlot == -1) return false;
         return inventory[selectedSlot] == item;
     }
 
