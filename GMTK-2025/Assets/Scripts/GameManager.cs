@@ -75,7 +75,10 @@ public class GameManager : InputHandlerBase
     }
     else
     {
-      Destroy(gameObject);
+      // If an instance already exists, destroy the old one
+      Debug.LogWarning("Multiple GameManager instances found. Destroying the old one.");
+      Destroy(Instance.gameObject);
+      Instance = this;
     }
   }
 
@@ -88,6 +91,8 @@ public class GameManager : InputHandlerBase
     Initialize();
     StartCoroutine(GameLogic());
     fadeToBlack.Show();
+    _inputActions.Player.Enable();
+    _inputActions.GenericUI.Disable();
   }
 
   private void Initialize()
@@ -250,6 +255,7 @@ public class GameManager : InputHandlerBase
 	  Debug.Log("Quitting to menu...");
     Time.timeScale = 1f; // Reset time scale so WaitForSeconds works correctly
     _inputActions.Player.Disable();
+    _inputActions.GenericUI.Disable();
     topLevelFadeToBlack.FadeIn();
     StopGameMusicAndAmbient();
     yield return new WaitForSeconds(topLevelFadeToBlack.FadeInTime);

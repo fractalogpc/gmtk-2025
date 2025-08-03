@@ -12,6 +12,8 @@ public class WoolDepositExpress : MonoBehaviour, IInteractable
     [SerializeField] private StudioEventEmitter depositSoundEmitter;
     private bool isDepositing = false;
 
+    public string InteractionName => "Deposit Wool";
+
     public void Interact()
     {
         // If player is holding wool, deposit it

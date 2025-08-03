@@ -19,6 +19,8 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     [SerializeField] private StudioEventEmitter washSoundEmitter;
     [SerializeField] private Outline outlineScript;
 
+    public string InteractionName => "Deposit Wool";
+
     struct DepositedWool
     {
         public int Size;

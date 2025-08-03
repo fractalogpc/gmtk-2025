@@ -20,6 +20,8 @@ public class SheepReception : MonoBehaviour, IInteractable
 
     private List<AdvancedSheepController> heldSheep = new List<AdvancedSheepController>();
 
+    public string InteractionName => "Assign Sheep";
+
     private void Awake()
     {
         if (Instance == null)

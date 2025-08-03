@@ -58,9 +58,9 @@ Material:
     m_Colors:
     - _Point_Color: {r: 0, g: 1, b: 0.051280685, a: 0}
     - _ScreenColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Sheep0: {r: 0.3748264, g: 0.55825263, b: 0, a: 0}
-    - _Sheep1: {r: 0.7629514, g: 0.51484257, b: 0, a: 0}
-    - _Sheep2: {r: 0.5673556, g: 0.50496966, b: 0, a: 0}
+    - _Sheep0: {r: -7.5, g: -7.5, b: 0, a: 0}
+    - _Sheep1: {r: -7.5, g: -7.5, b: 0, a: 0}
+    - _Sheep2: {r: -7.5, g: -7.5, b: 0, a: 0}
     - _XExtents: {r: 0.5, g: 1, b: 0, a: 0}
     - _YExtents: {r: 0.5, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

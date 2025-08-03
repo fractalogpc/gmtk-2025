@@ -170,6 +170,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Interact
 --- !u!1 &1482516421401725875
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +382,7 @@ MonoBehaviour:
   - {fileID: 554932420534319020}
   - {fileID: 1161657202189674956}
   woolMaterial: {fileID: 0}
+  inCart: 0
 --- !u!205 &4103881351445388797
 LODGroup:
   m_ObjectHideFlags: 0
@@ -731,6 +733,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Pick Up
 --- !u!1 &5384317616331382917
 GameObject:
   m_ObjectHideFlags: 0
