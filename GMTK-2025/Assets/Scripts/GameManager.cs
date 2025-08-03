@@ -118,11 +118,17 @@ public class GameManager : InputHandlerBase
       }
       while (timeLeftInDay > 0)
       {
+        if (isWinCutsceneActive)
+        {
+          break;
+        }
         timeLeftInDay -= Time.deltaTime;
         ambientSoundEmitter.SetParameter("Nighttime", timeLeftInDay / (dayLengthMinutes * 60));
         ambientSoundEmitter.SetParameter("Creepiness", Mathf.Clamp01(Vector3.Distance(playerObject.transform.position, pitManager.transform.position) / 300f));
         yield return null;
       }
+      ambientSoundEmitter.SetParameter("Nighttime", 1f);
+      ambientSoundEmitter.SetParameter("Creepiness", 1f);
       normalMusicEmitter.Stop();
       yield return new WaitForSeconds(SetPlayerVision(false));
       ResetPlayerToStart();
@@ -214,10 +220,19 @@ public class GameManager : InputHandlerBase
 
   private IEnumerator LoseCoroutine()
   {
-    yield return new WaitForSeconds(3f);
+    yield return new WaitForSeconds(1f);
     SetPlayerVision(false);
     yield return new WaitForSeconds(1f);
     lostMusicEmitter.Play();
+  }
+  
+  private bool isWinCutsceneActive = false;
+  public void StopForWinCutscene()
+  {
+    isWinCutsceneActive = true;
+    SetPlayerMovement(false);
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
   }
   
   public void SetPlayerInput(bool enabled)
