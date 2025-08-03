@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class AdvancedSheepController : InputHandlerBase, IShearable
 {
     public bool isDeactivatedOnStart = false;
-    private bool isActivated = true;
+    public bool isActivated = true;
 
     public bool looking = false;
     public bool moving = false;
@@ -46,7 +46,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
     public Collider[] colliders;
     public GameObject inCartCollider;
 
-    bool lockMovement = false;
+    public bool lockMovement = false;
     bool isRunning = false;
 
     public bool IsSheared => isSheared;
@@ -1030,7 +1030,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         interactableObject.layer = LayerMask.NameToLayer("Default");
     }
 
-    
+
     public bool inCart = false;
     public void PutInCart(CartController cartController)
     {
@@ -1118,5 +1118,10 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
             CartController cartController = CartController.Instance;
             cartController.TryPlaceSheep();
         }
+    }
+
+    public bool CanBeSheared()
+    {
+        return isActivated;
     }
 }
