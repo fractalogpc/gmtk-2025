@@ -4,5 +4,5 @@ public interface IShearable
 {
   bool IsSheared { get; }
 
-  void Shear();
+  void Shear(bool doubleShear = false);
 }

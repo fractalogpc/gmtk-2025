@@ -46,6 +46,10 @@ public class GameManager : InputHandlerBase
   public float dayLengthMinutes;
   [SerializeField] private int startQuota;
   [SerializeField] private int dailyQuotaIncrease;
+  [SerializeField] private Light sunLight;
+  [SerializeField] private Material skyboxMaterial;
+  [SerializeField] private Color dayFogColor;
+  [SerializeField] private Color nightFogColor;
 
   public GameState gameState;
 
@@ -106,9 +110,18 @@ public class GameManager : InputHandlerBase
     currentDay = 1;
     while (true)
     {
+      // Spawn sheep
+      SheepSpawner.Instance.GenerateSheep();
+      
       gameState = GameState.CollectSheep;
       ResetPlayerToStart();
       StartDay(currentDay);
+
+      // Set skybox to day
+      skyboxMaterial.SetFloat("_CubemapTransition", 1f);
+      RenderSettings.fogColor = dayFogColor;
+      sunLight.enabled = true;
+
       normalMusicEmitter.Play();
       yield return new WaitForSeconds(SetPlayerVision(true));
       // Disabled after offer, need to re-enable
@@ -134,6 +147,15 @@ public class GameManager : InputHandlerBase
       yield return new WaitForSeconds(SetPlayerVision(false));
       ResetPlayerToStart();
       gameState = GameState.OfferSheep;
+
+      // Environmental changes for night
+      skyboxMaterial.SetFloat("_CubemapTransition", 0f);
+      RenderSettings.fogColor = nightFogColor;
+      sunLight.enabled = false;
+
+      // Remove wild sheep
+      SheepSpawner.Instance.ClearWildSheep();
+
       yield return new WaitForSeconds(SetPlayerVision(true));
       scaryMusicEmitter.Play();
       pitManager.SetOfferable(true);

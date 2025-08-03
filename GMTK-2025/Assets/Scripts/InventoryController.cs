@@ -1,5 +1,6 @@
 using System.Data.Common;
 using UnityEngine;
+using TMPro;
 
 public class InventoryController : InputHandlerBase
 {
@@ -30,6 +31,12 @@ public class InventoryController : InputHandlerBase
     public ItemType[] inventory = new ItemType[3];
 
     public InventorySlot[] inventorySlots;
+
+    [SerializeField] private GameObject clickPrompt;
+    [SerializeField] private TextMeshProUGUI clickPromptText;
+    [SerializeField] private TextMeshProUGUI dropPromptText;
+
+    [SerializeField] private GameObject dropPrompt;
 
     private bool canSelect = true;
 
@@ -164,6 +171,8 @@ public class InventoryController : InputHandlerBase
         {
             Debug.Log("Deselecting item");
             ToolController.Instance.SetTool(ToolController.ToolType.None);
+            clickPrompt.SetActive(false);
+            dropPrompt.SetActive(false);
             for (int i = 0; i < inventorySlots.Length; i++)
             {
                 inventorySlots[i].Select(false);
@@ -176,18 +185,30 @@ public class InventoryController : InputHandlerBase
             {
                 case ItemType.Lasso:
                     ToolController.Instance.SetTool(ToolController.ToolType.Lasso);
+                    clickPrompt.SetActive(true);
+                    clickPromptText.text = "Throw";
+                    dropPrompt.SetActive(false);
                     break;
                 case ItemType.Shears:
                     ToolController.Instance.SetTool(ToolController.ToolType.Shears);
+                    clickPrompt.SetActive(true);
+                    clickPromptText.text = "Shear";
+                    dropPrompt.SetActive(false);
                     break;
                 case ItemType.Wool:
                     ToolController.Instance.SetTool(ToolController.ToolType.Wool, wool: heldWool[slot]);
+                    clickPrompt.SetActive(false);
+                    dropPrompt.SetActive(true);
                     break;
                 case ItemType.Sheep:
                     ToolController.Instance.SetTool(ToolController.ToolType.Sheep, sheep: heldSheep[slot]);
+                    clickPrompt.SetActive(false);
+                    dropPrompt.SetActive(true);
                     break;
                 case ItemType.None:
                     ToolController.Instance.SetTool(ToolController.ToolType.None);
+                    clickPrompt.SetActive(false);
+                    dropPrompt.SetActive(false);
                     break;
             }
 
@@ -197,6 +218,29 @@ public class InventoryController : InputHandlerBase
         }
 
         selectedSlot = slot;
+    }
+
+    public void SetClickPromptText(string text)
+    {
+        if (clickPromptText != null)
+        {
+            clickPromptText.text = text;
+        }
+    }
+    public void SetDropPromptActive(bool active)
+    {
+        if (dropPrompt != null)
+        {
+            dropPrompt.SetActive(active);
+        }
+    }
+
+    public void SetDropPromptText(string text)
+    {
+        if (dropPrompt != null)
+        {
+            dropPromptText.text = text;
+        }
     }
 
     private void HandleScroll(UnityEngine.InputSystem.InputAction.CallbackContext ctx)

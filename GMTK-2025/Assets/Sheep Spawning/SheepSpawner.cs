@@ -31,14 +31,8 @@ public class SheepSpawner : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    private void Start()
-    {
         sheeps = SheepDataHolder.Instance.sheeps;
-
-        SpawnSheepWave(_scale, _amount, jitter);
-        SpawnRareSheep(3, .6f);
     }
 
     public Vector2[] GetRareSheepPositions()
@@ -49,6 +43,25 @@ public class SheepSpawner : MonoBehaviour
             positions[i] = new Vector2(rareSheepsPositions[i].transform.position.x, rareSheepsPositions[i].transform.position.z);
         }
         return positions;
+    }
+
+    public void ClearWildSheep()
+    {
+        foreach (var sheep in sheepControllers)
+        {
+            if (sheep != null && !sheep.InPenValue)
+            {
+                Destroy(sheep.gameObject);
+            }
+        }
+        sheepControllers.Clear();
+        rareSheepsPositions.Clear();
+    }
+
+    public void GenerateSheep()
+    {
+        SpawnSheepWave(_scale, _amount, jitter);
+        SpawnRareSheep(3, .6f);
     }
 
     public void SpawnSheepWave(Vector2 scale, Vector2 amount, float jitter)
@@ -138,7 +151,7 @@ public class SheepSpawner : MonoBehaviour
                     case 2:
                         myScale = 1.15f;
                         break;
-                        case 3:
+                    case 3:
                         myScale = 1.3f;
                         break;
                 }

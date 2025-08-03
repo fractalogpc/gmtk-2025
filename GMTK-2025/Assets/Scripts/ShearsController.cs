@@ -6,7 +6,7 @@ public class ShearsController : InputHandlerBase
 {
     public Transform shearsOrigin;
 
-    public float raycastDistance = 4f;
+    public float raycastDistance = 3f;
     public LayerMask sheepLayer;
     public StudioEventEmitter shearSoundEmitter;
 
@@ -17,6 +17,9 @@ public class ShearsController : InputHandlerBase
     }
 
     public GameObjectGroup[] objects;
+
+    bool isHolding = false;
+
     public void LateUpdate()
     {
         Vector3 targetPosition = Vector3.Lerp(transform.position, shearsOrigin.position, 0.6f);
@@ -26,6 +29,15 @@ public class ShearsController : InputHandlerBase
     protected override void InitializeActionMap()
     {
         RegisterAction(_inputActions.Player.Shear, _ => TryShear());
+        RegisterAction(_inputActions.Player.Shear, _ => { if (upgrade3) isHolding = true; }, () => { isHolding = false; });
+    }
+
+    private void Update()
+    {
+        if (isHolding)
+        {
+            TryShear();
+        }
     }
 
     private void TryShear()
@@ -40,7 +52,26 @@ public class ShearsController : InputHandlerBase
             IShearable shearable = hit.collider.GetComponentInParent<IShearable>();
             if (shearable != null)
             {
-                shearable.Shear();
+
+                bool doubleShear = false;
+
+                float randValue = Random.Range(0f, 1f);
+                if (upgrade2)
+                {
+                    if (randValue < 0.2f)
+                    {
+                        doubleShear = true;
+                    }
+                }
+                else if (upgrade3)
+                {
+                    if (randValue < 0.5f)
+                    {
+                        doubleShear = true;
+                    }
+                }
+
+                shearable.Shear(doubleShear);
             }
             else
             {
@@ -53,6 +84,15 @@ public class ShearsController : InputHandlerBase
         }
     }
 
+    bool upgrade1 = false;
+    bool upgrade2 = false;
+    bool upgrade3 = false;
+
+    private void OnDisable()
+    {
+        isHolding = false;
+    }
+
     public void Upgrade1()
     {
         foreach (var obj in objects[0].objects)
@@ -63,6 +103,9 @@ public class ShearsController : InputHandlerBase
         {
             obj.SetActive(true);
         }
+
+        upgrade1 = true;
+        raycastDistance = 5f;
     }
 
     public void Upgrade2()
@@ -75,6 +118,8 @@ public class ShearsController : InputHandlerBase
         {
             obj.SetActive(true);
         }
+
+        upgrade2 = true;
     }
 
     public void Upgrade3()
@@ -87,5 +132,9 @@ public class ShearsController : InputHandlerBase
         {
             obj.SetActive(true);
         }
+
+        upgrade3 = true;
+        raycastDistance = 6f;
     }
+
 }

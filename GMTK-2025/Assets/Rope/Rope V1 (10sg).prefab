@@ -2626,11 +2626,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7165053680887290576, guid: ef1cab637d651ed4382dda854869499a, type: 3}
       propertyPath: tightenSpeed
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7165053680887290576, guid: ef1cab637d651ed4382dda854869499a, type: 3}
       propertyPath: sizeCurve.m_Curve.Array.data[1].value
-      value: 100
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7386300911071389416, guid: ef1cab637d651ed4382dda854869499a, type: 3}
       propertyPath: m_Enabled

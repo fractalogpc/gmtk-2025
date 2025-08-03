@@ -7,7 +7,6 @@ public class PlayerInteractor : InputHandlerBase
   public float raycastDistance = 5f;
   public LayerMask interactableLayer;
   [SerializeField] private GameObject interactablePrompt;
-
   private bool isInteracting = false;
   private GameObject currentInteractableObject;
   private IInteractable currentInteractable;

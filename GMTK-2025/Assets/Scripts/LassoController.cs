@@ -44,6 +44,8 @@ public class LassoController : InputHandlerBase
     protected override void InitializeActionMap()
     {
         RegisterActionComplexCancel(_inputActions.Player.Lasso, ctx => OnLasso(ctx), ctx => OnLasso(ctx));
+
+        RegisterAction(_inputActions.Player.Drop, _ => ResetLasso());
     }
 
     private void Awake()
@@ -94,14 +96,16 @@ public class LassoController : InputHandlerBase
         {
             Vector3 targetPos = originalPosition.position;
 
+            if (lassoedSheep.Count == 0) isRetracting = true;
+
             // Player is pulling the lasso back
             if (isRetracting)
             {
-                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 40f));
+                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 15f));
             }
 
             // Fully retracted
-            if (Vector3.Distance(transform.position, targetPos) < 2f)
+            if (Vector3.Distance(transform.position, targetPos) < 2f && lassoedSheep.Count == 0)
             {
                 ResetLasso();
             }
@@ -115,22 +119,22 @@ public class LassoController : InputHandlerBase
 
         if (StartedChargingThrow())
         {
-            print("started charging throw");
+            // print("started charging throw");
             chargeSoundEmitter.Play();
         }
         if (StoppedChargingThrow())
         {
-            print("stopped charging throw");
+            // print("stopped charging throw");
             chargeSoundEmitter.Stop();
         }
         if (StartedPulling())
         {
-            print("started pulling");
+            // print("started pulling");
             pullSoundEmitter.Play();
         }
         if (StoppedPulling())
         {
-            print("stopped pulling");
+            // print("stopped pulling");
             pullSoundEmitter.Stop();
         }
 
@@ -215,6 +219,10 @@ public class LassoController : InputHandlerBase
     // Lasso leaves the player's hand and is thrown
     private void ThrowLasso()
     {
+        InventoryController.Instance.SetClickPromptText("Pull");
+        InventoryController.Instance.SetDropPromptActive(true);
+        InventoryController.Instance.SetDropPromptText("Reset");
+
         Quaternion camRot = Camera.main.transform.rotation;
         Vector3 throwDir = camRot * Vector3.forward;
         Vector3 velocity = throwDir * GetLassoMagnitude(throwChargeTime);
@@ -251,12 +259,23 @@ public class LassoController : InputHandlerBase
         }
 
         List<AdvancedSheepController> releasedSheep = lassoedSheep.GetRange(0, count);
+
+        List<Transform> sheepTransforms = new List<Transform>();
+        foreach (var sheep in releasedSheep)
+        {
+            sheepTransforms.Add(sheep.transform);
+        }
+        visualController.lassoLoopController.ReleasePoints(sheepTransforms.ToArray());
+
         lassoedSheep.RemoveRange(0, count);
+
         return releasedSheep; // Return the released sheep
     }
 
     public void ResetLasso()
     {
+        InventoryController.Instance.SetClickPromptText("Throw");
+
         heldLasso.SetActive(true);
         visualController.DisableVisual();
 
@@ -287,7 +306,6 @@ public class LassoController : InputHandlerBase
     {
         if (lassoInAir)
         {
-            Debug.Log("Lasso hit something, starting to pull target.");
             visualController.HitGround();
             lassoInAir = false;
             isPullingTarget = true;
@@ -389,17 +407,23 @@ public class LassoController : InputHandlerBase
     {
         heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade1Material;
         tableLassoRenderer.material = UpgradeManager.Instance.upgrade1Material;
+
+        visualController.Upgrade1();
     }
 
     public void Upgrade2()
     {
         heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade2Material;
         tableLassoRenderer.material = UpgradeManager.Instance.upgrade2Material;
+
+        visualController.Upgrade2();
     }
 
     public void Upgrade3()
     {
         heldLasso.GetComponent<Renderer>().material = UpgradeManager.Instance.upgrade3Material;
         tableLassoRenderer.material = UpgradeManager.Instance.upgrade3Material;
+
+        visualController.Upgrade3();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Player;
 using UnityEngine;
 
@@ -13,13 +14,14 @@ public class LassoLoopController : MonoBehaviour
     public Transform[] joints;
 
     public AnimationCurve sizeCurve;
+    public float sizeCurveMult = 1f;
 
     public bool onGround = false;
     public bool isPulling = false;
 
     private Transform playerTransform;
 
-    private Transform[] lassoedSheep = null;
+    private List<Transform> lassoedSheep = new List<Transform>();
     public float tightenSpeed = 5f;
     public float sheepWidth = 0.5f;
 
@@ -28,7 +30,6 @@ public class LassoLoopController : MonoBehaviour
 
     private float globalRotation = 0f;
     public float rotationSpeed = 180f; // degrees per second
-
 
     void Start()
     {
@@ -99,7 +100,7 @@ public class LassoLoopController : MonoBehaviour
                 joints[i].position = position;
             }
 
-            radius = sizeCurve.Evaluate(timer);
+            radius = sizeCurve.Evaluate(timer) * sizeCurveMult;
         }
         else
         {
@@ -143,7 +144,7 @@ public class LassoLoopController : MonoBehaviour
                 jointRadii[i] = Mathf.MoveTowards(jointRadii[i], targetDistance, tightenSpeed * Time.deltaTime);
                 joints[i].position = centerPos + dir * jointRadii[i];
 
-                if (lassoedSheep.Length > 0)
+                if (lassoedSheep.Count > 0)
                 {
                     // If there are sheep, move the rope up
                     joints[i].position += Vector3.up * 1f;
@@ -165,10 +166,37 @@ public class LassoLoopController : MonoBehaviour
             jointRadii[i] = radius;
         }
 
-        lassoedSheep = new Transform[sheep.Length];
+        lassoedSheep.Clear();
         for (int i = 0; i < sheep.Length; i++)
         {
-            lassoedSheep[i] = sheep[i].transform;
+            lassoedSheep.Add(sheep[i].transform);
         }
     }
+
+    public void ReleasePoints(Transform[] sheepToRemove)
+    {
+        foreach (var sheep in sheepToRemove)
+        {
+            if (lassoedSheep.Contains(sheep))
+            {
+                lassoedSheep.Remove(sheep);
+            }
+        }
+    }
+
+    public void Upgrade1()
+    {
+        sizeCurveMult = 1.5f; // Increase the size curve multiplier for upgrade 1
+    }
+
+    public void Upgrade2()
+    {
+        sizeCurveMult = 2f; // Increase the size curve multiplier for upgrade 2
+    }
+
+    public void Upgrade3()
+    {
+        sizeCurveMult = 4f; // Increase the size curve multiplier for upgrade 3
+    }
+
 }
