@@ -146,14 +146,14 @@ namespace Player
 
     private void Update()
     {
-      if (Input.GetKeyDown(KeyCode.P))
-      {
-        Time.timeScale = 5f;
-      }
-      if (Input.GetKeyUp(KeyCode.P))
-      {
-        Time.timeScale = 1f;
-      }
+      // if (Input.GetKeyDown(KeyCode.P))
+      // {
+      //   Time.timeScale = 5f;
+      // }
+      // if (Input.GetKeyUp(KeyCode.P))
+      // {
+      //   Time.timeScale = 1f;
+      // }
 
       if (!isEnabled) return;
 

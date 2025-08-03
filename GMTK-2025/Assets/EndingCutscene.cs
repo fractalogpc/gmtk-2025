@@ -55,7 +55,7 @@ public class EndingCutscene : MonoBehaviour
         gameManager.StopGameMusicAndAmbient();
         // Fade to black
         fadeToBlack.FadeIn();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         cutsceneCamera.SetActive(true);
         player.SetActive(false); // Hide player during cutscene
@@ -68,7 +68,7 @@ public class EndingCutscene : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         winMusic.Play();
         fadeToBlack.FadeOut();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         // Start music
 
@@ -122,6 +122,7 @@ public class EndingCutscene : MonoBehaviour
         winMusic.Stop();
 
         // Exit to menu
+        gameManager.ExitToMenu();
     }
     
 }

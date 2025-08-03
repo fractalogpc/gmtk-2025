@@ -386,17 +386,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""71eced42-9011-4617-b961-2ff4a740b735"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Noclip"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e13784aa-a357-4ac1-8f25-a7f637cb3c54"",
                     ""path"": ""<Keyboard>/backquote"",
                     ""interactions"": """",
