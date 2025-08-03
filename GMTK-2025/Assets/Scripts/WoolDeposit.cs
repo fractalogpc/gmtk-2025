@@ -122,6 +122,8 @@ public class WoolDeposit : MonoBehaviour, IInteractable
         // After washing, clear the deposits
         woolDeposits.Clear();
 
+        ObjectiveSystem.Instance.CompleteObjectiveByName("Deposit");
+
         anim.Play("woolotrondooropen");
         yield return new WaitForSeconds(anim.clip.length);
     }

@@ -858,6 +858,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         isQueen = false;
         currentQueen = null;
         lockMovement = true;
+        ObjectiveSystem.Instance.CompleteObjectiveByName("Lasso");
         StartCoroutine(FollowPosition(target, playerPosition.position, lasso));
     }
 
@@ -936,6 +937,8 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         {
             obj.SetActive(false);
         }
+
+        ObjectiveSystem.Instance.CompleteObjectiveByName("Shearing");
 
         SpawnWool();
         if (doubleShear)

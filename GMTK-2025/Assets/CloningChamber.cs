@@ -125,7 +125,7 @@ public class CloningChamber : MonoBehaviour
         {
             doorAnimation.Play("microwavedooropen");
         }
-        yield return new WaitForSeconds(doorAnimation.clip.length);
+        yield return new WaitForSeconds(doorAnimation.clip.length + 1.5f);
         cloneController.enabled = true; // Re-enable sheep controller
 
         yield return StartCoroutine(cloneController.RunToPoint(5f, initialSheepMovePoint));

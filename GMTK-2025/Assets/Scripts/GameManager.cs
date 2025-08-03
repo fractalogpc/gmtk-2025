@@ -143,7 +143,7 @@ public class GameManager : InputHandlerBase
           continue;
         }
         timeLeftInDay -= Time.deltaTime;
-        ambientSoundEmitter.SetParameter("Nighttime", timeLeftInDay / (dayLengthMinutes * 60));
+        ambientSoundEmitter.SetParameter("Nighttime", 1 - (timeLeftInDay / (dayLengthMinutes * 60)));
         ambientSoundEmitter.SetParameter("Creepiness", Mathf.Clamp01(Vector3.Distance(playerObject.transform.position, pitManager.transform.position) / 300f));
         yield return null;
       }
@@ -159,6 +159,9 @@ public class GameManager : InputHandlerBase
       RenderSettings.fogColor = nightFogColor;
       sunLight.enabled = false;
       lightning.SetActive(true);
+
+      // Trigger nighttime objective
+      ObjectiveSystem.Instance.CompleteObjectiveByName("Nighttime");
 
       // Remove wild sheep
       SheepSpawner.Instance.ClearWildSheep();

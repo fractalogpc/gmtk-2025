@@ -114,6 +114,7 @@ public class CartController : MonoBehaviour
 
             sheep.Show();
             sheep.PutInCart(this);
+            ObjectiveSystem.Instance.CompleteObjectiveByName("PutCart");
 
             SheepInCart++;
         }
