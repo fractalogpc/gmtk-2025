@@ -62,6 +62,7 @@ public class ToolController : MonoBehaviour
             case ToolType.Sheep:
                 currentlyHeldSheep.Hide();
                 currentlyHeldSheep = null;
+                CartController.Instance.SetInteractableColliderActive(false);
                 break;
             default:
                 break;
@@ -96,6 +97,9 @@ public class ToolController : MonoBehaviour
 
                 currentlyHeldSheep = sheep;
                 currentlyHeldSheep.Show();
+
+                // Allow the cart to be interacted with
+                CartController.Instance.SetInteractableColliderActive(true);
                 break;
             default:
                 break;

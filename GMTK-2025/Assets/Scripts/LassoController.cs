@@ -276,6 +276,9 @@ public class LassoController : InputHandlerBase
     {
         InventoryController.Instance.SetClickPromptText("Throw");
 
+        InventoryController.Instance.SetDropPromptActive(false);
+        InventoryController.Instance.SetDropPromptText("Drop");
+
         heldLasso.SetActive(true);
         visualController.DisableVisual();
 
