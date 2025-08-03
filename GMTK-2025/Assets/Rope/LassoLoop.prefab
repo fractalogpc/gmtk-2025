@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   center: {fileID: 7073886216417237275}
   jointPrefab: {fileID: 8692438366626723765, guid: bf329c3cefee93745a9588b28080b1ad, type: 3}
-  jointCount: 10
+  jointCount: 50
   radius: 0
   ropeEnd: {fileID: 0}
   joints: []
@@ -147,8 +147,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   onGround: 0
   isPulling: 0
-  tightenSpeed: 5
-  sheepWidth: 0.2
-  maxLiftHeight: 2
-  liftDistanceThreshold: 3
+  tightenSpeed: 1.05
+  sheepWidth: 2.19
+  maxLiftHeight: 4.04
+  liftDistanceThreshold: 15.93
   rotationSpeed: 300

@@ -19,6 +19,7 @@ public class LassoController : InputHandlerBase
     public StudioEventEmitter pullSoundEmitter;
     public StudioEventEmitter breakSoundEmitter;
 
+    public LayerMask sheepMask;
     public LayerMask groundMask;
 
     private Rigidbody rb;
@@ -82,7 +83,7 @@ public class LassoController : InputHandlerBase
         }
 
         // Reset lasso if it has been thrown for too long
-        if (lassoInAir && (Vector3.Distance(transform.position, originalPosition.position) > 30f || throwChargeTime > 15f))
+        if (lassoInAir && (Vector3.Distance(transform.position, originalPosition.position) > 60f || throwChargeTime > 15f))
         {
             ResetLasso();
         }
@@ -95,7 +96,7 @@ public class LassoController : InputHandlerBase
             // Player is pulling the lasso back
             if (isRetracting)
             {
-                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 15f));
+                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 40f));
             }
 
             // Fully retracted
@@ -105,7 +106,7 @@ public class LassoController : InputHandlerBase
             }
 
             // Safety reset if too far
-            if (Vector3.Distance(transform.position, targetPos) > 15f)
+            if (Vector3.Distance(transform.position, targetPos) > 70f)
             {
                 transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10f));
             }
@@ -154,7 +155,7 @@ public class LassoController : InputHandlerBase
 
         return false;
     }
-    
+
     private bool isChargingThrowLastFrame = false;
     private bool StartedChargingThrow()
     {
@@ -236,7 +237,7 @@ public class LassoController : InputHandlerBase
         return lassoCurve.Evaluate(t);
     }
 
-    public void ReleaseSheep(int count, Pen.SubPen targetPen)
+    public List<AdvancedSheepController> ReleaseSheep(int count, Pen.SubPen targetPen)
     {
         if (count != lassoedSheep.Count)
         {
@@ -248,7 +249,9 @@ public class LassoController : InputHandlerBase
             lassoedSheep[i].SendToPen(targetPen);
         }
 
+        List<AdvancedSheepController> releasedSheep = lassoedSheep.GetRange(0, count);
         lassoedSheep.RemoveRange(0, count);
+        return releasedSheep; // Return the released sheep
     }
 
     public void ResetLasso()
@@ -299,6 +302,7 @@ public class LassoController : InputHandlerBase
         isChargingThrow = false;
         isPullingTarget = true;
 
+        // transform.position = GetGroundHeight(transform.position);
         transform.position = GetGroundHeight(transform.position);
 
         float range = visualController.lassoLoopController.radius;

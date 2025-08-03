@@ -733,7 +733,7 @@ GameObject:
   - component: {fileID: 7374373261139871938}
   m_Layer: 9
   m_Name: Sphere Collision
-  m_TagString: Untagged
+  m_TagString: LassoTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

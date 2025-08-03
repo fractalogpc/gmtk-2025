@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 using FMODUnity;
+using System.Collections.Generic;
 
 public class AdvancedSheepController : MonoBehaviour, IShearable
 {
@@ -411,7 +412,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         StartCoroutine(RunToPen(pen, skipFirstPoint));
     }
 
-    private IEnumerator RandomMoveSheep(bool recursive, float? angle = null)
+    public IEnumerator RandomMoveSheep(bool recursive, float? angle = null)
     {
         moveTimer = 0f;
         if (isQueen || currentQueen == null)
@@ -677,14 +678,14 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
                 break;
             }
             float distanceToPosition = DistanceIgnoreY(transform.position, position.position);
-            if (distanceToPosition > 5f)
-            {
-                // If the sheep is too far, break it out of the lasso
-                lockMovement = false;
-                lasso.RemoveSheep(this);
-                Reset();
-            }
-            if (distanceToPosition > 2f)
+            // if (distanceToPosition > 5f)
+            // {
+            //     // If the sheep is too far, break it out of the lasso
+            //     lockMovement = false;
+            //     lasso.RemoveSheep(this);
+            //     Reset();
+            // }
+            if (distanceToPosition > 4f)
             {
                 float speed = Mathf.Clamp(Mathf.Pow(distanceToPosition, 2), 0f, 10f); // Speed increases with distance
                 transform.position = Vector3.MoveTowards(transform.position, position.position, speed * Time.deltaTime);
@@ -717,6 +718,21 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
 
         inPen = true;
         StartCoroutine(InPen(pen));
+    }
+
+    public IEnumerator FollowPoints(List<Vector3> points, float speed)
+    {
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 4.0f)); // Ensure the coroutine starts after the frame ends
+        transform.position = points[0];
+        while (points.Count > 0)
+        {
+            Vector3 targetPoint = points[0];
+            yield return StartCoroutine(RunToPoint(speed, targetPoint));
+
+            points.RemoveAt(0);
+        }
+
+        Destroy(gameObject); // Destroy the sheep after following all points
     }
 
     public IEnumerator RunToPoint(float speed, Vector3 point)
