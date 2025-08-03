@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 using MoreMountains.Feedbacks;
+using FMODUnity;
 
 public class EndingCutscene : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class EndingCutscene : MonoBehaviour
     [SerializeField] private GameObject[] canvasesToDisable;
     [SerializeField] private CameraShake cameraShake;
     [SerializeField] private Transform[] points;
+    [SerializeField] private StudioEventEmitter rocketSound;
 
     private bool canTriggerCutscene = false;
 
@@ -83,6 +85,8 @@ public class EndingCutscene : MonoBehaviour
         {
             thruster.Play();
         }
+
+        rocketSound.Play();
 
         // Launch rocket
         float elapsed = 0f;
