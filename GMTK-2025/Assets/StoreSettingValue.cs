@@ -9,5 +9,10 @@ public class StoreSettingValue : MonoBehaviour
     {
         PlayerPrefs.SetFloat(settingName, value);
     }
-    
+
+    public void SetValue(bool value)
+    {
+        PlayerPrefs.SetInt(settingName, value ? 1 : 0);
+    }
+
 }
