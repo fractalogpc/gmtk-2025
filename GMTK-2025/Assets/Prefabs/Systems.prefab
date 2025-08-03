@@ -3476,6 +3476,10 @@ MonoBehaviour:
   dayLengthMinutes: 5
   startQuota: 3
   dailyQuotaIncrease: 2
+  sunLight: {fileID: 0}
+  skyboxMaterial: {fileID: 2100000, guid: 179ba3c4ed2a79e4e8bbf3a94c0de91e, type: 2}
+  dayFogColor: {r: 0.50980395, g: 0.67058825, b: 0.6627451, a: 1}
+  nightFogColor: {r: 0.47058824, g: 0.2901961, b: 0.49019608, a: 1}
   gameState: 0
   numSheepOffered: 0
   startDelay: 100
