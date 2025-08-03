@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using FMODUnity;
 
 public class CloningManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class CloningManager : MonoBehaviour
 
     [SerializeField] private GameObject cloningSheep;
     [SerializeField] private Renderer[] cloningSheepRenderers;
+    
+    [SerializeField] private StudioEventEmitter idleSoundEmitter;
 
     public AdvancedSheepController sheepBeingCloned;
 
@@ -66,7 +69,7 @@ public class CloningManager : MonoBehaviour
             sheep.gameObject.SetActive(false);
 
             UpdateSheepInfo();
-
+            idleSoundEmitter.Play();
         }
     }
 

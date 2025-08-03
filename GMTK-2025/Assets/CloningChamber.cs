@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using FMODUnity;
 
 public class CloningChamber : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CloningChamber : MonoBehaviour
     [SerializeField] private Animation doorAnimation;
     [SerializeField] private float cloneDelayRandomAdd = 0.5f;
     [SerializeField] private Vector3 initialSheepMovePoint = new Vector3(0, 0, 0f);
+    [SerializeField] private StudioEventEmitter workSoundEmitter;
 
     private ClonableSheep sheepBeingCloned;
     private bool isCloning = false;
@@ -47,7 +49,7 @@ public class CloningChamber : MonoBehaviour
         }
 
         isCloning = true;
-
+        workSoundEmitter.Play();
         float randomDelay = Random.Range(0f, cloneDelayRandomAdd);
         yield return new WaitForSeconds(cloneDelay + randomDelay);
         ClonableSheep sheep = sheepBeingCloned;
@@ -115,7 +117,8 @@ public class CloningChamber : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
+        
+        workSoundEmitter.Stop();
         clone.transform.localScale = Vector3.one; // Ensure final scale is set to one
                                                   // Open the door here
         if (doorAnimation != null)
