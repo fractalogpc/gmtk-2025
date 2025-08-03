@@ -28,6 +28,8 @@ public class CloningChamber : MonoBehaviour
 
     public void ReplaceSheep(AdvancedSheepController sheepController)
     {
+        if (sheepController == null) return;
+        Debug.Log($"Replacing sheep in cloning chamber with: {sheepController.name}");
         ClonableSheep newSheep = new ClonableSheep
         {
             colorIndex = sheepController.woolColorIndex,

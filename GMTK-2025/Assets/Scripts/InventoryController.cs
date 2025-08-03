@@ -25,7 +25,7 @@ public class InventoryController : InputHandlerBase
     public int LassoLevel => lassoLevel;
     public int ShearsLevel => shearsLevel;
 
-    private int selectedSlot = 0;
+    private int selectedSlot = -1;
 
     public ItemType[] inventory = new ItemType[3];
 
@@ -80,6 +80,8 @@ public class InventoryController : InputHandlerBase
             Debug.LogWarning("Inventory slot is already occupied.");
             return false;
         }
+        bool forceSelect = inventory[slot] == ItemType.None;
+
         inventory[slot] = item;
 
         switch (item)
@@ -107,7 +109,7 @@ public class InventoryController : InputHandlerBase
                 break;
         }
 
-        SelectItem(slot);
+        SelectItem(slot, forceSelect);
 
         return true;
     }
@@ -151,15 +153,16 @@ public class InventoryController : InputHandlerBase
         RegisterAction(_inputActions.Player.Scroll, ctx => HandleScroll(ctx));
     }
 
-    public void SelectItem(int slot)
+    public void SelectItem(int slot, bool forceSelect = false)
     {
         if (!canSelect)
         {
             return; // Prevent selection if not allowed
         }
 
-        if (slot == selectedSlot)
+        if (slot == selectedSlot || !forceSelect)
         {
+            Debug.Log("Deselecting item");
             ToolController.Instance.SetTool(ToolController.ToolType.None);
             for (int i = 0; i < inventorySlots.Length; i++)
             {
