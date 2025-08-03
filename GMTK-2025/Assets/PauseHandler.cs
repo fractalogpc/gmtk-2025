@@ -1,8 +1,15 @@
+using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseHandler : InputHandlerBase
 {
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private Button quitButton;
+    [SerializeField] private FadeElementInOut fadeToBlack;
+    public GameManager gameManager;
 
     protected override void InitializeActionMap()
     {
@@ -30,5 +37,35 @@ public class PauseHandler : InputHandlerBase
             _inputActions.Player.Enable();
             _inputActions.GenericUI.Disable();
         }
+    }
+
+    private void Start()
+    {
+	    base.Start();
+        quitButton.onClick.AddListener(ButtonQuitToMenu);
+	    pauseMenu.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+	    quitButton.onClick.RemoveAllListeners();
+	    _inputActions.Player.Disable();
+	    _inputActions.GenericUI.Disable();
+    }
+
+    private void ButtonQuitToMenu()
+    {
+	    Debug.Log("Quitting to menu...");
+	    fadeToBlack.FadeIn();
+        gameManager.StopGame();
+	    _inputActions.Player.Disable();
+	    StartCoroutine(GoToMenuCoroutine());
+    }
+
+    private IEnumerator GoToMenuCoroutine()
+    {
+	    Time.timeScale = 1f; // Reset time scale before loading the menu
+	    yield return new WaitForSeconds(fadeToBlack.FadeInTime);
+	    SceneManager.LoadScene("MainMenu");
     }
 }

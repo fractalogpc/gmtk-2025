@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
   [SerializeField] private PitManager pitManager;
   [SerializeField] private Transform playerStart;
   [SerializeField] private StudioEventEmitter normalMusicEmitter;
+  [SerializeField] private StudioEventEmitter ambientSoundEmitter;
   [SerializeField] private StudioEventEmitter scaryMusicEmitter;
   public int sheepQuota
   {
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
     pitManager = GameObject.FindWithTag("PitManager").GetComponent<PitManager>();
     Initialize();
     StartCoroutine(GameLogic());
+    fadeToBlack.Show();
   }
 
   private void Initialize()
@@ -161,6 +163,13 @@ public class GameManager : MonoBehaviour
     print("sheep offered");
     numSheepOffered += amount;
     hasOfferedThisDay = true;
+  }
+
+  public void StopGame()
+  {
+    normalMusicEmitter.Stop();
+    ambientSoundEmitter.Stop();
+    // scaryMusicEmitter.Stop();
   }
 
   private void Lose()
