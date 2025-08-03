@@ -39,6 +39,8 @@ public class CloningManager : MonoBehaviour
     {
         InventoryController inventory = InventoryController.Instance;
 
+        Debug.Log($"Trying to add sheep to cloning chamber. Current selected slot: {inventory.SelectedSlot}");
+
         if (inventory.IsHoldingObject(InventoryController.ItemType.Sheep))
         {
             AdvancedSheepController sheep = inventory.GetHeldSheep();

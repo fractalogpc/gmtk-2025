@@ -160,7 +160,7 @@ public class InventoryController : InputHandlerBase
             return; // Prevent selection if not allowed
         }
 
-        if (slot == selectedSlot || !forceSelect)
+        if (slot == selectedSlot && !forceSelect)
         {
             Debug.Log("Deselecting item");
             ToolController.Instance.SetTool(ToolController.ToolType.None);
