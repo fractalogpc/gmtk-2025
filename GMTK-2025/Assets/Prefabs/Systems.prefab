@@ -4344,8 +4344,6 @@ GameObject:
   - component: {fileID: 6416329180705956229}
   - component: {fileID: 7400841310545670767}
   - component: {fileID: 4744470390760964875}
-  - component: {fileID: 4826187522479974098}
-  - component: {fileID: 1017625968665222254}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -4391,7 +4389,7 @@ MonoBehaviour:
   topLevelFadeToBlack: {fileID: 3652769835273226932}
   loseScreen: {fileID: 3680738909136539674}
   loseScreenFade: {fileID: 6034806085791399731}
-  dayLengthMinutes: 5
+  dayLengthMinutes: 0.1
   startQuota: 3
   dailyQuotaIncrease: 2
   sunLight: {fileID: 0}
@@ -4946,31 +4944,31 @@ MonoBehaviour:
   - ColorIndex: 0
     Icon: {fileID: 21300000, guid: a70f0ffd7a116a640b2a6a2844fa0e63, type: 3}
     ColorName: White Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 1
     Icon: {fileID: 21300000, guid: 344b67abddb49a14e9d2cac42567ae47, type: 3}
     ColorName: Gray Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 2
     Icon: {fileID: 21300000, guid: 9710d5c3e80a04642a0dfe673dfd242b, type: 3}
     ColorName: Brown Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 3
     Icon: {fileID: 21300000, guid: b757dacdb5c2fc243b1ff88ab8e98f04, type: 3}
     ColorName: Pink Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 4
     Icon: {fileID: 21300000, guid: 9ff5496e949196749b0e91ffce1ab568, type: 3}
     ColorName: Gold Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 5
     Icon: {fileID: 21300000, guid: dec717c0d41d8ba4cbd50adc6107eed7, type: 3}
     ColorName: Ghost Wool
-    Count: 0
+    Count: 999
   - ColorIndex: 6
     Icon: {fileID: 21300000, guid: 681ac5b3984c63e4791dbd754434c0cc, type: 3}
     ColorName: Rainbow Wool
-    Count: 0
+    Count: 999
   woolCounters:
   - {fileID: 0}
   - {fileID: 0}
@@ -5014,42 +5012,6 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 2022064053091549485}
   sfxVolumeSlider: {fileID: 2980426459351830761}
 --- !u!114 &4744470390760964875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579504265299608075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2169c5e8a3f8224c9e2796568ddac2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strobingMaterials:
-  - {fileID: 2100000, guid: 598adecafaa76ac40964df3a09e3b5b4, type: 2}
-  - {fileID: 2100000, guid: 2b59b664b33c4f64fbd837651ac9a630, type: 2}
-  - {fileID: 2100000, guid: 447c6cecbb00f494685f61fa781626b6, type: 2}
-  - {fileID: 2100000, guid: e4e4c1fec3a35084ab562de8ffc4d4c4, type: 2}
-  - {fileID: 2100000, guid: 65707b338ba6a9d4691bae7b67ea4198, type: 2}
---- !u!114 &4826187522479974098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579504265299608075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2169c5e8a3f8224c9e2796568ddac2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strobingMaterials:
-  - {fileID: 2100000, guid: 598adecafaa76ac40964df3a09e3b5b4, type: 2}
-  - {fileID: 2100000, guid: 2b59b664b33c4f64fbd837651ac9a630, type: 2}
-  - {fileID: 2100000, guid: 447c6cecbb00f494685f61fa781626b6, type: 2}
-  - {fileID: 2100000, guid: e4e4c1fec3a35084ab562de8ffc4d4c4, type: 2}
-  - {fileID: 2100000, guid: 65707b338ba6a9d4691bae7b67ea4198, type: 2}
---- !u!114 &1017625968665222254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7940,7 +7902,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1017625968665222254}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AccessibilitySettingsManager, Assembly-CSharp
         m_MethodName: UpdateStrobingSettings
         m_Mode: 1
