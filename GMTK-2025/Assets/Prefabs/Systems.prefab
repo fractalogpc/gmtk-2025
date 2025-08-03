@@ -1642,6 +1642,7 @@ MonoBehaviour:
   pitManager: {fileID: 0}
   playerStart: {fileID: 0}
   normalMusicEmitter: {fileID: 4745233779433477221}
+  ambientSoundEmitter: {fileID: 560025462347120761}
   scaryMusicEmitter: {fileID: 0}
   fadeToBlack: {fileID: 2359082463679124788}
   dayLengthMinutes: 5
