@@ -44,6 +44,8 @@ public class LassoController : InputHandlerBase
     protected override void InitializeActionMap()
     {
         RegisterActionComplexCancel(_inputActions.Player.Lasso, ctx => OnLasso(ctx), ctx => OnLasso(ctx));
+
+        RegisterAction(_inputActions.Player.Drop, _ => ResetLasso());
     }
 
     private void Awake()
@@ -94,6 +96,8 @@ public class LassoController : InputHandlerBase
         {
             Vector3 targetPos = originalPosition.position;
 
+            if (lassoedSheep.Count == 0) isRetracting = true;
+
             // Player is pulling the lasso back
             if (isRetracting)
             {
@@ -101,7 +105,7 @@ public class LassoController : InputHandlerBase
             }
 
             // Fully retracted
-            if (Vector3.Distance(transform.position, targetPos) < 2f)
+            if (Vector3.Distance(transform.position, targetPos) < 2f && lassoedSheep.Count == 0)
             {
                 ResetLasso();
             }
