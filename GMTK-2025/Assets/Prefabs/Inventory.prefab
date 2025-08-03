@@ -99,6 +99,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9ff5496e949196749b0e91ffce1ab568, type: 3}
   - {fileID: 21300000, guid: dec717c0d41d8ba4cbd50adc6107eed7, type: 3}
   - {fileID: 21300000, guid: 681ac5b3984c63e4791dbd754434c0cc, type: 3}
+  woolMaterials: []
   sheepSprite: {fileID: 21300000, guid: 56a2c60969330d6489bd8cc4bbf36a4a, type: 3}
   inventory: 000000000000000000000000
   inventorySlots:
@@ -107,6 +108,7 @@ MonoBehaviour:
   - {fileID: 8500858574582881027}
   clickPrompt: {fileID: 0}
   clickPromptText: {fileID: 0}
+  dropPromptText: {fileID: 0}
   dropPrompt: {fileID: 0}
 --- !u!114 &2420484683342080754
 MonoBehaviour:
