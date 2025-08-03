@@ -115,6 +115,12 @@ public class ObjectiveSystem : MonoBehaviour
             }
         }
 
+        if (objectives[index].isCompleted)
+        {
+            Debug.LogWarning("Objective " + objectives[index].name + " is already completed.");
+            return;
+        }
+
         // Check if all prior objectives are completed
         for (int i = 0; i < index; i++)
         {
@@ -140,6 +146,15 @@ public class ObjectiveSystem : MonoBehaviour
                     {
                         obj.SetActive(true);
                     }
+                }
+            }
+
+            // Disable objects for the completed objective
+            foreach (GameObject obj in objectives[index].enableWhenActive)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(false);
                 }
             }
 
