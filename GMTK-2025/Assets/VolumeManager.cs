@@ -21,8 +21,8 @@ public class VolumeManager : MonoBehaviour
         musicBus = RuntimeManager.GetBus("bus:/Music");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
 
-        musicVolumeSlider.value = defaultMusicVolume;
-        sfxVolumeSlider.value = defaultSFXVolume;
+        // musicVolumeSlider.value = defaultMusicVolume;
+        // sfxVolumeSlider.value = defaultSFXVolume;
 
         musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);

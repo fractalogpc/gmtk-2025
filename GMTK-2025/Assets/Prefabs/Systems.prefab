@@ -221,6 +221,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8972270151063104017}
   - component: {fileID: 2980426459351830761}
+  - component: {fileID: 4912820371289755716}
+  - component: {fileID: 9194316430155997744}
   m_Layer: 5
   m_Name: SFX
   m_TagString: Untagged
@@ -300,7 +302,46 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4912820371289755716}
+        m_TargetAssemblyTypeName: StoreSettingValue, Assembly-CSharp
+        m_MethodName: SetValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4912820371289755716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53179441891524953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070d6ce98a2a6f14dbe507b547f36e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingName: SFXVol
+--- !u!114 &9194316430155997744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53179441891524953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab91184790c96a43bf165315fff3ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 2980426459351830761}
+  settingName: SFXVol
 --- !u!1 &175337105477200076
 GameObject:
   m_ObjectHideFlags: 0
@@ -9120,6 +9161,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8573671606845765121}
   - component: {fileID: 2022064053091549485}
+  - component: {fileID: 8440100754392009218}
+  - component: {fileID: 7526750917457404820}
   m_Layer: 5
   m_Name: Music
   m_TagString: Untagged
@@ -9199,7 +9242,46 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8440100754392009218}
+        m_TargetAssemblyTypeName: StoreSettingValue, Assembly-CSharp
+        m_MethodName: SetValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8440100754392009218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7883662896755863361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070d6ce98a2a6f14dbe507b547f36e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingName: MusicVol
+--- !u!114 &7526750917457404820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7883662896755863361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab91184790c96a43bf165315fff3ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 2022064053091549485}
+  settingName: MusicVol
 --- !u!1 &7893581893391192854
 GameObject:
   m_ObjectHideFlags: 0
