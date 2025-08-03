@@ -67,7 +67,8 @@ public class PitManager : MonoBehaviour
         int sheepCount = CountSheep();
         EatEffects(sheepCount);
         yield return new WaitForSeconds(5f);
-        gameManager.AddToQuota(CountSheep());
+        print("Offering " + sheepCount + " sheep to the pit.");
+        gameManager.AddToQuota(sheepCount);
         ClearPit();
         yield return new WaitForSeconds(6f);
         ResetFallingRocks();
