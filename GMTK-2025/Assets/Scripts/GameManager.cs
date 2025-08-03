@@ -160,6 +160,9 @@ public class GameManager : InputHandlerBase
       sunLight.enabled = false;
       lightning.SetActive(true);
 
+      // Trigger nighttime objective
+      ObjectiveSystem.Instance.CompleteObjectiveByName("Nighttime");
+
       // Remove wild sheep
       SheepSpawner.Instance.ClearWildSheep();
 

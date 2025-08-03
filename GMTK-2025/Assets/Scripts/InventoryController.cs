@@ -39,6 +39,9 @@ public class InventoryController : InputHandlerBase
 
     [SerializeField] private GameObject dropPrompt;
 
+    private bool hasPickedUpShears = false;
+    private bool hasPickedUpLasso = false;
+
     private bool canSelect = true;
 
     public int SelectedSlot => selectedSlot;
@@ -97,10 +100,14 @@ public class InventoryController : InputHandlerBase
             case ItemType.Lasso:
                 inventorySlots[slot].SetImage(lassoSprite);
                 lassoLevel = level;
+                if (!hasPickedUpLasso && hasPickedUpShears) ObjectiveSystem.Instance.CompleteObjectiveByName("Tools");
+                hasPickedUpLasso = true;
                 break;
             case ItemType.Shears:
                 inventorySlots[slot].SetImage(shearsSprite);
                 shearsLevel = level;
+                if (!hasPickedUpShears && hasPickedUpLasso) ObjectiveSystem.Instance.CompleteObjectiveByName("Tools");
+                hasPickedUpShears = true;
                 break;
             case ItemType.Wool:
                 inventorySlots[slot].SetImage(woolSprites[colorIndex]);
@@ -112,6 +119,7 @@ public class InventoryController : InputHandlerBase
                 {
                     Debug.LogError("Sheep cannot be null when adding to inventory.");
                 }
+                ObjectiveSystem.Instance.CompleteObjectiveByName("PickUp");
                 heldSheep[slot] = sheep;
                 inventorySlots[slot].SetImage(sheepSprite);
                 break;

@@ -107,6 +107,7 @@ public class GuidebookManager : MonoBehaviour
 
                 if (openPrompt != null && !hasOpenedGuidebook)
                 {
+                    ObjectiveSystem.Instance.CompleteObjectiveByName("Guidebook");
                     hasOpenedGuidebook = true;
                     openPrompt.SetActive(false);
                     secondaryOpenPrompt.SetActive(true);
