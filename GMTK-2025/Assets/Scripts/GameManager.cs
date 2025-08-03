@@ -192,6 +192,7 @@ public class GameManager : InputHandlerBase
       }
       if (numSheepOffered < sheepQuota)
       {
+        print("num sheep offered: " + numSheepOffered + ", quota: " + sheepQuota);
         Lose();
         break;
       }
@@ -234,7 +235,6 @@ public class GameManager : InputHandlerBase
 
   public void AddToQuota(int amount)
   {
-    print("sheep offered");
     numSheepOffered += amount;
     hasOfferedThisDay = true;
   }
