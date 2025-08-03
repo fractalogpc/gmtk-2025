@@ -35,8 +35,6 @@ public class WoolController : InputHandlerBase
 
         InventoryController.Instance.TryRemoveItem();
 
-        Instantiate(woolPrefab, woolOrigin.position, woolOrigin.rotation);
-
         GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);
         Renderer renderer = woolInstance.GetComponentInChildren<Renderer>();
 
