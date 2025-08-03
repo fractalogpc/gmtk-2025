@@ -31,7 +31,7 @@ public class LassoVisualController : MonoBehaviour
             // Calculate the segment length based on the distance and number of segments
             float segmentLength = distance / numberOfSegments;
             segmentLength = Mathf.Max(segmentLength, 0.1f); // Ensure a minimum segment length
-            segmentLength *= 0.7f; // Allow some slack
+            segmentLength *= 0.3f; // Allow some slack
 
             ropeController.SetJointLengths(segmentLength);
         }
@@ -41,7 +41,7 @@ public class LassoVisualController : MonoBehaviour
     {
         if (!isEnabled) return;
 
-        ropeStart.transform.position = lassoOrigin.position + Vector3.down * 1.0f;
+        ropeStart.transform.position = lassoOrigin.position;
         ropeEnd.transform.position = lassoLoopController.ropeEnd.position;
     }
 

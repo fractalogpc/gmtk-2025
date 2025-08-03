@@ -412,7 +412,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         StartCoroutine(RunToPen(pen, skipFirstPoint));
     }
 
-    private IEnumerator RandomMoveSheep(bool recursive, float? angle = null)
+    public IEnumerator RandomMoveSheep(bool recursive, float? angle = null)
     {
         moveTimer = 0f;
         if (isQueen || currentQueen == null)
@@ -678,14 +678,14 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
                 break;
             }
             float distanceToPosition = DistanceIgnoreY(transform.position, position.position);
-            if (distanceToPosition > 5f)
-            {
-                // If the sheep is too far, break it out of the lasso
-                lockMovement = false;
-                lasso.RemoveSheep(this);
-                Reset();
-            }
-            if (distanceToPosition > 2f)
+            // if (distanceToPosition > 5f)
+            // {
+            //     // If the sheep is too far, break it out of the lasso
+            //     lockMovement = false;
+            //     lasso.RemoveSheep(this);
+            //     Reset();
+            // }
+            if (distanceToPosition > 4f)
             {
                 float speed = Mathf.Clamp(Mathf.Pow(distanceToPosition, 2), 0f, 10f); // Speed increases with distance
                 transform.position = Vector3.MoveTowards(transform.position, position.position, speed * Time.deltaTime);
