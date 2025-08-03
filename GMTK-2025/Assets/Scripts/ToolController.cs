@@ -84,6 +84,7 @@ public class ToolController : MonoBehaviour
                 woolobject.GetComponent<WoolController>().SetMaterial(SheepDataHolder.Instance.sheeps[index].color);
                 break;
             case ToolType.Sheep:
+                Debug.Log("Setting tool to Sheep");
                 if (sheep != null)
                 {
                     currentlyHeldSheep = sheep;
