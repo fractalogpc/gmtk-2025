@@ -111,6 +111,10 @@ public class GameManager : InputHandlerBase
     currentDay = 1;
     while (true)
     {
+
+      // Regenerate current sheep's wool
+      SheepSpawner.Instance.RegenerateAllPenSheep();
+
       // Spawn sheep
       SheepSpawner.Instance.GenerateSheep();
 
