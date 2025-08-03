@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using TMPro;
+using FMODUnity;
 
 public class SheepReception : MonoBehaviour, IInteractable
 {
@@ -10,6 +11,8 @@ public class SheepReception : MonoBehaviour, IInteractable
     public int currentSheepCount = 0;
 
     public List<Pen> pens;
+    
+    public StudioEventEmitter registerSoundEmitter;
 
     public LassoController LassoController;
 
@@ -38,6 +41,7 @@ public class SheepReception : MonoBehaviour, IInteractable
     {
         if (currentSheepCount == 0) return;
 
+        registerSoundEmitter.Play();
         Debug.Log("Interacted with Sheep Reception");
 
         foreach (Pen pen in pens)

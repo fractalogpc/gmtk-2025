@@ -97,7 +97,7 @@ public class LassoController : InputHandlerBase
             // Player is pulling the lasso back
             if (isRetracting)
             {
-                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 40f));
+                transform.position = GetGroundHeight(Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 15f));
             }
 
             // Fully retracted
@@ -115,22 +115,22 @@ public class LassoController : InputHandlerBase
 
         if (StartedChargingThrow())
         {
-            print("started charging throw");
+            // print("started charging throw");
             chargeSoundEmitter.Play();
         }
         if (StoppedChargingThrow())
         {
-            print("stopped charging throw");
+            // print("stopped charging throw");
             chargeSoundEmitter.Stop();
         }
         if (StartedPulling())
         {
-            print("started pulling");
+            // print("started pulling");
             pullSoundEmitter.Play();
         }
         if (StoppedPulling())
         {
-            print("stopped pulling");
+            // print("stopped pulling");
             pullSoundEmitter.Stop();
         }
 
@@ -251,7 +251,16 @@ public class LassoController : InputHandlerBase
         }
 
         List<AdvancedSheepController> releasedSheep = lassoedSheep.GetRange(0, count);
+
+        List<Transform> sheepTransforms = new List<Transform>();
+        foreach (var sheep in releasedSheep)
+        {
+            sheepTransforms.Add(sheep.transform);
+        }
+        visualController.lassoLoopController.ReleasePoints(sheepTransforms.ToArray());
+
         lassoedSheep.RemoveRange(0, count);
+
         return releasedSheep; // Return the released sheep
     }
 
@@ -287,7 +296,6 @@ public class LassoController : InputHandlerBase
     {
         if (lassoInAir)
         {
-            Debug.Log("Lasso hit something, starting to pull target.");
             visualController.HitGround();
             lassoInAir = false;
             isPullingTarget = true;
