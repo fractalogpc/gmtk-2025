@@ -225,11 +225,11 @@ public class WoolTransmuteManager : MonoBehaviour
         selectedRecipeIndex += direction;
         if (selectedRecipeIndex < 0)
         {
-            selectedRecipeIndex = 0;
+            selectedRecipeIndex = recipes.Length - 1; // Wrap around to last recipe
         }
         else if (selectedRecipeIndex >= recipes.Length)
         {
-            selectedRecipeIndex = recipes.Length - 1;
+            selectedRecipeIndex = 0; // Wrap around to first recipe
         }
         UpdateUI();
     }
