@@ -34,6 +34,7 @@ public class InventoryController : InputHandlerBase
 
     [SerializeField] private GameObject clickPrompt;
     [SerializeField] private TextMeshProUGUI clickPromptText;
+    [SerializeField] private TextMeshProUGUI dropPromptText;
 
     [SerializeField] private GameObject dropPrompt;
 
@@ -217,6 +218,29 @@ public class InventoryController : InputHandlerBase
         }
 
         selectedSlot = slot;
+    }
+
+    public void SetClickPromptText(string text)
+    {
+        if (clickPromptText != null)
+        {
+            clickPromptText.text = text;
+        }
+    }
+    public void SetDropPromptActive(bool active)
+    {
+        if (dropPrompt != null)
+        {
+            dropPrompt.SetActive(active);
+        }
+    }
+
+    public void SetDropPromptText(string text)
+    {
+        if (dropPrompt != null)
+        {
+            dropPromptText.text = text;
+        }
     }
 
     private void HandleScroll(UnityEngine.InputSystem.InputAction.CallbackContext ctx)

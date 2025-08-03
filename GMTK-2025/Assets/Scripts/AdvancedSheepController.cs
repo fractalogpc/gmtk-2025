@@ -907,7 +907,7 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
         return transform.position.y; // Default to current height if no ground found
     }
 
-    public void Shear()
+    public void Shear(bool doubleShear = false)
     {
         // Debug.Log("Shearing sheep: " + gameObject.name);
         if (isSheared) return;
@@ -918,6 +918,16 @@ public class AdvancedSheepController : MonoBehaviour, IShearable
             obj.SetActive(false);
         }
 
+        SpawnWool();
+        if (doubleShear)
+        {
+            SpawnWool(); // Spawn an additional wool instance if double shear is true
+        }
+
+    }
+
+    private void SpawnWool()
+    {
         GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);
         Renderer renderer = woolInstance.GetComponentInChildren<Renderer>();
         renderer.material = woolMaterial; // Use the first wool material as a base

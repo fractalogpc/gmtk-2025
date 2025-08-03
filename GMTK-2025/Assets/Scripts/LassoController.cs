@@ -215,6 +215,10 @@ public class LassoController : InputHandlerBase
     // Lasso leaves the player's hand and is thrown
     private void ThrowLasso()
     {
+        InventoryController.Instance.SetClickPromptText("Pull");
+        InventoryController.Instance.SetDropPromptActive(true);
+        InventoryController.Instance.SetDropPromptText("Reset");
+
         Quaternion camRot = Camera.main.transform.rotation;
         Vector3 throwDir = camRot * Vector3.forward;
         Vector3 velocity = throwDir * GetLassoMagnitude(throwChargeTime);
@@ -266,6 +270,8 @@ public class LassoController : InputHandlerBase
 
     public void ResetLasso()
     {
+        InventoryController.Instance.SetClickPromptText("Throw");
+
         heldLasso.SetActive(true);
         visualController.DisableVisual();
 
