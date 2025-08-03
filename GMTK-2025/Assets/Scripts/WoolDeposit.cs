@@ -15,6 +15,7 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     [SerializeField] private float spinSpeed = 100f;
     [SerializeField] private AnimationCurve spinCurve;
     [SerializeField] private ParticleSystem finishEffect;
+    [SerializeField] private StudioEventEmitter depositSoundEmitter;
     [SerializeField] private StudioEventEmitter washSoundEmitter;
     [SerializeField] private Outline outlineScript;
 
@@ -54,6 +55,7 @@ public class WoolDeposit : MonoBehaviour, IInteractable
             woolDeposit.GetComponentInChildren<Renderer>().material = SheepDataHolder.Instance.sheeps[wool.Type].color;
             woolDeposit.transform.SetParent(depositPoints[woolDeposits.Count - 1]);
             InventoryController.Instance.TryRemoveItem(slot);
+            depositSoundEmitter.Play();
         }
         else
         {

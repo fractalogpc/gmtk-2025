@@ -18,6 +18,7 @@ public class InventoryController : InputHandlerBase
     public Sprite lassoSprite;
     public Sprite shearsSprite;
     public Sprite[] woolSprites;
+    public Material[] woolMaterials;
     public Sprite sheepSprite;
 
     private int lassoLevel = 0;

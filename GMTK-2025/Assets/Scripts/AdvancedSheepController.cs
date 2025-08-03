@@ -945,6 +945,18 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
 
     }
 
+    public void ResetWool()
+    {
+        if (!isSheared) return;
+
+        foreach (GameObject obj in woolObjects)
+        {
+            obj.SetActive(true);
+        }
+
+        isSheared = false;
+    }
+
     private void SpawnWool()
     {
         GameObject woolInstance = Instantiate(woolPrefab, transform.position + Vector3.up * 0.5f, transform.rotation);

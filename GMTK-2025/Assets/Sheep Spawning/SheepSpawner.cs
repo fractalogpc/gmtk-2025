@@ -58,6 +58,17 @@ public class SheepSpawner : MonoBehaviour
         rareSheepsPositions.Clear();
     }
 
+    public void RegenerateAllPenSheep()
+    {
+        foreach (var sheep in sheepControllers)
+        {
+            if (sheep != null && sheep.InPenValue)
+            {
+                sheep.ResetWool();
+            }
+        }
+    }
+
     public void GenerateSheep()
     {
         SpawnSheepWave(_scale, _amount, jitter);
@@ -266,6 +277,11 @@ public class SheepSpawner : MonoBehaviour
                 sheep.ManualUpdate();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            RegenerateAllPenSheep();
+        }
     }
 
     public void RemoveSheep(AdvancedSheepController sheep)
@@ -275,7 +291,7 @@ public class SheepSpawner : MonoBehaviour
             sheepControllers.Remove(sheep);
         }
     }
-    
+
     public void AddSheep(AdvancedSheepController sheep)
     {
         if (!sheepControllers.Contains(sheep))
