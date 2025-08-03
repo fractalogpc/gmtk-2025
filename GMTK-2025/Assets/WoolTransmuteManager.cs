@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections;
 using System.Linq;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class WoolTransmuteManager : MonoBehaviour
 {
@@ -22,7 +23,8 @@ public class WoolTransmuteManager : MonoBehaviour
         public WoolCount[] outputs;
         public float transmuteTime;
     }
-
+    
+    [SerializeField] private StudioEventEmitter transmuteSoundEmitter;
     [SerializeField] private Recipe[] recipes;
     [SerializeField] private Sprite[] woolIcons;
     [SerializeField] private GameObject transmutingUI;
@@ -163,6 +165,7 @@ public class WoolTransmuteManager : MonoBehaviour
             }
         }
 
+        transmuteSoundEmitter.Play();
         // Wait for the transmute time
         yield return StartCoroutine(AnimateTransmutation(recipes[selectedRecipeIndex].transmuteTime));
 

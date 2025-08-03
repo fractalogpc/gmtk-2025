@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 
 public class WoolDeposit : MonoBehaviour, IInteractable
 {
@@ -14,7 +15,7 @@ public class WoolDeposit : MonoBehaviour, IInteractable
     [SerializeField] private float spinSpeed = 100f;
     [SerializeField] private AnimationCurve spinCurve;
     [SerializeField] private ParticleSystem finishEffect;
-
+    [SerializeField] private StudioEventEmitter washSoundEmitter;
     [SerializeField] private Outline outlineScript;
 
     struct DepositedWool
@@ -98,6 +99,7 @@ public class WoolDeposit : MonoBehaviour, IInteractable
 
     private IEnumerator WashCycle()
     {
+        washSoundEmitter.Play();
         isWashing = true;
         anim.Play("woolotrondoorclose");
         yield return new WaitForSeconds(anim.clip.length);
