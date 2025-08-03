@@ -9,6 +9,9 @@ public class GenericInteractable : MonoBehaviour, IInteractable
     public UnityEvent<float> OnHoldInteract;
     public UnityEvent OnReleaseInteract;
 
+    [SerializeField] private string interactionName = "Interact";
+    public string InteractionName => interactionName;
+
     public void OnHoverEnter()
     {
         OnHoverEnterEvent?.Invoke();

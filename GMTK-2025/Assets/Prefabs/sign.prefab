@@ -539,6 +539,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
+  interactionName: Buy
 --- !u!114 &7788326258143911159
 MonoBehaviour:
   m_ObjectHideFlags: 0

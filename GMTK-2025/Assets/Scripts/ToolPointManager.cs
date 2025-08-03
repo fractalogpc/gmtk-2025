@@ -9,6 +9,8 @@ public class ToolPointManager : MonoBehaviour, IInteractable
     [SerializeField] private InventoryController.ItemType toolType;
     [SerializeField] private Material[] toolLevelMaterials;
 
+    public string InteractionName => isPlaced ? "Pick Up" : "Place";
+
     private bool isPlaced = true;
     private int toolLevel = 0;
 
