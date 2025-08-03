@@ -21,6 +21,11 @@ public class SheepSpawner : MonoBehaviour
 
     private List<AdvancedSheepController> sheepControllers = new List<AdvancedSheepController>();
 
+    public AdvancedSheepController[] SheepControllers
+    {
+        get { return sheepControllers.ToArray(); }
+    }
+
     private void Awake()
     {
         if (Instance == null)
