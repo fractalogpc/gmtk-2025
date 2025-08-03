@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.VFX;
 using UnityEngine.Serialization;
+using FMODUnity;
 
 public class LightningVFXManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class LightningVFXManager : MonoBehaviour
 	[SerializeField] private Vector2 _lightningDelayRange = new(0.5f, 1.5f);
 	[SerializeField] private Vector2 lightningRadius;
 	[SerializeField] private LayerMask lightningStrikeLayerMask;
+	[SerializeField] private GameObject lightingSFXPrefab;
 
 	private VisualEffect lightningVFX;
 	private VFXEventAttribute lightningPositionAttribute;
@@ -56,9 +58,20 @@ public class LightningVFXManager : MonoBehaviour
 		}
 	}
 
-	private void SpawnLightning(Vector3 position) {
+	private void SpawnLightning(Vector3 position)
+	{
 		// Set the position of the lightning effect to the player's position
 		lightningPositionAttribute.SetVector3("targetPosition", position);
 		lightningVFX.SendEvent("SpawnLightning", lightningPositionAttribute);
+
+		// Sound effect
+		if (lightingSFXPrefab != null)
+		{
+			Destroy(Instantiate(lightingSFXPrefab, position, Quaternion.identity), 5f);
+		}
+		else
+		{
+			Debug.LogWarning("Lightning SFX prefab not assigned.");
+		}
 	}
 }
