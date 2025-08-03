@@ -7,7 +7,7 @@ public class WoolDepositExpress : MonoBehaviour, IInteractable
 
     [SerializeField] private Animation anim;
     [SerializeField] private ParticleSystem finishEffect;
-    [SerializeField] private MonoBehaviour outlineScript;
+    [SerializeField] private Outline outlineScript;
     private bool isDepositing = false;
 
     public void Interact()
@@ -42,12 +42,16 @@ public class WoolDepositExpress : MonoBehaviour, IInteractable
 
     public void OnHoverEnter()
     {
-        outlineScript.enabled = true;
+        Color outlineColor = outlineScript.OutlineColor;
+        outlineColor.a = 1f;
+        outlineScript.OutlineColor = outlineColor;
     }
 
     public void OnHoverExit()
     {
-        outlineScript.enabled = false;
+        Color outlineColor = outlineScript.OutlineColor;
+        outlineColor.a = 0f;
+        outlineScript.OutlineColor = outlineColor;
     }
 
     public void HoldInteract(float holdTime) { }
