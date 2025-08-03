@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using FMODUnity;
 using UnityEngine;
 
@@ -42,6 +41,7 @@ public class ShearsController : InputHandlerBase
 
     private void TryShear()
     {
+        if (gameObject.activeInHierarchy == false) return;
         // Raycast for sheep
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 1f);
@@ -90,6 +90,7 @@ public class ShearsController : InputHandlerBase
 
     private void OnDisable()
     {
+        Debug.Log("Disabling ShearsController");
         isHolding = false;
     }
 
