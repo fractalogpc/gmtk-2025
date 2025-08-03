@@ -47,7 +47,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Background_Brightness: 0.1
-    - _Brightness: 0.01
+    - _Brightness: 0
     - _Point_Brightness: 3
     - _Point_Power: 1
     - _Point_Radius: 0.025
