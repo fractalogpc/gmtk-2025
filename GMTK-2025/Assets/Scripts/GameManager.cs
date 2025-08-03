@@ -128,6 +128,7 @@ public class GameManager : InputHandlerBase
       ResetPlayerToStart();
       gameState = GameState.OfferSheep;
       yield return new WaitForSeconds(SetPlayerVision(true));
+      scaryMusicEmitter.Play();
       pitManager.SetOfferable(true);
       while (!hasOfferedThisDay)
       {
@@ -138,6 +139,7 @@ public class GameManager : InputHandlerBase
         Lose();
         break;
       }
+      scaryMusicEmitter.Stop();
       yield return new WaitForSeconds(SetPlayerVision(false));
       currentDay++;
     }
@@ -181,6 +183,8 @@ public class GameManager : InputHandlerBase
   {
     normalMusicEmitter.Stop();
     ambientSoundEmitter.Stop();
+    scaryMusicEmitter.Stop();
+    lostMusicEmitter.Stop();
     // scaryMusicEmitter.Stop();
   }
   

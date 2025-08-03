@@ -1033,9 +1033,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5287589857700092270}
   - component: {fileID: 4745233779433477221}
-  - component: {fileID: 4521342373424690514}
   m_Layer: 0
-  m_Name: Sound Music
+  m_Name: MusicNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1049,12 +1048,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2554111524704912672}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4037472184301826090}
+  m_Father: {fileID: 4150136507204823825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4745233779433477221
 MonoBehaviour:
@@ -1076,37 +1075,6 @@ MonoBehaviour:
       Data3: -599161199
       Data4: 1782022655
     Path: event:/Music/MusicNormal
-  Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &4521342373424690514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2554111524704912672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 27828990
-      Data2: 1170808857
-      Data3: 469990071
-      Data4: -545402700
-    Path: event:/Music/MusicWin
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -1587,6 +1555,41 @@ RectTransform:
   m_AnchoredPosition: {x: 350, y: -330.39502}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &3484933108583835101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4150136507204823825}
+  m_Layer: 0
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4150136507204823825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3484933108583835101}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3202493314982199997}
+  - {fileID: 5287589857700092270}
+  - {fileID: 1673284745194181362}
+  - {fileID: 6406013832121422512}
+  m_Father: {fileID: 4037472184301826090}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3564126878791615576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,8 +1678,10 @@ MonoBehaviour:
   playerStart: {fileID: 0}
   normalMusicEmitter: {fileID: 4745233779433477221}
   ambientSoundEmitter: {fileID: 560025462347120761}
-  scaryMusicEmitter: {fileID: 0}
+  scaryMusicEmitter: {fileID: 2166743528361454553}
+  lostMusicEmitter: {fileID: 6420629987912745444}
   fadeToBlack: {fileID: 2359082463679124788}
+  topLevelFadeToBlack: {fileID: 3652769835273226932}
   dayLengthMinutes: 5
   startQuota: 3
   dailyQuotaIncrease: 2
@@ -2218,6 +2223,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  upgrade1Material: {fileID: 0}
+  upgrade2Material: {fileID: 0}
+  upgrade3Material: {fileID: 0}
 --- !u!114 &6416329180705956229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2232,7 +2240,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 678639862905350}
   quitButton: {fileID: 3190459980735811648}
-  fadeToBlack: {fileID: 3652769835273226932}
   gameManager: {fileID: 9170054804979670163}
 --- !u!114 &7400841310545670767
 MonoBehaviour:
@@ -2250,6 +2257,69 @@ MonoBehaviour:
   defaultSFXVolume: 1
   musicVolumeSlider: {fileID: 2022064053091549485}
   sfxVolumeSlider: {fileID: 2980426459351830761}
+--- !u!1 &3703215642956756159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6406013832121422512}
+  - component: {fileID: 6420629987912745444}
+  m_Layer: 0
+  m_Name: MusicLost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6406013832121422512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703215642956756159}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4150136507204823825}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6420629987912745444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703215642956756159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -859611589
+      Data2: 1325575769
+      Data3: -906948724
+      Data4: -1939749016
+    Path: event:/Music/MusicLost
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &4402494168620324202
 GameObject:
   m_ObjectHideFlags: 0
@@ -3030,14 +3100,76 @@ Transform:
   m_Children:
   - {fileID: 1975923338191106375}
   - {fileID: 2720922999190115437}
-  - {fileID: 3202493314982199997}
   - {fileID: 1402084264252409211}
   - {fileID: 7454226996005164174}
   - {fileID: 2257886837441547958}
   - {fileID: 3859899465758621096}
-  - {fileID: 5287589857700092270}
+  - {fileID: 4150136507204823825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6462471451234242036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1673284745194181362}
+  - component: {fileID: 2166743528361454553}
+  m_Layer: 0
+  m_Name: MusicScary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1673284745194181362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462471451234242036}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4150136507204823825}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2166743528361454553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462471451234242036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 715288105
+      Data2: 1172627549
+      Data3: -1688056909
+      Data4: -1780822672
+    Path: event:/Music/MusicScary
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &6686703690250355037
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,7 +3735,7 @@ GameObject:
   - component: {fileID: 3202493314982199997}
   - component: {fileID: 560025462347120761}
   m_Layer: 0
-  m_Name: Sound Ambient
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3617,12 +3749,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815731800435359148}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4037472184301826090}
+  m_Father: {fileID: 4150136507204823825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &560025462347120761
 MonoBehaviour:
