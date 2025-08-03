@@ -311,6 +311,7 @@ MonoBehaviour:
   cartLayer:
     serializedVersion: 2
     m_Bits: 16384
+  pullInteractable: {fileID: 6479288546118962184}
   rigidbody: {fileID: 0}
 --- !u!1 &7285678543025990737
 GameObject:
@@ -460,7 +461,7 @@ MonoBehaviour:
   OnReleaseInteract:
     m_PersistentCalls:
       m_Calls: []
-  interactionName: Pull
+  interactionName: Pull Cart
 --- !u!1001 &1455073153882568843
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,6 +12,11 @@ public class GenericInteractable : MonoBehaviour, IInteractable
     [SerializeField] private string interactionName = "Interact";
     public string InteractionName => interactionName;
 
+    public void SetInteractionName(string name)
+    {
+        interactionName = name;
+    }
+
     public void OnHoverEnter()
     {
         OnHoverEnterEvent?.Invoke();

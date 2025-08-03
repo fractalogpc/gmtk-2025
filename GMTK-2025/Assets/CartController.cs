@@ -17,6 +17,7 @@ public class CartController : MonoBehaviour
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    public GenericInteractable pullInteractable;
     private List<AdvancedSheepController> sheepInCartList = new List<AdvancedSheepController>();
 
     [SerializeField] private Rigidbody rigidbody;
@@ -46,11 +47,13 @@ public class CartController : MonoBehaviour
         {
             // Deactivate cart
             isCartActive = false;
+            pullInteractable.SetInteractionName("Pull Cart");
         }
         else
         {
             // Activate cart
             isCartActive = true;
+            pullInteractable.SetInteractionName("Drop Cart");
         }
     }
 
