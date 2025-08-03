@@ -128,7 +128,7 @@ public class SheepSpawner : MonoBehaviour
 
                 controller.PlayerTransform = playerController.transform;
 
-                int sheepSize = Random.Range(randomSheepobject.minSize, randomSheepobject.maxSize + 1);
+                int sheepSize = GetRandomSize(false);
                 float myScale = sheepSize / 10f;
                 myScale += 1;
                 sheep.transform.localScale *= myScale;
@@ -173,7 +173,7 @@ public class SheepSpawner : MonoBehaviour
 
                     controller.PlayerTransform = playerController.transform;
 
-                    int sheepSize = Random.Range(randomSheepObject.minSize, randomSheepObject.maxSize + 1);
+                    int sheepSize = GetRandomSize(true);
                     float myScale = sheepSize / 10f;
                     myScale += 1;
                     sheep.transform.localScale *= myScale;
@@ -197,6 +197,41 @@ public class SheepSpawner : MonoBehaviour
         }
     }
 
+    private int GetRandomSize(bool isRare)
+    {
+        float randomValue = Random.Range(0f, 1f);
+        if (isRare)
+        {
+            if (randomValue < 0.4f)
+            {
+                return 1; // 40% chance for size 1
+            }
+            else if (randomValue < 0.75f)
+            {
+                return 2; // 35% chance for size 2
+            }
+            else
+            {
+                return 3; // 25% chance for size 3
+            }
+        }
+        else
+        {
+            if (randomValue < 0.5f)
+            {
+                return 1; // 50% chance for size 1
+            }
+            else if (randomValue < 0.85f)
+            {
+                return 2; // 35% chance for size 2
+            }
+            else
+            {
+                return 3; // 15% chance for size 3
+            }
+        }
+    }
+
     private void Update()
     {
         foreach (var sheep in sheepControllers)
@@ -213,7 +248,6 @@ public class SheepSpawner : MonoBehaviour
         if (sheepControllers.Contains(sheep))
         {
             sheepControllers.Remove(sheep);
-            Destroy(sheep.gameObject);
         }
     }
     

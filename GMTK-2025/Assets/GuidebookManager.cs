@@ -17,6 +17,7 @@ public class GuidebookManager : MonoBehaviour
     private bool guidebookUp = true;
     private Vector3 initialPosition;
     private bool isAnimating = false;
+    private int selectedHotbarSlot = 0;
 
     void Start()
     {
@@ -62,6 +63,19 @@ public class GuidebookManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             guidebookUp = !guidebookUp;
+            // Deselect any currently selected item and if guidebook is going down, reselect whatever you had selected
+            if (guidebookUp)
+            {
+                selectedHotbarSlot = InventoryController.Instance.SelectedSlot;
+                InventoryController.Instance.SelectItem(selectedHotbarSlot);
+                InventoryController.Instance.SetSelectingOnOff(false);
+            }
+            else
+            {
+                InventoryController.Instance.SetSelectingOnOff(true);
+                InventoryController.Instance.SelectItem(selectedHotbarSlot);
+            }
+
             // Animate guidebook going away/coming up
             StopAllCoroutines();
             StartCoroutine(AnimateGuidebook(guidebookUp));

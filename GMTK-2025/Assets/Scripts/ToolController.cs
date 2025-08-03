@@ -93,6 +93,7 @@ public class ToolController : MonoBehaviour
                     Debug.LogWarning("No sheep provided to hold.");
                 }
 
+                currentlyHeldSheep = sheep;
                 currentlyHeldSheep.Show();
                 break;
             default:
