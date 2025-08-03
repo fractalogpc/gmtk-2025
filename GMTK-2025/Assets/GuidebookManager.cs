@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using FMODUnity;
 
 public class GuidebookManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private AnimationCurve bringUpCurve;
     [SerializeField] private float distanceToBringUp = 0.5f;
     [SerializeField] private float zoomInAmount = 0.1f;
+    [SerializeField] private StudioEventEmitter guidebookOpenSound;
 
     private int currentPageIndex = 0;
     private bool guidebookUp = true;
@@ -109,21 +111,31 @@ public class GuidebookManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
             {
+                int originalIndex = currentPageIndex;
                 currentPageIndex += 2;
                 if (currentPageIndex >= guidebookPages.Length)
                 {
                     currentPageIndex = guidebookPages.Length % 2 == 0 ? guidebookPages.Length - 2 : guidebookPages.Length - 1;
                 }
                 UpdatePageImages();
+                if (guidebookOpenSound != null && originalIndex != currentPageIndex)
+                {
+                    guidebookOpenSound.Play();
+                }
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
+                int originalIndex = currentPageIndex;
                 currentPageIndex -= 2;
                 if (currentPageIndex < 0)
                 {
                     currentPageIndex = 0;
                 }
                 UpdatePageImages();
+                if (guidebookOpenSound != null && originalIndex != currentPageIndex)
+                {
+                    guidebookOpenSound.Play();
+                }
             }
     }
     
