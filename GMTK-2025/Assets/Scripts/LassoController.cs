@@ -236,7 +236,7 @@ public class LassoController : InputHandlerBase
         return lassoCurve.Evaluate(t);
     }
 
-    public void ReleaseSheep(int count, Pen.SubPen targetPen)
+    public List<AdvancedSheepController> ReleaseSheep(int count, Pen.SubPen targetPen)
     {
         if (count != lassoedSheep.Count)
         {
@@ -248,7 +248,9 @@ public class LassoController : InputHandlerBase
             lassoedSheep[i].SendToPen(targetPen);
         }
 
+        List<AdvancedSheepController> releasedSheep = lassoedSheep.GetRange(0, count);
         lassoedSheep.RemoveRange(0, count);
+        return releasedSheep; // Return the released sheep
     }
 
     public void ResetLasso()
