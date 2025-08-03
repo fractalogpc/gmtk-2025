@@ -14,6 +14,9 @@ public class GuidebookManager : MonoBehaviour
     [SerializeField] private float distanceToBringUp = 0.5f;
     [SerializeField] private float zoomInAmount = 0.1f;
     [SerializeField] private StudioEventEmitter guidebookOpenSound;
+    [SerializeField] private GameObject openPrompt;
+
+    private bool hasOpenedGuidebook = false;
 
     private int currentPageIndex = 0;
     private bool guidebookUp = false;
@@ -71,6 +74,12 @@ public class GuidebookManager : MonoBehaviour
                 selectedHotbarSlot = InventoryController.Instance.SelectedSlot;
                 InventoryController.Instance.SelectItem(selectedHotbarSlot);
                 InventoryController.Instance.SetSelectingOnOff(false);
+
+                if (openPrompt != null && !hasOpenedGuidebook)
+                {
+                    hasOpenedGuidebook = true;
+                    openPrompt.SetActive(false);
+                }
             }
             else
             {
