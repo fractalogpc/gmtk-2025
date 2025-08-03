@@ -2304,6 +2304,7 @@ Transform:
   - {fileID: 1673284745194181362}
   - {fileID: 6406013832121422512}
   - {fileID: 6121838461884375376}
+  - {fileID: 5226526419860753115}
   m_Father: {fileID: 4037472184301826090}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3519297280641645085
@@ -2461,7 +2462,7 @@ MonoBehaviour:
   lostMusicEmitter: {fileID: 6420629987912745444}
   fadeToBlack: {fileID: 2359082463679124788}
   topLevelFadeToBlack: {fileID: 3652769835273226932}
-  dayLengthMinutes: 5
+  dayLengthMinutes: 3
   startQuota: 3
   dailyQuotaIncrease: 2
   gameState: 0

@@ -23,6 +23,8 @@ public class EndingCutscene : MonoBehaviour
     [SerializeField] private StudioEventEmitter rocketSound;
     [SerializeField] private StudioEventEmitter winMusic;
     [SerializeField] private GameObject creditsScreen;
+    
+    private GameManager gameManager;
 
     private bool canTriggerCutscene = false;
 
@@ -44,10 +46,13 @@ public class EndingCutscene : MonoBehaviour
     private void Start()
     {
         initialRocketPosition = rocketTransform.position;
+        gameManager = GameManager.Instance;
     }
 
     private IEnumerator PlayCutscene()
     {
+        gameManager.StopForWinCutscene();
+        gameManager.StopGameMusicAndAmbient();
         // Fade to black
         fadeToBlack.FadeIn();
         yield return new WaitForSeconds(1f);
