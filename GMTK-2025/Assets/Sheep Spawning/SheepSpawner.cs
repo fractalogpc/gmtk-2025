@@ -4,6 +4,8 @@ using Player;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// Ensure this script executes after all other scripts
+[DefaultExecutionOrder(10000)]
 public class SheepSpawner : MonoBehaviour
 {
 
