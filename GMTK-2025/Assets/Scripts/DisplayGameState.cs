@@ -8,6 +8,7 @@ public class DisplayGameState : MonoBehaviour
 	[SerializeField] private GameManager gameManager;
 	[SerializeField] private TextMeshProUGUI countdownText;
 	[SerializeField] private TextMeshProUGUI dayText;
+	[SerializeField] private TextMeshProUGUI quotaTitleText;
 	[SerializeField] private TextMeshProUGUI quotaText;
 	[SerializeField] private ClockManager clockManager;
 
@@ -38,13 +39,15 @@ public class DisplayGameState : MonoBehaviour
 			clockManager.UpdateClock(gameManager.timeLeftInDay, gameManager.dayLengthMinutes * 60, false);
 			countdownText.text = TimeSpan.FromSeconds(gameManager.timeLeftInDay).ToString(@"m\:ss");
 			dayText.text = $"Day {gameManager.currentDay.ToString()}";
-			quotaText.text = $"{currentSheepCount} / {gameManager.sheepQuota.ToString()} sheep";
+			quotaTitleText.text = "Tonight's Quota:";
+			quotaText.text = $"{gameManager.sheepQuota.ToString()} sheep";
 		}
 		else
 		{
 			clockManager.UpdateClock(gameManager.timeLeftInDay, gameManager.dayLengthMinutes, true);
 			countdownText.text = "";
 			dayText.text = $"Day {gameManager.currentDay.ToString()}";
+			quotaTitleText.text = "Current Quota:";
 			quotaText.text = $"{currentSheepCount} / {gameManager.sheepQuota.ToString()} sheep";
 		}
 	}

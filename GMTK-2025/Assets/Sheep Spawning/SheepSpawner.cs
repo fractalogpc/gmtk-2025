@@ -52,26 +52,37 @@ public class SheepSpawner : MonoBehaviour
 
     public void ClearWildSheep()
     {
+        List<AdvancedSheepController> toRemove = new List<AdvancedSheepController>();
         foreach (var sheep in sheepControllers)
         {
-            if (sheep != null && !sheep.InPenValue)
+            if (sheep != null && !sheep.inPen && !sheep.runningToPen)
             {
                 Destroy(sheep.gameObject);
+                toRemove.Add(sheep);
             }
         }
-        sheepControllers.Clear();
+
+        sheepControllers.RemoveAll(s => toRemove.Contains(s));
+
         rareSheepsPositions.Clear();
     }
 
     public void RegenerateAllPenSheep()
     {
+        List<AdvancedSheepController> toRemove = new List<AdvancedSheepController>();
         foreach (var sheep in sheepControllers)
         {
-            if (sheep != null && sheep.InPenValue)
+            if (sheep != null)
             {
                 sheep.ResetWool();
             }
+            else
+            {
+                toRemove.Add(sheep);
+            }
         }
+
+        sheepControllers.RemoveAll(s => toRemove.Contains(s));
     }
 
     public void GenerateSheep()

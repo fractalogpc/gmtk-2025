@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7332001521323343075}
   m_Layer: 9
   m_Name: DeactivatedSheep
-  m_TagString: Sheep
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDeactivatedOnStart: 1
+  isActivated: 1
   looking: 0
   moving: 0
   running: 0
@@ -362,6 +363,7 @@ MonoBehaviour:
   colliders:
   - {fileID: 6838635234615712217}
   inCartCollider: {fileID: 895117698176688303}
+  lockMovement: 0
   woolPopSoundEmitter: {fileID: 6600220523750373380}
   lodDistances:
   - 50
@@ -382,6 +384,8 @@ MonoBehaviour:
   - {fileID: 554932420534319020}
   - {fileID: 1161657202189674956}
   woolMaterial: {fileID: 0}
+  inPen: 0
+  runningToPen: 0
   inCart: 0
 --- !u!205 &4103881351445388797
 LODGroup:
@@ -600,7 +604,7 @@ GameObject:
   - component: {fileID: 1767768416620962587}
   m_Layer: 0
   m_Name: Interactable
-  m_TagString: Untagged
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

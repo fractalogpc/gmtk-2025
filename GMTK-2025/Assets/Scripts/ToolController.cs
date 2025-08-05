@@ -148,4 +148,9 @@ public class ToolController : MonoBehaviour
     {
         SetTool(defaultTool);
     }
+
+    public void ResetAllTools()
+    {
+        SetTool(defaultTool);
+    }
 }

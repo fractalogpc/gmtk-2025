@@ -431,7 +431,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
             else angle ??= UnityEngine.Random.Range(0f, Mathf.PI * 2f);
 
             // Pick a random location near a sheep
-            float radius = UnityEngine.Random.Range(9f, 14f);
+            float radius = UnityEngine.Random.Range(2f, 5f);
 
             // Pick a random speed
             float speed = UnityEngine.Random.Range(2f, 3f);
@@ -704,6 +704,8 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
 
     private IEnumerator RunToPen(Pen.SubPen pen, bool skipFirstPoint = false, bool onlyGoToLastPoint = false)
     {
+        runningToPen = true;
+
         Vector3[] allPositions = System.Array.ConvertAll(SheepReception.Instance.pathingPoints, t => t.position);
         int[] indices = pen.pathingIndices;
 
@@ -731,6 +733,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
 
         currentPen = pen;
         inPen = true;
+        runningToPen = false;
 
         // Make sheep interactable now that it's in the pen
         EnableInteraction();
@@ -772,8 +775,8 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         moving = false;
     }
 
-    private bool inPen = false;
-    public bool InPenValue { get { return inPen; } }
+    public bool inPen = false;
+    public bool runningToPen = false;
     private IEnumerator InPen(Pen.SubPen pen)
     {
         Vector2 center = new Vector2(transform.position.x, transform.position.z);
@@ -794,7 +797,7 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         do
         {
             float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
-            float radius = UnityEngine.Random.Range(1f, 5f);
+            float radius = UnityEngine.Random.Range(1f, 20f);
             Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
 
             targetPoint2D = center + offset;
@@ -809,34 +812,12 @@ public class AdvancedSheepController : InputHandlerBase, IShearable
         float speed = UnityEngine.Random.Range(3f, 4f);
 
         // Rotate the sheep to face the target position
-        Quaternion initialRotation = transform.rotation;
         Quaternion finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
-
-        float angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
-
-        float rotationDuration = angleToRotate / ROTATION_SPEED;
-        float rotationElapsed = 0f;
 
         while (Quaternion.Angle(transform.rotation, finalRotation) > 0.1f)
         {
-            moveTimer += Time.deltaTime;
-            rotationElapsed += Time.deltaTime;
-
-            if (moveTimer > MAX_MOVE_TIME * 2f)
-            {
-                // transform.position = GetGroundHeight(transform.position);
-                break;
-            }
-
-            finalRotation = Quaternion.LookRotation(IgnoreY(targetPosition - transform.position));
-            angleToRotate = Quaternion.Angle(initialRotation, finalRotation);
-            rotationDuration = Mathf.Max(angleToRotate / ROTATION_SPEED, 0.01f); // Avoid division by zero
-
-            float t = Mathf.Clamp01(rotationElapsed / rotationDuration);
-            float easedT = Mathf.SmoothStep(0f, 1f, t);
-            transform.rotation = Quaternion.Slerp(initialRotation, finalRotation, easedT);
-
-            yield return null;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, finalRotation, 300f * Time.deltaTime);
+            yield return null; // Wait for the next frame
         }
 
         moving = true;

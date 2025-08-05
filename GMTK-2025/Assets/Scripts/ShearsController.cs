@@ -6,7 +6,6 @@ public class ShearsController : InputHandlerBase
     public Transform shearsOrigin;
 
     public float raycastDistance = 3f;
-    public LayerMask sheepLayer;
     public StudioEventEmitter shearSoundEmitter;
 
     [System.Serializable]
@@ -46,8 +45,13 @@ public class ShearsController : InputHandlerBase
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 1f);
         shearSoundEmitter.Play();
-        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, sheepLayer, QueryTriggerInteraction.Collide))
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, ~0, QueryTriggerInteraction.Collide))
         {
+            if (hit.transform.GetComponentInParent<AdvancedSheepController>() == null)
+            {
+                return;
+            }
+
             // Debug.Log("Shearable object hit: " + hit.collider.name);
             IShearable shearable = hit.collider.GetComponentInParent<IShearable>();
             if (shearable != null && shearable.CanBeSheared())

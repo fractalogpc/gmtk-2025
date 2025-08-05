@@ -125,6 +125,7 @@ public class GameManager : InputHandlerBase
     currentDay = 1;
     while (true)
     {
+      DestroyAllLooseWool();
 
       // Regenerate current sheep's wool
       SheepSpawner.Instance.RegenerateAllPenSheep();
@@ -167,6 +168,10 @@ public class GameManager : InputHandlerBase
       ambientSoundEmitter.SetParameter("Creepiness", 1f);
       normalMusicEmitter.Stop();
       yield return new WaitForSeconds(SetPlayerVision(false));
+
+      // Reset tools
+      ToolController.Instance.ResetAllTools();
+
       ResetPlayerToStart();
       gameState = GameState.OfferSheep;
       onNightStart?.Invoke();
@@ -199,6 +204,18 @@ public class GameManager : InputHandlerBase
       scaryMusicEmitter.Stop();
       yield return new WaitForSeconds(SetPlayerVision(false));
       currentDay++;
+    }
+  }
+
+  private void DestroyAllLooseWool()
+  {
+    Pickuppable[] looseWools = FindObjectsByType<Pickuppable>(FindObjectsSortMode.None);
+    foreach (var wool in looseWools)
+    {
+      if (wool != null && wool.itemType == InventoryController.ItemType.Wool)
+      {
+        Destroy(wool.transform.parent.gameObject);
+      }
     }
   }
 
