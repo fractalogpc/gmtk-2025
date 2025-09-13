@@ -493192,23 +493192,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9170054804979670163, guid: 103e91d0b40c3824ba28c04aca809d02, type: 3}
       propertyPath: 'dailyQuotas.Array.data[1]'
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9170054804979670163, guid: 103e91d0b40c3824ba28c04aca809d02, type: 3}
       propertyPath: 'dailyQuotas.Array.data[2]'
-      value: 25
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9170054804979670163, guid: 103e91d0b40c3824ba28c04aca809d02, type: 3}
       propertyPath: 'dailyQuotas.Array.data[3]'
-      value: 35
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 9170054804979670163, guid: 103e91d0b40c3824ba28c04aca809d02, type: 3}
       propertyPath: 'dailyQuotas.Array.data[4]'
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9170054804979670163, guid: 103e91d0b40c3824ba28c04aca809d02, type: 3}
       propertyPath: dailyQuotaIncreasesAfterDay5
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9170054804979670163, guid: 103e91d0b40c3824ba28c04aca809d02, type: 3}
       propertyPath: onDayStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
