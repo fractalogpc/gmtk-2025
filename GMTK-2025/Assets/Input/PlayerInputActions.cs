@@ -165,17 +165,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""978bfe49-cc26-4a3d-ab7b-7d7a29327403"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""WASD"",
                     ""id"": ""00ca640b-d935-4593-8157-c05846ea39b3"",
                     ""path"": ""Dpad"",
@@ -198,31 +187,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""8180e8bd-4097-4f4e-ab88-4523101a6ce9"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""down"",
                     ""id"": ""320bffee-a40b-4347-ac70-c210eb8bc73a"",
                     ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""1c5327b5-f71c-4f60-99c7-4e737386f1d1"",
-                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -242,17 +209,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""2e46982e-44cc-431b-9f0b-c11910bf467a"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""right"",
                     ""id"": ""fcfe95b8-67b9-4526-84b5-5d0bc98d6400"",
                     ""path"": ""<Keyboard>/d"",
@@ -262,39 +218,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""77bff152-3580-4b21-b6de-dcd0c7e41164"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8"",
-                    ""path"": ""<XRController>/{Primary2DAxis}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3ea4d645-4504-4529-b061-ab81934c3752"",
-                    ""path"": ""<Joystick>/stick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -519,7 +442,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""GenericUI"",
+            ""name"": ""UI"",
             ""id"": ""272f6d14-89ba-496f-b7ff-215263d3219f"",
             ""actions"": [
                 {
@@ -1168,25 +1091,25 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Slot3 = m_Player.FindAction("Slot3", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_Drop = m_Player.FindAction("Drop", throwIfNotFound: true);
-        // GenericUI
-        m_GenericUI = asset.FindActionMap("GenericUI", throwIfNotFound: true);
-        m_GenericUI_Navigate = m_GenericUI.FindAction("Navigate", throwIfNotFound: true);
-        m_GenericUI_Submit = m_GenericUI.FindAction("Submit", throwIfNotFound: true);
-        m_GenericUI_Cancel = m_GenericUI.FindAction("Cancel", throwIfNotFound: true);
-        m_GenericUI_Point = m_GenericUI.FindAction("Point", throwIfNotFound: true);
-        m_GenericUI_Click = m_GenericUI.FindAction("Click", throwIfNotFound: true);
-        m_GenericUI_RightClick = m_GenericUI.FindAction("RightClick", throwIfNotFound: true);
-        m_GenericUI_MiddleClick = m_GenericUI.FindAction("MiddleClick", throwIfNotFound: true);
-        m_GenericUI_ScrollWheel = m_GenericUI.FindAction("ScrollWheel", throwIfNotFound: true);
-        m_GenericUI_TrackedDevicePosition = m_GenericUI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
-        m_GenericUI_TrackedDeviceOrientation = m_GenericUI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        m_GenericUI_CloseUI = m_GenericUI.FindAction("CloseUI", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
+        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
+        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
+        m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
+        m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
+        m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
+        m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
+        m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
+        m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_CloseUI = m_UI.FindAction("CloseUI", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputActions.Player.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_GenericUI.enabled, "This will cause a leak and performance issues, PlayerInputActions.GenericUI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputActions.UI.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -1403,44 +1326,44 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public PlayerActions @Player => new PlayerActions(this);
 
-    // GenericUI
-    private readonly InputActionMap m_GenericUI;
-    private List<IGenericUIActions> m_GenericUIActionsCallbackInterfaces = new List<IGenericUIActions>();
-    private readonly InputAction m_GenericUI_Navigate;
-    private readonly InputAction m_GenericUI_Submit;
-    private readonly InputAction m_GenericUI_Cancel;
-    private readonly InputAction m_GenericUI_Point;
-    private readonly InputAction m_GenericUI_Click;
-    private readonly InputAction m_GenericUI_RightClick;
-    private readonly InputAction m_GenericUI_MiddleClick;
-    private readonly InputAction m_GenericUI_ScrollWheel;
-    private readonly InputAction m_GenericUI_TrackedDevicePosition;
-    private readonly InputAction m_GenericUI_TrackedDeviceOrientation;
-    private readonly InputAction m_GenericUI_CloseUI;
-    public struct GenericUIActions
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_Navigate;
+    private readonly InputAction m_UI_Submit;
+    private readonly InputAction m_UI_Cancel;
+    private readonly InputAction m_UI_Point;
+    private readonly InputAction m_UI_Click;
+    private readonly InputAction m_UI_RightClick;
+    private readonly InputAction m_UI_MiddleClick;
+    private readonly InputAction m_UI_ScrollWheel;
+    private readonly InputAction m_UI_TrackedDevicePosition;
+    private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_CloseUI;
+    public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
-        public GenericUIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Navigate => m_Wrapper.m_GenericUI_Navigate;
-        public InputAction @Submit => m_Wrapper.m_GenericUI_Submit;
-        public InputAction @Cancel => m_Wrapper.m_GenericUI_Cancel;
-        public InputAction @Point => m_Wrapper.m_GenericUI_Point;
-        public InputAction @Click => m_Wrapper.m_GenericUI_Click;
-        public InputAction @RightClick => m_Wrapper.m_GenericUI_RightClick;
-        public InputAction @MiddleClick => m_Wrapper.m_GenericUI_MiddleClick;
-        public InputAction @ScrollWheel => m_Wrapper.m_GenericUI_ScrollWheel;
-        public InputAction @TrackedDevicePosition => m_Wrapper.m_GenericUI_TrackedDevicePosition;
-        public InputAction @TrackedDeviceOrientation => m_Wrapper.m_GenericUI_TrackedDeviceOrientation;
-        public InputAction @CloseUI => m_Wrapper.m_GenericUI_CloseUI;
-        public InputActionMap Get() { return m_Wrapper.m_GenericUI; }
+        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
+        public InputAction @Submit => m_Wrapper.m_UI_Submit;
+        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        public InputAction @Point => m_Wrapper.m_UI_Point;
+        public InputAction @Click => m_Wrapper.m_UI_Click;
+        public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
+        public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
+        public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
+        public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
+        public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @CloseUI => m_Wrapper.m_UI_CloseUI;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GenericUIActions set) { return set.Get(); }
-        public void AddCallbacks(IGenericUIActions instance)
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
         {
-            if (instance == null || m_Wrapper.m_GenericUIActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GenericUIActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
             @Navigate.started += instance.OnNavigate;
             @Navigate.performed += instance.OnNavigate;
             @Navigate.canceled += instance.OnNavigate;
@@ -1476,7 +1399,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CloseUI.canceled += instance.OnCloseUI;
         }
 
-        private void UnregisterCallbacks(IGenericUIActions instance)
+        private void UnregisterCallbacks(IUIActions instance)
         {
             @Navigate.started -= instance.OnNavigate;
             @Navigate.performed -= instance.OnNavigate;
@@ -1513,21 +1436,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CloseUI.canceled -= instance.OnCloseUI;
         }
 
-        public void RemoveCallbacks(IGenericUIActions instance)
+        public void RemoveCallbacks(IUIActions instance)
         {
-            if (m_Wrapper.m_GenericUIActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IGenericUIActions instance)
+        public void SetCallbacks(IUIActions instance)
         {
-            foreach (var item in m_Wrapper.m_GenericUIActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_GenericUIActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public GenericUIActions @GenericUI => new GenericUIActions(this);
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1591,7 +1514,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnScroll(InputAction.CallbackContext context);
         void OnDrop(InputAction.CallbackContext context);
     }
-    public interface IGenericUIActions
+    public interface IUIActions
     {
         void OnNavigate(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);

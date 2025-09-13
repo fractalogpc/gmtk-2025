@@ -44,14 +44,14 @@ public class InputReader : MonoBehaviour
         {
             case InputMap.GenericUI:
                 InputActions.Player.Disable();
-                InputActions.GenericUI.Enable();
+                InputActions.UI.Enable();
                 break;
             case InputMap.Player:
-                InputActions.GenericUI.Disable();
+                InputActions.UI.Disable();
                 InputActions.Player.Enable();
                 break;
             case InputMap.Null:
-                InputActions.GenericUI.Disable();
+                InputActions.UI.Disable();
                 InputActions.Player.Disable();
                 break;
             default:

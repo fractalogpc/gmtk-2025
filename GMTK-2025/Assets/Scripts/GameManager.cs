@@ -95,7 +95,7 @@ public class GameManager : InputHandlerBase
     fadeToBlack.Show();
     topLevelFadeToBlack.Hide();
     _inputActions.Player.Enable();
-    _inputActions.GenericUI.Disable();
+    _inputActions.UI.Disable();
   }
 
   private void Initialize()
@@ -275,7 +275,7 @@ public class GameManager : InputHandlerBase
 	  Debug.Log("Quitting to menu...");
     Time.timeScale = 1f; // Reset time scale so WaitForSeconds works correctly
     _inputActions.Player.Disable();
-    _inputActions.GenericUI.Disable();
+    _inputActions.UI.Disable();
     topLevelFadeToBlack.FadeIn();
     StopGameMusicAndAmbient();
     yield return new WaitForSeconds(topLevelFadeToBlack.FadeInTime);

@@ -10,7 +10,7 @@ public class PauseHandler : InputHandlerBase
     protected override void InitializeActionMap()
     {
         RegisterAction(_inputActions.Player.Pause, ctx => HandlePause(true));
-        RegisterAction(_inputActions.GenericUI.CloseUI, ctx => HandlePause(false));
+        RegisterAction(_inputActions.UI.CloseUI, ctx => HandlePause(false));
     }
 
     private void HandlePause(bool active)
@@ -22,7 +22,7 @@ public class PauseHandler : InputHandlerBase
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             _inputActions.Player.Disable();
-            _inputActions.GenericUI.Enable();
+            _inputActions.UI.Enable();
         }
         else
         {
@@ -31,7 +31,7 @@ public class PauseHandler : InputHandlerBase
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             _inputActions.Player.Enable();
-            _inputActions.GenericUI.Disable();
+            _inputActions.UI.Disable();
         }
     }
 
